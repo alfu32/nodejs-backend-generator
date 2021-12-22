@@ -5,6 +5,7 @@ dependencies:
   fastify-static: 4.5.0
   handlebars: 4.7.7
   point-of-view: 4.16.0
+  swagger-autogen: 2.18.0
 packages:
   /@fastify/ajv-compiler/1.1.0:
     dependencies:
@@ -16,6 +17,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-2BjRTZxTPvheOvGbBslFSYOUkr+SjPtOnrLP33f+VIWLzezQpZcqVg7ja3L4dBXmzzgwT+a029jRx5PCi3JuiA==
+  /acorn/7.4.1:
+    dev: false
+    engines:
+      node: '>=0.4.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
   /ajv/6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -509,6 +517,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==
+  /json5/2.2.0:
+    dependencies:
+      minimist: 1.2.5
+    dev: false
+    engines:
+      node: '>=6'
+    hasBin: true
+    resolution:
+      integrity: sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
   /light-my-request/4.7.0:
     dependencies:
       ajv: 8.8.2
@@ -950,6 +967,15 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+  /swagger-autogen/2.18.0:
+    dependencies:
+      acorn: 7.4.1
+      deepmerge: 4.2.2
+      glob: 7.2.0
+      json5: 2.2.0
+    dev: false
+    resolution:
+      integrity: sha512-QHzfkXOCggNT5pGT2EdhIJDdjPu0hEGH9Raa+gL0AtQ7N9ZmJ703OUPyyxO+BjYbC+TbHBVeMCOwkVdgkooaOg==
   /tar-fs/2.1.1:
     dependencies:
       chownr: 1.1.4
@@ -1054,3 +1080,4 @@ specifiers:
   fastify-static: ^4.5.0
   handlebars: ^4.7.7
   point-of-view: ^4.16.0
+  swagger-autogen: ^2.18.0
