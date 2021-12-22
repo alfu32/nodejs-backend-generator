@@ -35,8 +35,11 @@ const seo = require("./src/seo.json");
 if (seo.url === "glitch-default") {
   seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
 }
+fastify.get('/',(req,res,next)=>{
+  res.send({})
+});
 
-// Run the server and report out to the logs
+// Run the server and report out to the lo
 fastify.listen(process.env.PORT, function(err, address) {
   if (err) {
     fastify.log.error(err);
