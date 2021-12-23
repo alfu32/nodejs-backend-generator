@@ -19,11 +19,17 @@ const meta=Object.keys(model)
         pk,
         fks,
         fk:fks.join(','),
+        cols:cols.join(''),
         drop:`DROP TABLE IF NOT EXISTS ${table}`,
         create:`CREATE TABLE IF NOT EXIST ${table}(
           ${pk} VARCHAR PRIMARY KEY DEFAULT (${uuid}),
+          ${
+            fks.concat(cols).map(
+              k => `${k} VARCHAR`
+            ).join(',\n')
+          },
           ${fks.map(
-            fk => `${fk} VARCHAR `
+            fk => `FOREIGN KEY(${fk}) REFERENCES ${fk.replace(/_id$/gi,'').toUpperCase()}(${fk}) `
           ).join(',\n')}
         )`,
         insert:`INSERT INTO ${table}(
