@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Polly",
-    "description": "Description",
+    "description": "configurable poll distant resources",
     "version": "1.0.0"
   },
   "host": "parallel-scarlet-juravenator.glitch.me",
@@ -117,19 +117,8 @@
           "example": ""
         },
         "module_type": {
-          "type": "object",
-          "properties": {
-            "enum": {
-              "type": "array",
-              "example": [
-                "npm",
-                "local"
-              ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "type": "string",
+          "example": "npm"
         },
         "source": {
           "type": "string",
