@@ -15,7 +15,8 @@
     "point-of-view": "^4.16.0",
     "better-sqlite3": "^7.4.5",
     "swagger-autogen": "^2.18.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "express": "^4.17.2"
   },
   "engines": {
     "node": "12.x"

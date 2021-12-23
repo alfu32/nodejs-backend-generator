@@ -41,5 +41,27 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "Watcher": {
+      "type": "object",
+      "properties": {
+        "watcher_id": {
+          "type": "string",
+          "example": ""
+        },
+        "owner_group_id": {
+          "type": "string",
+          "example": ""
+        },
+        "source": {
+          "type": "string",
+          "example": "module.exports≈{\n        main({modules,data}){\n          return [{val:444}]\n        },\n      }"
+        },
+        "poll_config": {
+          "type": "string",
+          "example": "{\n        type:\"DailyDistributionFourier\",\n        coefficients:[1,-3,5,-7,9,-11,13],\n      }"
+        }
+      }
+    }
+  }
 }
