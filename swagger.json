@@ -25,6 +25,20 @@
           }
         }
       }
+    },
+    "/watchers": {
+      "get": {
+        "tags": [
+          "watchers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "definitions": {}

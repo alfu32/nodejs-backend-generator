@@ -2,7 +2,7 @@ module.exports={
   reg:(fastify)=>{
     fastify.get('/watchers',(req,res)=>{
       // #swagger.tags = ['watchers']
-      res.send({
+      res.status(200).send({
         error:null,
         data:[],
       })

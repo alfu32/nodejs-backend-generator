@@ -1,6 +1,16 @@
 const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
+  definitions:{
+    Watcher:{
+      watcher_id:"",
+      owner_group_id:"",
+      source:`module.exports≈{
+        main({modules,data){},
+      }`,
+      poll_config:"",
+    },
+  },
   info: {
     title: 'Polly',
     description: 'Description',
