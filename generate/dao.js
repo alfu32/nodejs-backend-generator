@@ -15,7 +15,9 @@ const meta=Object.keys(model)
         pk,
         fks,
         fk:fks.join(','),
-        drop:`DROP TABLE IF NOT EXISTS ${table}`,
+        drop:`DROP TABLE IF NOT EXISTS ${table}(
+          
+        )`,
         create:`CREATE TABLE IF NOT EXIST ${table}`,
         insert:`INSERT INTO ${table}(
         ${fks.concat(cols).join(',')}
@@ -27,8 +29,19 @@ const meta=Object.keys(model)
         WHERE ${pk}=@${pk}`,
         getSingle:`SELECT * FROM ${table} 
         WHERE ${pk}=@${pk}`,
-      }
+        getAll:`SELECT * FROM ${table}`,
+        countAll:`SELECT COUNT(*) as records FROM ${table}`,
+        }
     }
+    fks.forEach(
+      fk => {
+        daoMetadata.sql[`selectBY${fk}`]=`SELECT * FROM ${table} 
+        WHERE ${fk}=@${fk}`;
+        daoMetadata.sql[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
+        WHERE ${fk}=@${fk}`
+      }
+    );
+    
     return daoMetadata;
   }
 )
