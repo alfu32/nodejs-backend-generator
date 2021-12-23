@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "scan:apis": "node genrate/swagger/scanner.js"
+    "scan:apis": "node generate/swagger/scanner.js"
   },
   "dependencies": {
     "fastify": "^3.25.0",
