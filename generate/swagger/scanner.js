@@ -6,9 +6,14 @@ const doc = {
       watcher_id:"",
       owner_group_id:"",
       source:`module.exports≈{
-        main({modules,data){},
+        main({modules,data}){
+          return [{val:444}]
+        },
       }`,
-      poll_config:"",
+      poll_config:`{
+        type:"DailyDistributionFourier",
+        coefficients:[1,-3,5,-7,9,-11,13],
+      }`,
     },
   },
   info: {
