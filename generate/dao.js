@@ -18,8 +18,15 @@ const meta=Object.keys(model)
         drop:`DROP TABLE IF NOT EXISTS ${table}`,
         create:`CREATE TABLE IF NOT EXIST ${table}`,
         insert:`INSERT INTO ${table}(
-        ${fks.concatcols.join(',')}
-        ) VALUES ${columns.map(n=>`@${n}`).join(',')}`,
+        ${fks.concat(cols).join(',')}
+        ) VALUES ${fks.concat(cols).map(n=>`@${n}`).join(',')}`,
+        updateSingle:`UPDATE ${table} SET
+        ${fks.concat(cols).map(k=>`${k}=@${k}`).join(',\n')}
+        WHERE ${pk}=@${pk}`,
+        deleteSingle:`DELETE FROM ${table} 
+        WHERE ${pk}=@${pk}`,
+        getSingle:`SELECT * FROM ${table} 
+        WHERE ${pk}=@${pk}`,
       }
     }
     return daoMetadata;
