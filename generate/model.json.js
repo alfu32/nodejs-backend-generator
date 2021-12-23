@@ -1,4 +1,4 @@
-const definitions={
+const model={
     Watcher:{
       watcher_id:"",
       owner_group_id:"",
@@ -47,4 +47,6 @@ const definitions={
       }`,
     }
   }
-module.expor
+module.exports={
+  model
+}
