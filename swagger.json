@@ -55,11 +55,85 @@
         },
         "source": {
           "type": "string",
-          "example": "module.exports≈{\n        main({modules,data}){\n          return [{val:444}]\n        },\n      }"
+          "example": "module.exports≈{\n        main({modules,data}){\n          // returns a list of watch results\n          // the list is persisted as a watch\n          // each watch must have a unique watch_id\n          // and a payload json object\n          return [{watch_id:444,payload:444}]\n        },\n      }"
         },
         "poll_config": {
           "type": "string",
           "example": "{\n        type:\"DailyDistributionFourier\",\n        coefficients:[1,-3,5,-7,9,-11,13],\n      }"
+        }
+      }
+    },
+    "Subscriber": {
+      "type": "object",
+      "properties": {
+        "watcher_id": {
+          "type": "string",
+          "example": ""
+        },
+        "subscriber_id": {
+          "type": "string",
+          "example": ""
+        },
+        "owner_group_id": {
+          "type": "string",
+          "example": ""
+        },
+        "source": {
+          "type": "string",
+          "example": "module.exports≈{\n        main({modules,data}){\n          return [{val:444}]\n        },\n      }"
+        }
+      }
+    },
+    "Notifier": {
+      "type": "object",
+      "properties": {
+        "notifier_id": {
+          "type": "string",
+          "example": ""
+        },
+        "subscriber_id": {
+          "type": "string",
+          "example": ""
+        },
+        "owner_group_id": {
+          "type": "string",
+          "example": ""
+        },
+        "source": {
+          "type": "string",
+          "example": "module.exports≈{\n        main({modules,data}){\n          return [{val:444}]\n        },\n      }"
+        }
+      }
+    },
+    "Modules": {
+      "type": "object",
+      "properties": {
+        "module_id": {
+          "type": "string",
+          "example": ""
+        },
+        "owner_group_id": {
+          "type": "string",
+          "example": ""
+        },
+        "module_type": {
+          "type": "object",
+          "properties": {
+            "enum": {
+              "type": "array",
+              "example": [
+                "npm",
+                "local"
+              ],
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "string",
+          "example": "module.exports≈{\n        main({modules,data}){\n          return [{val:444}]\n        },\n      }"
         }
       }
     }

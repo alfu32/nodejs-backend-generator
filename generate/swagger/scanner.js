@@ -42,6 +42,7 @@ const doc = {
     Modules:{
       module_id:"",
       owner_group_id:"",
+      module_type:{enum:['npm','local']},
       source:`module.exports≈{
         main({modules,data}){
           return [{val:444}]
