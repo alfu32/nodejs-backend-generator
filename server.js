@@ -10,7 +10,10 @@ const fastify = require("fastify")({
   // Set this to true for detailed logging:
   logger: false
 });
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
+fastify.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // ADD FAVORITES ARRAY VARIABLE FROM TODO HERE
 
 
@@ -30,13 +33,11 @@ fastify.register(require("point-of-view"), {
   }
 });
 
-// Load and parse SEO data
-const seo = require("./src/seo.json");
-if (seo.url === "glitch-default") {
-  seo.url = `https://${process.env.PROJECT_DOMAIN}.glitch.me`;
-}
 fastify.get('/',(req,res,next)=>{
-  res.send({})
+  res.send({
+    host: `${process.env.PROJECT_DOMAIN}.glitch.me`,
+    port:process.env.PORT
+  })
 });
 
 // Run the server and report out to the lo
@@ -45,6 +46,6 @@ fastify.listen(process.env.PORT, function(err, address) {
     fastify.log.error(err);
     process.exit(1);
   }
-  console.log(`Your app is listening on ${address}`);
+  console.log(`Your app is listening on ${address} ${process.env.PORT}`);
   fastify.log.info(`server listening on ${address}`);
 });
