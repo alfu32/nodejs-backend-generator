@@ -1,10 +1,10 @@
 const {model}=require('./model.json.js');
-const uuid=`hex( randomblob(4)) || '-' || hex( randomblob(2))
+const uuid0=`hex( randomblob(4)) || '-' || hex( randomblob(2))
              || '-' || '4' || substr( hex( randomblob(2)), 2) || '-'
              || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
-             substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) )`
-const meta=Object.keys(model)
-.map(
+             substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) )`;
+const uuid=`hex( randomblob(16))`;
+const modelMapper = 
   n => {
     const def=model[n];
     const table=n.toUpperCase();
@@ -19,7 +19,7 @@ const meta=Object.keys(model)
         pk,
         fks,
         fk:fks.join(','),
-        cols:cols.join(''),
+        cols:cols.join(','),
         drop:`DROP TABLE IF NOT EXISTS ${table}`,
         create:`CREATE TABLE IF NOT EXIST ${table}(
           ${pk} VARCHAR PRIMARY KEY DEFAULT (${uuid}),
@@ -29,7 +29,11 @@ const meta=Object.keys(model)
             ).join(',\n')
           },
           ${fks.map(
-            fk => `FOREIGN KEY(${fk}) REFERENCES ${fk.replace(/_id$/gi,'').toUpperCase()}(${fk}) `
+            fk => {
+              const ftable = fk.replace(/_id$/gi,'')
+                .toUpperCase();
+              return `FOREIGN KEY(${fk}) REFERENCES ${ftable}(${fk}) `
+            }
           ).join(',\n')}
         )`,
         insert:`INSERT INTO ${table}(
@@ -57,5 +61,6 @@ const meta=Object.keys(model)
     
     return daoMetadata;
   }
-)
+const meta=Object.keys(model)
+.map(modelMapper)
 console.log(meta);
