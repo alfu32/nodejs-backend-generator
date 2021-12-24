@@ -12,10 +12,19 @@ let definedTablesIndex=definedTables.map(n => n.toUpperCase())
     return ac;
   },{});
 function createDefaultTableDefinition(tableName){
-  let lcName=tableNa;e
+  let lowName=tableName.toLowerCase();
+  let capName=lowName[0].toUpperCase()+lowName.substr(1);
+  let upName=lowName.toUpperCase();
+  const cfg = {}
+  const def = {}
+  def[lowName+"_id"]=""
+  def["name"]=lowName+" name"
+  cfg[capName]=def;
+  return cfg;
 }
 
-const meta= definedTables.map(modelMapper);
+let meta= definedTables.map(modelMapper);
+meta={...meta,...undefinedTables.map(modelMapper)}
 function modelMapper(n){
     const def=model[n];
     const table=n.toUpperCase();
@@ -43,6 +52,9 @@ function modelMapper(n){
             fk => {
               const ftable = fk.replace(/_id$/gi,'')
                 .toUpperCase();
+              if(! definedTablesIndex[ftable] ){
+                undefinedTables={...undefinedTables,...createDefaultTableDefinition(ftable)}
+              }
               return `FOREIGN KEY(${fk}) REFERENCES ${ftable}(${fk}) `
             }
           ).join(',\n')}
