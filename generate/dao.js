@@ -4,8 +4,19 @@ const uuid0=`hex( randomblob(4)) || '-' || hex( randomblob(2))
              || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
              substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) )`;
 const uuid=`hex( randomblob(16))`;
-const modelMapper = 
-  n => {
+let definedTables=Object.keys(model)
+let undefinedTables={}
+let definedTablesIndex=definedTables.map(n => n.toUpperCase())
+  .reduce((ac,v,i,a)=>{
+    ac[v]=v;
+    return ac;
+  },{});
+function createDefaultTableDefinition(tableName){
+  let lcName=tableNa;e
+}
+
+const meta= definedTables.map(modelMapper);
+function modelMapper(n){
     const def=model[n];
     const table=n.toUpperCase();
     const columns=Object.keys(def);
@@ -61,6 +72,4 @@ const modelMapper =
     
     return daoMetadata;
   }
-const meta=Object.keys(model)
-.map(modelMapper)
 console.log(meta);
