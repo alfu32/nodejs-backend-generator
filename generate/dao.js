@@ -79,7 +79,9 @@ function modelMapper(model){
         },
         controllers:{
           create:`
-          function &
+          function add${n}{
+            db.prepare
+          }
           `
         }
       }
