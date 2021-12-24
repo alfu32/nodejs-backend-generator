@@ -76,6 +76,11 @@ function modelMapper(model){
             getAll:`SELECT * FROM ${table}`,
             countAll:`SELECT COUNT(*) as records FROM ${table}`,
           }
+        },
+        controllers:{
+          create:`
+          function &
+          `
         }
       }
       fks.forEach(
