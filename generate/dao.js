@@ -212,7 +212,7 @@ function modelMapper(model){
           WHERE ${fk}=@${fk}`;
           daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
           WHERE ${fk}=@${fk}`;
-          daoMetadata.methods[`getBY${fk}`]=`function getBY(db,sql){
+          daoMetadata.methods[`getBY${fk}`]=`function getBY${fk}(db,sql){
             const prst = db.prepare(sql.getBY${fk});
             return (object) => {
               let result=[];
@@ -226,7 +226,7 @@ function modelMapper(model){
               }
             }
           }`
-          daoMetadata.methods[`countBY${fk}`]=`function getBY(db,sql){
+          daoMetadata.methods[`countBY${fk}`]=`function countBY${fk}(db,sql){
             const prst = db.prepare(sql.countBY${fk});
             return (object) => {
               let result=[];
@@ -243,7 +243,14 @@ function modelMapper(model){
         }
       );
       fs.writeFileSync(`generated/${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
-      fs.writeFileSync(`generated/${n}.dao.js`,(Object.values(daoMetadata.methods).join("\n\n")))
+      fs.writeFileSync(`generated/${n}.dao.js`,
+        (`const sql=require('./${n}.sql.json')
+        module.exports={
+          ${Object.keys(daoMetadata.methods).join(',\n')}
+        }` + 
+        (Object.values(daoMetadata.methods).join("\n\n"))
+        ).replace(/\n( ){10,10}/gi,'\n')
+      )
       console.log(daoMetadata);
       return daoMetadata;
     }
