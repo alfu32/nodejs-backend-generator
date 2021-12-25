@@ -98,55 +98,73 @@ function modelMapper(model){
       drop:`function drop(db,sql){
         const prst = db.prepare(sql.drop);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       clear:`function clear(db,sql){
         const prst = db.prepare(sql.clear);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       create:`function create(db,sql){
         const prst = db.prepare(sql.create);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       insert:`function insert(db,sql){
         const prst = db.prepare(sql.insert);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       updateSingle:`function updateSingle(db,sql){
         const prst = db.prepare(sql.updateSingle);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       deleteSingle:`function deleteSingle(db,sql){
         const prst = db.prepare(sql.deleteSingle);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       getSingle:`function getSingle(db,sql){
         const prst = db.prepare(sql.getSingle);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       getAll:`function getAll(db,sql){
         const prst = db.prepare(sql.getAll);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
       countAll:`function countAll(db,sql){
         const prst = db.prepare(sql.countAll);
         return (object) => {
-          try{}
+          try{
+            result = prst.run()
+          }catch(err){}
         }
       }`,
     }
