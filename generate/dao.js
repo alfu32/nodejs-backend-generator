@@ -78,13 +78,6 @@ function modelMapper(model){
             countAll:`SELECT COUNT(*) as records FROM ${table}`,
           }
         },
-        controllers:{
-          create:`
-          function add${n}{
-            db.prepare
-          }
-          `
-        }
       }
       fks.forEach(
         fk => {
@@ -96,11 +89,10 @@ function modelMapper(model){
       );
     daoMetadata.controllers={
       drop:`function drop(db,sql){
-        const prst = db.prepare(sql.drop);
-        return (object) => {
+        return () => {
           let result=[];
           try{
-            result = prst.run(object)
+            result = db.exec(sql.drop)
           }catch(err){
             // better-sqlite3 documentation indicates that the error
             // should be trown in case this is invoked in a transaction
@@ -110,11 +102,10 @@ function modelMapper(model){
         }
       }`,
       clear:`function clear(db,sql){
-        const prst = db.prepare(sql.clear);
-        return (object) => {
+        return () => {
           let result=[];
           try{
-            result = prst.run(object)
+            result = db.exec(sql.clear)
           }catch(err){
             // better-sqlite3 documentation indicates that the error
             // should be trown in case this is invoked in a transaction
@@ -124,11 +115,10 @@ function modelMapper(model){
         }
       }`,
       create:`function create(db,sql){
-        const prst = db.prepare(sql.create);
-        return (object) => {
+        return () => {
           let result=[];
           try{
-            result = prst.run(object)
+            result = db.exec(sql.create)
           }catch(err){
             // better-sqlite3 documentation indicates that the error
             // should be trown in case this is invoked in a transaction
