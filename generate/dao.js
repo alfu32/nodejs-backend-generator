@@ -4,6 +4,8 @@ const uuid0=`hex( randomblob(4)) || '-' || hex( randomblob(2))
              || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
              substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) )`;
 const uuid=`hex( randomblob(16))`;
+const fs=require('fs');
+
 let definedTables=Object.keys(model)
 let undefinedTables={}
 let definedTablesIndex=definedTables.map(n => n.toUpperCase())
@@ -78,140 +80,170 @@ function modelMapper(model){
             countAll:`SELECT COUNT(*) as records FROM ${table}`,
           }
         },
+        methods:{
+          drop:`function drop(db,sql){
+            return () => {
+              let result=[];
+              try{
+                result = db.exec(sql.drop)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          clear:`function clear(db,sql){
+            return () => {
+              let result=[];
+              try{
+                result = db.exec(sql.clear)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          create:`function create(db,sql){
+            return () => {
+              let result=[];
+              try{
+                result = db.exec(sql.create)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          insert:`function insert(db,sql){
+            const prst = db.prepare(sql.insert);
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.run(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          updateSingle:`function updateSingle(db,sql){
+            const prst = db.prepare(sql.updateSingle);
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.run(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          deleteSingle:`function deleteSingle(db,sql){
+            const prst = db.prepare(sql.deleteSingle);
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.run(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          getSingle:`function getSingle(db,sql){
+            const prst = db.prepare(sql.getSingle);
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.get(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          getAll:`function getAll(db,sql){
+            const prst = db.prepare(sql.getAll);
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.all(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+          countAll:`function countAll(db,sql){
+            const prst = db.prepare(sql.countAll);
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.get(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`,
+        }
       }
       fks.forEach(
         fk => {
           daoMetadata.sql.operations[`selectBY${fk}`]=`SELECT * FROM ${table} 
           WHERE ${fk}=@${fk}`;
           daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
-          WHERE ${fk}=@${fk}`
+          WHERE ${fk}=@${fk}`;
+          daoMetadata.methods[`getBY${fk}`]=`function getBY(db,sql){
+            const prst = db.prepare(sql.getBY${fk});
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.all(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`
+          daoMetadata.methods[`countBY${fk}`]=`function getBY(db,sql){
+            const prst = db.prepare(sql.countBY${fk});
+            return (object) => {
+              let result=[];
+              try{
+                result = prst.all(object)
+              }catch(err){
+                // better-sqlite3 documentation indicates that the error
+                // should be trown in case this is invoked in a transaction
+                //  so that the engine should properly handle the rollback 
+                throw error;
+              }
+            }
+          }`
         }
       );
-    daoMetadata.controllers={
-      drop:`function drop(db,sql){
-        return () => {
-          let result=[];
-          try{
-            result = db.exec(sql.drop)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      clear:`function clear(db,sql){
-        return () => {
-          let result=[];
-          try{
-            result = db.exec(sql.clear)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      create:`function create(db,sql){
-        return () => {
-          let result=[];
-          try{
-            result = db.exec(sql.create)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      insert:`function insert(db,sql){
-        const prst = db.prepare(sql.insert);
-        return (object) => {
-          let result=[];
-          try{
-            result = prst.run(object)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      updateSingle:`function updateSingle(db,sql){
-        const prst = db.prepare(sql.updateSingle);
-        return (object) => {
-          let result=[];
-          try{
-            result = prst.run(object)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      deleteSingle:`function deleteSingle(db,sql){
-        const prst = db.prepare(sql.deleteSingle);
-        return (object) => {
-          let result=[];
-          try{
-            result = prst.run(object)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      getSingle:`function getSingle(db,sql){
-        const prst = db.prepare(sql.getSingle);
-        return (object) => {
-          let result=[];
-          try{
-            result = prst.run(object)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      getAll:`function getAll(db,sql){
-        const prst = db.prepare(sql.getAll);
-        return (object) => {
-          let result=[];
-          try{
-            result = prst.run(object)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-      countAll:`function countAll(db,sql){
-        const prst = db.prepare(sql.countAll);
-        return (object) => {
-          let result=[];
-          try{
-            result = prst.run(object)
-          }catch(err){
-            // better-sqlite3 documentation indicates that the error
-            // should be trown in case this is invoked in a transaction
-            //  so that the engine should properly handle the rollback 
-            throw error;
-          }
-        }
-      }`,
-    }
+      fs.writeFileSync(`${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
+      fs.writeFileSync(`${n}.dao.js`,(daoMetadata.methods.join('/n/n')))
       console.log(daoMetadata);
       return daoMetadata;
     }
