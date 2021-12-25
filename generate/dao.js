@@ -45,6 +45,7 @@ function modelMapper(model){
           },
           operations:{
             drop:`DROP TABLE IF NOT EXISTS ${table}`,
+            drop:`TRUNCATE TABLE IF EXISTS ${table}`,
             create:`CREATE TABLE IF NOT EXIST ${table}(
               ${pk} VARCHAR PRIMARY KEY DEFAULT (${uuid}),
               ${
@@ -93,7 +94,62 @@ function modelMapper(model){
           WHERE ${fk}=@${fk}`
         }
       );
-
+    daoMetadata.controllers={
+      drop:`function drop(db,sql){
+        const prst = db.prepare(sql.drop);
+        return (object) => {
+          try{}
+        }
+      }`,
+      clear:`function clear(db,sql){
+        const prst = db.prepare(sql.clear);
+        return (object) => {
+          try{}
+        }
+      }`,
+      create:`function create(db,sql){
+        const prst = db.prepare(sql.create);
+        return (object) => {
+          try{}
+        }
+      }`,
+      insert:`function insert(db,sql){
+        const prst = db.prepare(sql.insert);
+        return (object) => {
+          try{}
+        }
+      }`,
+      updateSingle:`function updateSingle(db,sql){
+        const prst = db.prepare(sql.updateSingle);
+        return (object) => {
+          try{}
+        }
+      }`,
+      deleteSingle:`function deleteSingle(db,sql){
+        const prst = db.prepare(sql.deleteSingle);
+        return (object) => {
+          try{}
+        }
+      }`,
+      getSingle:`function getSingle(db,sql){
+        const prst = db.prepare(sql.getSingle);
+        return (object) => {
+          try{}
+        }
+      }`,
+      getAll:`function getAll(db,sql){
+        const prst = db.prepare(sql.getAll);
+        return (object) => {
+          try{}
+        }
+      }`,
+      countAll:`function countAll(db,sql){
+        const prst = db.prepare(sql.countAll);
+        return (object) => {
+          try{}
+        }
+      }`,
+    }
       console.log(daoMetadata);
       return daoMetadata;
     }
