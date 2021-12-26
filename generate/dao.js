@@ -204,6 +204,71 @@ function modelMapper(model){
               }
             }
           }`,
+        },
+        api:{
+          drop:{
+            method:"GET",
+            path:`${n}/drop`,
+            handler:`function(req,res){
+              return dao.drop(db)({})
+            }`,
+          },
+          clear:{
+            method:"GET",
+            path:`${n}/clear`,
+            handler:`function(req,res){
+              return dao.clear(db)({})
+            }`,
+          },
+          create:{
+            method:"GET",
+            path:`${n}/create`,
+            handler:`function(req,res){
+              return dao.create(db)({})
+            }`,
+          },
+          insert:{
+            method:"GET",
+            path:`${n}/insert`,
+            handler:`function(req,res){
+              return dao.insert(db)({})
+            }`,
+          },
+          updateSingle:{
+            method:"GET",
+            path:`${n}/updateSingle`,
+            handler:`function(req,res){
+              return dao.updateSingle(db)({})
+            }`,
+          },
+          deleteSingle:{
+            method:"GET",
+            path:`${n}/deleteSingle`,
+            handler:`function(req,res){
+              return dao.deleteSingle(db)({})
+            }`,
+          },
+          getSingle:{
+            method:"GET",
+            path:`${n}/getSingle`,
+            handler:`function(req,res){
+              return dao.getSingle(db)({})
+            }`,
+          },
+          getAll:{
+            method:"GET",
+            path:`${n}/getAll`,
+            handler:`function(req,res){
+              return dao.getAll(db)({})
+            }`,
+          },
+          countAll:{
+            method:"GET",
+            path:`${n}/countAll`,
+            handler:`function(req,res){
+              return dao.countAll(db)({})
+            }`,
+          },
         }
       }
       fks.forEach(
@@ -245,9 +310,12 @@ function modelMapper(model){
       fs.writeFileSync(`generated/${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
       fs.writeFileSync(`generated/${n}.dao.js`,
         (`const sql=require('./${n}.sql.json')
+        const Database = require('better-sqlite3');
+        const db = new Database('${n}.db', { verbose: console.log }); 
         module.exports={
-          ${Object.keys(daoMetadata.methods).join(',\n')}
-        }` + 
+          ${Object.keys(daoMetadata.methods).join(',\n    ')}
+        }
+        ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')
       )

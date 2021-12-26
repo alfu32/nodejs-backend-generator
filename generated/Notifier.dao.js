@@ -1,19 +1,22 @@
 const sql=require('./Notifier.sql.json')
+        const Database = require('better-sqlite3');
+        const db = new Database('Notifier.db', { verbose: console.log }); 
         module.exports={
 drop,
-clear,
-create,
-insert,
-updateSingle,
-deleteSingle,
-getSingle,
-getAll,
-countAll,
-getBYsubscriber_id,
-countBYsubscriber_id,
-getBYowner_group_id,
-countBYowner_group_id
-        }function drop(db,sql){
+    clear,
+    create,
+    insert,
+    updateSingle,
+    deleteSingle,
+    getSingle,
+    getAll,
+    countAll,
+    getBYsubscriber_id,
+    countBYsubscriber_id,
+    getBYowner_group_id,
+    countBYowner_group_id
+        }
+        function drop(db,sql){
   return () => {
     let result=[];
     try{
