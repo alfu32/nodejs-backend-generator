@@ -81,7 +81,7 @@ function modelMapper(model){
           }
         },
         methods:{
-          drop:`function drop(db,sql){
+          drop:`function drop(){
             return () => {
               let result=[];
               try{
@@ -94,7 +94,7 @@ function modelMapper(model){
               }
             }
           }`,
-          clear:`function clear(db,sql){
+          clear:`function clear(){
             return () => {
               let result=[];
               try{
@@ -107,7 +107,7 @@ function modelMapper(model){
               }
             }
           }`,
-          create:`function create(db,sql){
+          create:`function create(){
             return () => {
               let result=[];
               try{
@@ -120,7 +120,7 @@ function modelMapper(model){
               }
             }
           }`,
-          insert:`function insert(db,sql){
+          insert:`function insert(){
             const prst = db.prepare(sql.insert);
             return (object) => {
               let result=[];
@@ -134,7 +134,7 @@ function modelMapper(model){
               }
             }
           }`,
-          updateSingle:`function updateSingle(db,sql){
+          updateSingle:`function updateSingle(){
             const prst = db.prepare(sql.updateSingle);
             return (object) => {
               let result=[];
@@ -148,7 +148,7 @@ function modelMapper(model){
               }
             }
           }`,
-          deleteSingle:`function deleteSingle(db,sql){
+          deleteSingle:`function deleteSingle(){
             const prst = db.prepare(sql.deleteSingle);
             return (object) => {
               let result=[];
@@ -162,7 +162,7 @@ function modelMapper(model){
               }
             }
           }`,
-          getSingle:`function getSingle(db,sql){
+          getSingle:`function getSingle(){
             const prst = db.prepare(sql.getSingle);
             return (object) => {
               let result=[];
@@ -176,7 +176,7 @@ function modelMapper(model){
               }
             }
           }`,
-          getAll:`function getAll(db,sql){
+          getAll:`function getAll(){
             const prst = db.prepare(sql.getAll);
             return (object) => {
               let result=[];
@@ -190,7 +190,7 @@ function modelMapper(model){
               }
             }
           }`,
-          countAll:`function countAll(db,sql){
+          countAll:`function countAll(){
             const prst = db.prepare(sql.countAll);
             return (object) => {
               let result=[];
@@ -206,67 +206,46 @@ function modelMapper(model){
           }`,
         },
         api:{
-          drop:{
-            method:"GET",
-            path:`${n}/drop`,
-            handler:`function(req,res){
-              return dao.drop(db)({})
-            }`,
-          },
-          clear:{
-            method:"GET",
-            path:`${n}/clear`,
-            handler:`function(req,res){
-              return dao.clear(db)({})
-            }`,
-          },
-          create:{
-            method:"GET",
-            path:`${n}/create`,
-            handler:`function(req,res){
-              return dao.create(db)({})
-            }`,
-          },
           insert:{
-            method:"GET",
+            method:"POST",
             path:`${n}/insert`,
             handler:`function(req,res){
-              return dao.insert(db)({})
+              return dao.insert()({})
             }`,
           },
           updateSingle:{
-            method:"GET",
+            method:"POST",
             path:`${n}/updateSingle`,
             handler:`function(req,res){
-              return dao.updateSingle(db)({})
+              return dao.updateSingle()({})
             }`,
           },
           deleteSingle:{
-            method:"GET",
+            method:"DELETE",
             path:`${n}/deleteSingle`,
             handler:`function(req,res){
-              return dao.deleteSingle(db)({})
+              return dao.deleteSingle()({})
             }`,
           },
           getSingle:{
             method:"GET",
             path:`${n}/getSingle`,
             handler:`function(req,res){
-              return dao.getSingle(db)({})
+              return dao.getSingle()({})
             }`,
           },
           getAll:{
             method:"GET",
             path:`${n}/getAll`,
             handler:`function(req,res){
-              return dao.getAll(db)({})
+              return dao.getAll()({})
             }`,
           },
           countAll:{
             method:"GET",
             path:`${n}/countAll`,
             handler:`function(req,res){
-              return dao.countAll(db)({})
+              return dao.countAll()({})
             }`,
           },
         }
@@ -277,7 +256,7 @@ function modelMapper(model){
           WHERE ${fk}=@${fk}`;
           daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
           WHERE ${fk}=@${fk}`;
-          daoMetadata.methods[`getBY${fk}`]=`function getBY${fk}(db,sql){
+          daoMetadata.methods[`getBY${fk}`]=`function getBY${fk}(){
             const prst = db.prepare(sql.getBY${fk});
             return (object) => {
               let result=[];
@@ -291,7 +270,7 @@ function modelMapper(model){
               }
             }
           }`
-          daoMetadata.methods[`countBY${fk}`]=`function countBY${fk}(db,sql){
+          daoMetadata.methods[`countBY${fk}`]=`function countBY${fk}(){
             const prst = db.prepare(sql.countBY${fk});
             return (object) => {
               let result=[];

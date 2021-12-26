@@ -16,7 +16,7 @@ drop,
     getBYowner_group_id,
     countBYowner_group_id
         }
-        function drop(db,sql){
+        function drop(){
   return () => {
     let result=[];
     try{
@@ -30,7 +30,7 @@ drop,
   }
 }
 
-function clear(db,sql){
+function clear(){
   return () => {
     let result=[];
     try{
@@ -44,7 +44,7 @@ function clear(db,sql){
   }
 }
 
-function create(db,sql){
+function create(){
   return () => {
     let result=[];
     try{
@@ -58,7 +58,7 @@ function create(db,sql){
   }
 }
 
-function insert(db,sql){
+function insert(){
   const prst = db.prepare(sql.insert);
   return (object) => {
     let result=[];
@@ -73,7 +73,7 @@ function insert(db,sql){
   }
 }
 
-function updateSingle(db,sql){
+function updateSingle(){
   const prst = db.prepare(sql.updateSingle);
   return (object) => {
     let result=[];
@@ -88,7 +88,7 @@ function updateSingle(db,sql){
   }
 }
 
-function deleteSingle(db,sql){
+function deleteSingle(){
   const prst = db.prepare(sql.deleteSingle);
   return (object) => {
     let result=[];
@@ -103,7 +103,7 @@ function deleteSingle(db,sql){
   }
 }
 
-function getSingle(db,sql){
+function getSingle(){
   const prst = db.prepare(sql.getSingle);
   return (object) => {
     let result=[];
@@ -118,7 +118,7 @@ function getSingle(db,sql){
   }
 }
 
-function getAll(db,sql){
+function getAll(){
   const prst = db.prepare(sql.getAll);
   return (object) => {
     let result=[];
@@ -133,7 +133,7 @@ function getAll(db,sql){
   }
 }
 
-function countAll(db,sql){
+function countAll(){
   const prst = db.prepare(sql.countAll);
   return (object) => {
     let result=[];
@@ -148,7 +148,7 @@ function countAll(db,sql){
   }
 }
 
-function getBYsubscriber_id(db,sql){
+function getBYsubscriber_id(){
   const prst = db.prepare(sql.getBYsubscriber_id);
   return (object) => {
     let result=[];
@@ -163,7 +163,7 @@ function getBYsubscriber_id(db,sql){
   }
 }
 
-function countBYsubscriber_id(db,sql){
+function countBYsubscriber_id(){
   const prst = db.prepare(sql.countBYsubscriber_id);
   return (object) => {
     let result=[];
@@ -178,7 +178,7 @@ function countBYsubscriber_id(db,sql){
   }
 }
 
-function getBYowner_group_id(db,sql){
+function getBYowner_group_id(){
   const prst = db.prepare(sql.getBYowner_group_id);
   return (object) => {
     let result=[];
@@ -193,7 +193,7 @@ function getBYowner_group_id(db,sql){
   }
 }
 
-function countBYowner_group_id(db,sql){
+function countBYowner_group_id(){
   const prst = db.prepare(sql.countBYowner_group_id);
   return (object) => {
     let result=[];
