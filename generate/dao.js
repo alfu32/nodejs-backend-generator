@@ -248,7 +248,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.deleteSingle()({${pk}:req.body.$})
+              return dao.deleteSingle()({${pk}:req.body.${pk}})
             }`,
           },
           getSingle:{
@@ -263,7 +263,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle()({})
+              return dao.getSingle()({${pk}:req.body.${pk})
             }`,
           },
           getAll:{
@@ -332,7 +332,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle()({})
+              return dao.getBY${fk}()({${fk}:req.body.${fk}})
             }
           }`}
           daoMetadata.api[`countBY${fk}`]={
@@ -347,7 +347,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle()({})
+              return dao.countBY${fk}()({${fk}:req.body.${fk}})
           }`}
         }
       );
