@@ -218,7 +218,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.insert()({})
+              return dao.insert()(req.body)
             }`,
           },
           updateSingle:{
@@ -233,7 +233,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.updateSingle()({})
+              return dao.updateSingle()(req.body)
             }`,
           },
           deleteSingle:{
@@ -248,7 +248,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.deleteSingle()({})
+              return dao.deleteSingle()({${pk}:req.body.$})
             }`,
           },
           getSingle:{
@@ -271,13 +271,7 @@ function modelMapper(model){
             path:`${n}/getAll`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
-              /*
-                #swagger..parameters['${n}'] = {
-                  in: 'body',
-                  description: 'Add a ${n}',
-                  schema: { $ref: '#/definitions/${n}' }
-                }
-              */
+              // #swagger.description = 'get all ${n}s'
               return dao.getAll()({})
             }`,
           },
@@ -286,13 +280,7 @@ function modelMapper(model){
             path:`${n}/countAll`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
-              /*
-                #swagger..parameters['${n}'] = {
-                  in: 'body',
-                  description: 'Add a ${n}',
-                  schema: { $ref: '#/definitions/${n}' }
-                }
-              */
+              // #swagger.description = 'count all ${n}s'
               return dao.countAll()({})
             }`,
           },
@@ -332,6 +320,35 @@ function modelMapper(model){
               }
             }
           }`
+          daoMetadata.api[`getBY${fk}`]={
+            method:'',
+            path:`${n}/getBy_${fk}`,
+            handler:`function (req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'get list of ${n} by ${fk}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
+              return dao.getSingle()({})
+            }
+          }`}
+          daoMetadata.api[`countBY${fk}`]={
+            method:'',
+            path:`${n}/countBy_${fk}`,
+            handler:`function (req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'count ${n}s by ${fk}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
+              return dao.getSingle()({})
+          }`}
         }
       );
       fs.writeFileSync(`generated/${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
