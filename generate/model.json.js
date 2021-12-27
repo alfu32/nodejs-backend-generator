@@ -36,7 +36,7 @@ const model={
         },
       }`,
     },
-    Modules:{
+    Module:{
       module_id:"",
       owner_group_id:"",
       module_type:'npm',

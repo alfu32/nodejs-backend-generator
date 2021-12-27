@@ -210,6 +210,14 @@ function modelMapper(model){
             method:"POST",
             path:`${n}/insert`,
             handler:`function(req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'Add a ${n}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
               return dao.insert()({})
             }`,
           },
@@ -217,6 +225,14 @@ function modelMapper(model){
             method:"POST",
             path:`${n}/updateSingle`,
             handler:`function(req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'Update a ${n}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
               return dao.updateSingle()({})
             }`,
           },
@@ -224,6 +240,14 @@ function modelMapper(model){
             method:"DELETE",
             path:`${n}/deleteSingle`,
             handler:`function(req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'Delete ${n}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
               return dao.deleteSingle()({})
             }`,
           },
@@ -231,6 +255,14 @@ function modelMapper(model){
             method:"GET",
             path:`${n}/getSingle`,
             handler:`function(req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'get details of ${n} by id',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
               return dao.getSingle()({})
             }`,
           },
@@ -238,6 +270,14 @@ function modelMapper(model){
             method:"GET",
             path:`${n}/getAll`,
             handler:`function(req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'Add a ${n}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
               return dao.getAll()({})
             }`,
           },
@@ -245,6 +285,14 @@ function modelMapper(model){
             method:"GET",
             path:`${n}/countAll`,
             handler:`function(req,res){
+              // #swagger.tags = ['${n}s']
+              /*
+                #swagger..parameters['${n}'] = {
+                  in: 'body',
+                  description: 'Add a ${n}',
+                  schema: { $ref: '#/definitions/${n}' }
+                }
+              */
               return dao.countAll()({})
             }`,
           },
