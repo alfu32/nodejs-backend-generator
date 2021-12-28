@@ -13,16 +13,17 @@ let definedTablesIndex=definedTables.map(n => n.toUpperCase())
     ac[v]=v;
     return ac;
   },{});
-function createDefaultTableDefinition(tableName){
-  let lowName=tableName.toLowerCase();
-  let capName=lowName[0].toUpperCase()+lowName.substr(1);
-  let upName=lowName.toUpperCase();
-  const cfg = {}
-  const def = {}
-  def[lowName+"_id"]=""
-  def["name"]=lowName+" name"
-  cfg[capName]=def;
-  return cfg;
+function createDefaultTableDefinition(fk){
+  const tableName = fk.replace(/_id$/gi,'')
+    .toUpperCase();
+  if(! definedTablesIndex[tableName] ){
+    let lowName=tableName.toLowerCase();
+    let capName=lowName[0].toUpperCase()+lowName.substr(1);
+    let upName=lowName.toUpperCase();
+    undefinedTables[capName]={}
+    undefinedTables[capName][lowName+"_id"]=""
+    undefinedTables[capName]["name"]=lowName+" name"
+  }
 }
 
 let meta= definedTables.map(modelMapper(model));
@@ -33,8 +34,8 @@ function modelMapper(model){
       const table=n.toUpperCase();
       const columns=Object.keys(def);
       const pk=columns[0];
-      const fks=columns.filter(k=>k.match(/_id$/gi) && k!==pk);
-      const cols=columns.filter(k => fks.indexOf(k)==-1 && k!==pk)
+      const fks=columns.slice(1).filter(k=>k.match(/_id$/gi));
+      const cols=columns.slice(1).filter(k => fks.indexOf(k)==-1)
 
       const daoMetadata={
         moduleName:`${n}Dao`,
@@ -52,17 +53,16 @@ function modelMapper(model){
               ${pk} VARCHAR PRIMARY KEY DEFAULT (${uuid}),
               ${
                 fks.concat(cols).map(
-                  k => `${k} VARCHAR`
+                  k => `/*fk+cols*/ ${k} VARCHAR`
                 ).join(',\n')
-              },
+              }
+              ${fks.length?','}
               ${fks.map(
                 fk => {
-                  const ftable = fk.replace(/_id$/gi,'')
+                  const tableName = fk.replace(/_id$/gi,'')
                     .toUpperCase();
-                  if(! definedTablesIndex[ftable] ){
-                    undefinedTables={...undefinedTables,...createDefaultTableDefinition(ftable)}
-                  }
-                  return `FOREIGN KEY(${fk}) REFERENCES ${ftable}(${fk}) `
+                  createDefaultTableDefinition(fk);
+                  return `FOREIGN KEY(${fk}) REFERENCES ${tableName}(${fk}) `
                 }
               ).join(',\n')}
             )`,
