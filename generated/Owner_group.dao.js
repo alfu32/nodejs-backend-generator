@@ -1,17 +1,17 @@
 const sql=require('./Owner_group.sql.json')
-        const Database = require('better-sqlite3');
-        const db = new Database('Owner_group.db', { verbose: console.log }); 
-        module.exports={
-drop,
-    clear,
-    create,
-    insert,
-    updateSingle,
-    deleteSingle,
-    getSingle,
-    getAll,
-    countAll
-        }
+const Database = require('better-sqlite3');
+const db = new Database('Owner_group.db', { verbose: console.log }); 
+module.exports={
+  drop,
+  clear,
+  create,
+  insert,
+  updateSingle,
+  deleteSingle,
+  getSingle,
+  getAll,
+  countAll
+}
         function drop(){
   let result=[];
   try{

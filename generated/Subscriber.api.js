@@ -1,8 +1,8 @@
 const dao=require('./Subscriber.dao.json')
         module.exports={
-registerSubscriber
+register
         }
-        function registerSubscriber(app){
+        function register(app){
 app.POST('Subscriber/insert',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
@@ -15,7 +15,7 @@ app.POST('Subscriber/insert',function(req,res){
     return dao.insert(req.body)
   })
 
-app.POST('Subscriber/updateSingle',function(req,res){
+  app.POST('Subscriber/updateSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -27,7 +27,7 @@ app.POST('Subscriber/updateSingle',function(req,res){
     return dao.updateSingle(req.body)
   })
 
-app.DELETE('Subscriber/deleteSingle',function(req,res){
+  app.DELETE('Subscriber/deleteSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -39,7 +39,7 @@ app.DELETE('Subscriber/deleteSingle',function(req,res){
     return dao.deleteSingle({watcher_id:req.body.watcher_id})
   })
 
-app.GET('Subscriber/getSingle',function(req,res){
+  app.GET('Subscriber/getSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -51,19 +51,19 @@ app.GET('Subscriber/getSingle',function(req,res){
     return dao.getSingle({watcher_id:req.body.watcher_id)
   })
 
-app.GET('Subscriber/getAll',function(req,res){
+  app.GET('Subscriber/getAll',function(req,res){
     // #swagger.tags = ['Subscribers']
     // #swagger.description = 'get all Subscribers'
     return dao.getAll()()
   })
 
-app.GET('Subscriber/countAll',function(req,res){
+  app.GET('Subscriber/countAll',function(req,res){
     // #swagger.tags = ['Subscribers']
     // #swagger.description = 'count all Subscribers'
     return dao.countAll()()
   })
 
-app.GET('Subscriber/getBy_subscriber_id',function (req,res){
+  app.GET('Subscriber/getBy_subscriber_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -76,7 +76,7 @@ app.GET('Subscriber/getBy_subscriber_id',function (req,res){
   }
 })
 
-app.GET('Subscriber/countBy_subscriber_id',function (req,res){
+  app.GET('Subscriber/countBy_subscriber_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -88,7 +88,7 @@ app.GET('Subscriber/countBy_subscriber_id',function (req,res){
     return dao.countBYsubscriber_id({subscriber_id:req.body.subscriber_id})
 })
 
-app.GET('Subscriber/getBy_owner_group_id',function (req,res){
+  app.GET('Subscriber/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -101,7 +101,7 @@ app.GET('Subscriber/getBy_owner_group_id',function (req,res){
   }
 })
 
-app.GET('Subscriber/countBy_owner_group_id',function (req,res){
+  app.GET('Subscriber/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {

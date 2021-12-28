@@ -1,8 +1,8 @@
 const dao=require('./Watcher.dao.json')
         module.exports={
-registerWatcher
+register
         }
-        function registerWatcher(app){
+        function register(app){
 app.POST('Watcher/insert',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
@@ -15,7 +15,7 @@ app.POST('Watcher/insert',function(req,res){
     return dao.insert(req.body)
   })
 
-app.POST('Watcher/updateSingle',function(req,res){
+  app.POST('Watcher/updateSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {
@@ -27,7 +27,7 @@ app.POST('Watcher/updateSingle',function(req,res){
     return dao.updateSingle(req.body)
   })
 
-app.DELETE('Watcher/deleteSingle',function(req,res){
+  app.DELETE('Watcher/deleteSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {
@@ -39,7 +39,7 @@ app.DELETE('Watcher/deleteSingle',function(req,res){
     return dao.deleteSingle({watcher_id:req.body.watcher_id})
   })
 
-app.GET('Watcher/getSingle',function(req,res){
+  app.GET('Watcher/getSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {
@@ -51,19 +51,19 @@ app.GET('Watcher/getSingle',function(req,res){
     return dao.getSingle({watcher_id:req.body.watcher_id)
   })
 
-app.GET('Watcher/getAll',function(req,res){
+  app.GET('Watcher/getAll',function(req,res){
     // #swagger.tags = ['Watchers']
     // #swagger.description = 'get all Watchers'
     return dao.getAll()()
   })
 
-app.GET('Watcher/countAll',function(req,res){
+  app.GET('Watcher/countAll',function(req,res){
     // #swagger.tags = ['Watchers']
     // #swagger.description = 'count all Watchers'
     return dao.countAll()()
   })
 
-app.GET('Watcher/getBy_owner_group_id',function (req,res){
+  app.GET('Watcher/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {
@@ -76,7 +76,7 @@ app.GET('Watcher/getBy_owner_group_id',function (req,res){
   }
 })
 
-app.GET('Watcher/countBy_owner_group_id',function (req,res){
+  app.GET('Watcher/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {

@@ -25,6 +25,12 @@ app.get('/',(req,res,next)=>{
   })
 });
 
+require('generated/Module.api').register(app);
+require('generated/Notifier.api').register(app);
+require('generated/Owner_group.api').register(app);
+require('generated/Subscriber.api').register(app);
+require('generated/Watcher.api').register(app);
+
 // Run the server and report out to the lo
 app.listen(process.env.PORT, function(err, address) {
   if (err) {

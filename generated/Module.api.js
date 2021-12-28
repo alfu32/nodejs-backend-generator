@@ -1,8 +1,8 @@
 const dao=require('./Module.dao.json')
         module.exports={
-registerModule
+register
         }
-        function registerModule(app){
+        function register(app){
 app.POST('Module/insert',function(req,res){
     // #swagger.tags = ['Modules']
     /*
@@ -15,7 +15,7 @@ app.POST('Module/insert',function(req,res){
     return dao.insert(req.body)
   })
 
-app.POST('Module/updateSingle',function(req,res){
+  app.POST('Module/updateSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {
@@ -27,7 +27,7 @@ app.POST('Module/updateSingle',function(req,res){
     return dao.updateSingle(req.body)
   })
 
-app.DELETE('Module/deleteSingle',function(req,res){
+  app.DELETE('Module/deleteSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {
@@ -39,7 +39,7 @@ app.DELETE('Module/deleteSingle',function(req,res){
     return dao.deleteSingle({module_id:req.body.module_id})
   })
 
-app.GET('Module/getSingle',function(req,res){
+  app.GET('Module/getSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {
@@ -51,19 +51,19 @@ app.GET('Module/getSingle',function(req,res){
     return dao.getSingle({module_id:req.body.module_id)
   })
 
-app.GET('Module/getAll',function(req,res){
+  app.GET('Module/getAll',function(req,res){
     // #swagger.tags = ['Modules']
     // #swagger.description = 'get all Modules'
     return dao.getAll()()
   })
 
-app.GET('Module/countAll',function(req,res){
+  app.GET('Module/countAll',function(req,res){
     // #swagger.tags = ['Modules']
     // #swagger.description = 'count all Modules'
     return dao.countAll()()
   })
 
-app.GET('Module/getBy_owner_group_id',function (req,res){
+  app.GET('Module/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {
@@ -76,7 +76,7 @@ app.GET('Module/getBy_owner_group_id',function (req,res){
   }
 })
 
-app.GET('Module/countBy_owner_group_id',function (req,res){
+  app.GET('Module/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {

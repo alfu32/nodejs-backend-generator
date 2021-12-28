@@ -1,8 +1,8 @@
 const dao=require('./Owner_group.dao.json')
         module.exports={
-registerOwner_group
+register
         }
-        function registerOwner_group(app){
+        function register(app){
 app.POST('Owner_group/insert',function(req,res){
     // #swagger.tags = ['Owner_groups']
     /*
@@ -15,7 +15,7 @@ app.POST('Owner_group/insert',function(req,res){
     return dao.insert(req.body)
   })
 
-app.POST('Owner_group/updateSingle',function(req,res){
+  app.POST('Owner_group/updateSingle',function(req,res){
     // #swagger.tags = ['Owner_groups']
     /*
       #swagger..parameters['Owner_group'] = {
@@ -27,7 +27,7 @@ app.POST('Owner_group/updateSingle',function(req,res){
     return dao.updateSingle(req.body)
   })
 
-app.DELETE('Owner_group/deleteSingle',function(req,res){
+  app.DELETE('Owner_group/deleteSingle',function(req,res){
     // #swagger.tags = ['Owner_groups']
     /*
       #swagger..parameters['Owner_group'] = {
@@ -39,7 +39,7 @@ app.DELETE('Owner_group/deleteSingle',function(req,res){
     return dao.deleteSingle({owner_group_id:req.body.owner_group_id})
   })
 
-app.GET('Owner_group/getSingle',function(req,res){
+  app.GET('Owner_group/getSingle',function(req,res){
     // #swagger.tags = ['Owner_groups']
     /*
       #swagger..parameters['Owner_group'] = {
@@ -51,13 +51,13 @@ app.GET('Owner_group/getSingle',function(req,res){
     return dao.getSingle({owner_group_id:req.body.owner_group_id)
   })
 
-app.GET('Owner_group/getAll',function(req,res){
+  app.GET('Owner_group/getAll',function(req,res){
     // #swagger.tags = ['Owner_groups']
     // #swagger.description = 'get all Owner_groups'
     return dao.getAll()()
   })
 
-app.GET('Owner_group/countAll',function(req,res){
+  app.GET('Owner_group/countAll',function(req,res){
     // #swagger.tags = ['Owner_groups']
     // #swagger.description = 'count all Owner_groups'
     return dao.countAll()()

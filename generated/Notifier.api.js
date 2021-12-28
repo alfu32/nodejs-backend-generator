@@ -1,8 +1,8 @@
 const dao=require('./Notifier.dao.json')
         module.exports={
-registerNotifier
+register
         }
-        function registerNotifier(app){
+        function register(app){
 app.POST('Notifier/insert',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
@@ -15,7 +15,7 @@ app.POST('Notifier/insert',function(req,res){
     return dao.insert(req.body)
   })
 
-app.POST('Notifier/updateSingle',function(req,res){
+  app.POST('Notifier/updateSingle',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {
@@ -27,7 +27,7 @@ app.POST('Notifier/updateSingle',function(req,res){
     return dao.updateSingle(req.body)
   })
 
-app.DELETE('Notifier/deleteSingle',function(req,res){
+  app.DELETE('Notifier/deleteSingle',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {
@@ -39,7 +39,7 @@ app.DELETE('Notifier/deleteSingle',function(req,res){
     return dao.deleteSingle({notifier_id:req.body.notifier_id})
   })
 
-app.GET('Notifier/getSingle',function(req,res){
+  app.GET('Notifier/getSingle',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {
@@ -51,19 +51,19 @@ app.GET('Notifier/getSingle',function(req,res){
     return dao.getSingle({notifier_id:req.body.notifier_id)
   })
 
-app.GET('Notifier/getAll',function(req,res){
+  app.GET('Notifier/getAll',function(req,res){
     // #swagger.tags = ['Notifiers']
     // #swagger.description = 'get all Notifiers'
     return dao.getAll()()
   })
 
-app.GET('Notifier/countAll',function(req,res){
+  app.GET('Notifier/countAll',function(req,res){
     // #swagger.tags = ['Notifiers']
     // #swagger.description = 'count all Notifiers'
     return dao.countAll()()
   })
 
-app.GET('Notifier/getBy_subscriber_id',function (req,res){
+  app.GET('Notifier/getBy_subscriber_id',function (req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {
@@ -76,7 +76,7 @@ app.GET('Notifier/getBy_subscriber_id',function (req,res){
   }
 })
 
-app.GET('Notifier/countBy_subscriber_id',function (req,res){
+  app.GET('Notifier/countBy_subscriber_id',function (req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {
@@ -88,7 +88,7 @@ app.GET('Notifier/countBy_subscriber_id',function (req,res){
     return dao.countBYsubscriber_id({subscriber_id:req.body.subscriber_id})
 })
 
-app.GET('Notifier/getBy_owner_group_id',function (req,res){
+  app.GET('Notifier/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {
@@ -101,7 +101,7 @@ app.GET('Notifier/getBy_owner_group_id',function (req,res){
   }
 })
 
-app.GET('Notifier/countBy_owner_group_id',function (req,res){
+  app.GET('Notifier/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Notifiers']
     /*
       #swagger..parameters['Notifier'] = {

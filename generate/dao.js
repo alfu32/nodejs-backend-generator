@@ -358,9 +358,9 @@ function modelMapper(model){
       fs.writeFileSync(`generated/${n}.api.js`,
         (`const dao=require('./${n}.dao.json')
         module.exports={
-          register${n}
+          register
         }
-        function register${n}(app){
+        function register(app){
           ${
             Object.keys(daoMetadata.api)
              .map( apiName => {
