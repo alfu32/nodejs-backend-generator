@@ -1,4 +1,4 @@
-const dao=require('./Module.dao.json')
+const dao=require('./Module.dao.js')
         module.exports={
 register
         }
@@ -12,8 +12,8 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.insert(req.body)
-  })
+    return dao.insert(req.body);
+  });
 
   app.POST('Module/updateSingle',function(req,res){
     // #swagger.tags = ['Modules']
@@ -24,8 +24,8 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.updateSingle(req.body)
-  })
+    return dao.updateSingle(req.body);
+  });
 
   app.DELETE('Module/deleteSingle',function(req,res){
     // #swagger.tags = ['Modules']
@@ -36,8 +36,8 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.deleteSingle({module_id:req.body.module_id})
-  })
+    return dao.deleteSingle({module_id:req.body.module_id});
+  });
 
   app.GET('Module/getSingle',function(req,res){
     // #swagger.tags = ['Modules']
@@ -48,20 +48,20 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.getSingle({module_id:req.body.module_id})
-  })
+    return dao.getSingle({module_id:req.body.module_id});
+  });
 
   app.GET('Module/getAll',function(req,res){
     // #swagger.tags = ['Modules']
     // #swagger.description = 'get all Modules'
-    return dao.getAll()()
-  })
+    return dao.getAll()
+  });
 
   app.GET('Module/countAll',function(req,res){
     // #swagger.tags = ['Modules']
     // #swagger.description = 'count all Modules'
-    return dao.countAll()()
-  })
+    return dao.countAll()
+  });
 
   app.GET('Module/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Modules']
@@ -72,9 +72,9 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id})
+    return dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id});
   }
-})
+);
 
   app.GET('Module/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Modules']
@@ -85,7 +85,7 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id})
-})
+    return dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id});
+});
         }
         

@@ -1,4 +1,4 @@
-const dao=require('./Owner_group.dao.json')
+const dao=require('./Owner_group.dao.js')
         module.exports={
 register
         }
@@ -12,8 +12,8 @@ app.POST('Owner_group/insert',function(req,res){
         schema: { $ref: '#/definitions/Owner_group' }
       }
     */
-    return dao.insert(req.body)
-  })
+    return dao.insert(req.body);
+  });
 
   app.POST('Owner_group/updateSingle',function(req,res){
     // #swagger.tags = ['Owner_groups']
@@ -24,8 +24,8 @@ app.POST('Owner_group/insert',function(req,res){
         schema: { $ref: '#/definitions/Owner_group' }
       }
     */
-    return dao.updateSingle(req.body)
-  })
+    return dao.updateSingle(req.body);
+  });
 
   app.DELETE('Owner_group/deleteSingle',function(req,res){
     // #swagger.tags = ['Owner_groups']
@@ -36,8 +36,8 @@ app.POST('Owner_group/insert',function(req,res){
         schema: { $ref: '#/definitions/Owner_group' }
       }
     */
-    return dao.deleteSingle({owner_group_id:req.body.owner_group_id})
-  })
+    return dao.deleteSingle({owner_group_id:req.body.owner_group_id});
+  });
 
   app.GET('Owner_group/getSingle',function(req,res){
     // #swagger.tags = ['Owner_groups']
@@ -48,19 +48,19 @@ app.POST('Owner_group/insert',function(req,res){
         schema: { $ref: '#/definitions/Owner_group' }
       }
     */
-    return dao.getSingle({owner_group_id:req.body.owner_group_id})
-  })
+    return dao.getSingle({owner_group_id:req.body.owner_group_id});
+  });
 
   app.GET('Owner_group/getAll',function(req,res){
     // #swagger.tags = ['Owner_groups']
     // #swagger.description = 'get all Owner_groups'
-    return dao.getAll()()
-  })
+    return dao.getAll()
+  });
 
   app.GET('Owner_group/countAll',function(req,res){
     // #swagger.tags = ['Owner_groups']
     // #swagger.description = 'count all Owner_groups'
-    return dao.countAll()()
-  })
+    return dao.countAll()
+  });
         }
         

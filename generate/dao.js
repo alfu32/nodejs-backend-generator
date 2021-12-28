@@ -68,7 +68,7 @@ function modelMapper(model){
             )`,
             insert:`INSERT INTO ${table}(
             ${fks.concat(cols).join(',')}
-            ) VALUES ${fks.concat(cols).map(n=>`@${n}`).join(',')}`,
+            ) VALUES (${fks.concat(cols).map(n=>`@${n}`).join(',')})`,
             updateSingle:`UPDATE ${table} SET
             ${fks.concat(cols).map(k=>`${k}=@${k}`).join(',\n')}
             WHERE ${pk}=@${pk}`,
@@ -212,7 +212,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.insert(req.body)
+              return dao.insert(req.body);
             }`,
           },
           updateSingle:{
@@ -227,7 +227,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.updateSingle(req.body)
+              return dao.updateSingle(req.body);
             }`,
           },
           deleteSingle:{
@@ -242,7 +242,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.deleteSingle({${pk}:req.body.${pk}})
+              return dao.deleteSingle({${pk}:req.body.${pk}});
             }`,
           },
           getSingle:{
@@ -257,7 +257,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle({${pk}:req.body.${pk}})
+              return dao.getSingle({${pk}:req.body.${pk}});
             }`,
           },
           getAll:{
@@ -266,7 +266,7 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               // #swagger.description = 'get all ${n}s'
-              return dao.getAll()()
+              return dao.getAll()
             }`,
           },
           countAll:{
@@ -275,7 +275,7 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               // #swagger.description = 'count all ${n}s'
-              return dao.countAll()()
+              return dao.countAll()
             }`,
           },
         }
@@ -324,9 +324,9 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getBY${fk}({${fk}:req.body.${fk}})
+              return dao.getBY${fk}({${fk}:req.body.${fk}});
             }
-          }`}
+          `}
           daoMetadata.api[`countBY${fk}`]={
             method:'GET',
             path:`${n}/countBy_${fk}`,
@@ -339,7 +339,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.countBY${fk}({${fk}:req.body.${fk}})
+              return dao.countBY${fk}({${fk}:req.body.${fk}});
           }`}
         }
       );
@@ -351,12 +351,14 @@ function modelMapper(model){
           module.exports={
             ${Object.keys(daoMetadata.methods).join(',\n            ')}
           }
+        /**/
+        create();
         ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')
       );
       fs.writeFileSync(`generated/${n}.api.js`,
-        (`const dao=require('./${n}.dao.json')
+        (`const dao=require('./${n}.dao.js')
         module.exports={
           register
         }
@@ -365,7 +367,7 @@ function modelMapper(model){
             Object.keys(daoMetadata.api)
              .map( apiName => {
               const def = daoMetadata.api[apiName]
-               return `app.${def.method.toUpperCase()}('${def.path}',${def.handler})`
+               return `app.${def.method.toUpperCase()}('${def.path}',${def.handler});`
              }).join("\n\n            ")
           }
         }
