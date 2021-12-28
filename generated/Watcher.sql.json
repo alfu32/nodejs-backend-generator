@@ -1,6 +1,6 @@
 {
  "drop": "TRUNCATE TABLE IF EXISTS WATCHER",
- "create": "CREATE TABLE IF NOT EXISTS WATCHER(\n              watcher_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              owner_group_id VARCHAR,\nsource VARCHAR,\npoll_config VARCHAR,\n              FOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
+ "create": "CREATE TABLE IF NOT EXISTS WATCHER(\n              watcher_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              /*fk+cols*/ owner_group_id VARCHAR,\n/*fk+cols*/ source VARCHAR,\n/*fk+cols*/ poll_config VARCHAR\n              ,\n              FOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
  "insert": "INSERT INTO WATCHER(\n            owner_group_id,source,poll_config\n            ) VALUES (@owner_group_id,@source,@poll_config)",
  "updateSingle": "UPDATE WATCHER SET\n            owner_group_id=@owner_group_id,\nsource=@source,\npoll_config=@poll_config\n            WHERE watcher_id=@watcher_id",
  "deleteSingle": "DELETE FROM WATCHER \n            WHERE watcher_id=@watcher_id",

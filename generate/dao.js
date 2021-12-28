@@ -56,7 +56,7 @@ function modelMapper(model){
                   k => `/*fk+cols*/ ${k} VARCHAR`
                 ).join(',\n')
               }
-              ${fks.length?','}
+              ${fks.length?',':''}
               ${fks.map(
                 fk => {
                   const tableName = fk.replace(/_id$/gi,'')

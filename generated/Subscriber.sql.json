@@ -1,6 +1,6 @@
 {
  "drop": "TRUNCATE TABLE IF EXISTS SUBSCRIBER",
- "create": "CREATE TABLE IF NOT EXISTS SUBSCRIBER(\n              watcher_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              subscriber_id VARCHAR,\nowner_group_id VARCHAR,\nsource VARCHAR,\n              FOREIGN KEY(subscriber_id) REFERENCES SUBSCRIBER(subscriber_id) ,\nFOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
+ "create": "CREATE TABLE IF NOT EXISTS SUBSCRIBER(\n              watcher_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              /*fk+cols*/ subscriber_id VARCHAR,\n/*fk+cols*/ owner_group_id VARCHAR,\n/*fk+cols*/ source VARCHAR\n              ,\n              FOREIGN KEY(subscriber_id) REFERENCES SUBSCRIBER(subscriber_id) ,\nFOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
  "insert": "INSERT INTO SUBSCRIBER(\n            subscriber_id,owner_group_id,source\n            ) VALUES (@subscriber_id,@owner_group_id,@source)",
  "updateSingle": "UPDATE SUBSCRIBER SET\n            subscriber_id=@subscriber_id,\nowner_group_id=@owner_group_id,\nsource=@source\n            WHERE watcher_id=@watcher_id",
  "deleteSingle": "DELETE FROM SUBSCRIBER \n            WHERE watcher_id=@watcher_id",
