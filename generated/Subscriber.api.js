@@ -6,9 +6,10 @@ register
 app.post('Subscriber/insert',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
-      #swagger..parameters['Subscriber'] = {
+      #swagger.parameters['Subscriber'] = {
         in: 'body',
         description: 'Add a Subscriber',
+        type:'object',
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
@@ -18,9 +19,10 @@ app.post('Subscriber/insert',function(req,res){
   app.post('Subscriber/updateSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
-      #swagger..parameters['Subscriber'] = {
+      #swagger.parameters['Subscriber'] = {
         in: 'body',
         description: 'Update a Subscriber',
+        type:'object',
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
@@ -30,9 +32,10 @@ app.post('Subscriber/insert',function(req,res){
   app.delete('Subscriber/deleteSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
-      #swagger..parameters['Subscriber'] = {
+      #swagger.parameters['Subscriber'] = {
         in: 'body',
         description: 'Delete Subscriber',
+        type:'object',
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
@@ -42,9 +45,10 @@ app.post('Subscriber/insert',function(req,res){
   app.get('Subscriber/getSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
-      #swagger..parameters['Subscriber'] = {
+      #swagger.parameters['Subscriber'] = {
         in: 'body',
         description: 'get details of Subscriber by id',
+        type:'object',
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */

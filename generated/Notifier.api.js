@@ -6,9 +6,10 @@ register
 app.post('Notifier/insert',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
-      #swagger..parameters['Notifier'] = {
+      #swagger.parameters['Notifier'] = {
         in: 'body',
         description: 'Add a Notifier',
+        type:'object',
         schema: { $ref: '#/definitions/Notifier' }
       }
     */
@@ -18,9 +19,10 @@ app.post('Notifier/insert',function(req,res){
   app.post('Notifier/updateSingle',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
-      #swagger..parameters['Notifier'] = {
+      #swagger.parameters['Notifier'] = {
         in: 'body',
         description: 'Update a Notifier',
+        type:'object',
         schema: { $ref: '#/definitions/Notifier' }
       }
     */
@@ -30,9 +32,10 @@ app.post('Notifier/insert',function(req,res){
   app.delete('Notifier/deleteSingle',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
-      #swagger..parameters['Notifier'] = {
+      #swagger.parameters['Notifier'] = {
         in: 'body',
         description: 'Delete Notifier',
+        type:'object',
         schema: { $ref: '#/definitions/Notifier' }
       }
     */
@@ -42,9 +45,10 @@ app.post('Notifier/insert',function(req,res){
   app.get('Notifier/getSingle',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
-      #swagger..parameters['Notifier'] = {
+      #swagger.parameters['Notifier'] = {
         in: 'body',
         description: 'get details of Notifier by id',
+        type:'object',
         schema: { $ref: '#/definitions/Notifier' }
       }
     */

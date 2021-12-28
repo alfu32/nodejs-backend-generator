@@ -6,9 +6,10 @@ register
 app.post('Module/insert',function(req,res){
     // #swagger.tags = ['Modules']
     /*
-      #swagger..parameters['Module'] = {
+      #swagger.parameters['Module'] = {
         in: 'body',
         description: 'Add a Module',
+        type:'object',
         schema: { $ref: '#/definitions/Module' }
       }
     */
@@ -18,9 +19,10 @@ app.post('Module/insert',function(req,res){
   app.post('Module/updateSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
-      #swagger..parameters['Module'] = {
+      #swagger.parameters['Module'] = {
         in: 'body',
         description: 'Update a Module',
+        type:'object',
         schema: { $ref: '#/definitions/Module' }
       }
     */
@@ -30,9 +32,10 @@ app.post('Module/insert',function(req,res){
   app.delete('Module/deleteSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
-      #swagger..parameters['Module'] = {
+      #swagger.parameters['Module'] = {
         in: 'body',
         description: 'Delete Module',
+        type:'object',
         schema: { $ref: '#/definitions/Module' }
       }
     */
@@ -42,9 +45,10 @@ app.post('Module/insert',function(req,res){
   app.get('Module/getSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
-      #swagger..parameters['Module'] = {
+      #swagger.parameters['Module'] = {
         in: 'body',
         description: 'get details of Module by id',
+        type:'object',
         schema: { $ref: '#/definitions/Module' }
       }
     */

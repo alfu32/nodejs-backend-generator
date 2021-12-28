@@ -223,9 +223,10 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
-                #swagger..parameters['${n}'] = {
+                #swagger.parameters['${n}'] = {
                   in: 'body',
                   description: 'Add a ${n}',
+                  type:'object',
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
@@ -238,9 +239,10 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
-                #swagger..parameters['${n}'] = {
+                #swagger.parameters['${n}'] = {
                   in: 'body',
                   description: 'Update a ${n}',
+                  type:'object',
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
@@ -253,9 +255,10 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
-                #swagger..parameters['${n}'] = {
+                #swagger.parameters['${n}'] = {
                   in: 'body',
                   description: 'Delete ${n}',
+                  type:'object',
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
@@ -268,9 +271,10 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
-                #swagger..parameters['${n}'] = {
+                #swagger.parameters['${n}'] = {
                   in: 'body',
                   description: 'get details of ${n} by id',
+                  type:'object',
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */

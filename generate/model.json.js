@@ -39,12 +39,17 @@ const model={
     Module:{
       module_id:"",
       owner_group_id:"",
-      module_type:'npm',
-      source:`module.exports≈{
+      npm_module:'moment',
+      module_type:'npm|local',
+      source:`npm name|module.exports≈{
         main({modules,data}){
           return [{val:444}]
         },
       }`,
+    },
+    Owner_group:{
+      owner_group_id:"",
+      name:'ADMIN'
     }
   }
 module.exports={

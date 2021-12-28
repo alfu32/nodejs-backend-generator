@@ -6,9 +6,10 @@ register
 app.post('Watcher/insert',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
-      #swagger..parameters['Watcher'] = {
+      #swagger.parameters['Watcher'] = {
         in: 'body',
         description: 'Add a Watcher',
+        type:'object',
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
@@ -18,9 +19,10 @@ app.post('Watcher/insert',function(req,res){
   app.post('Watcher/updateSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
-      #swagger..parameters['Watcher'] = {
+      #swagger.parameters['Watcher'] = {
         in: 'body',
         description: 'Update a Watcher',
+        type:'object',
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
@@ -30,9 +32,10 @@ app.post('Watcher/insert',function(req,res){
   app.delete('Watcher/deleteSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
-      #swagger..parameters['Watcher'] = {
+      #swagger.parameters['Watcher'] = {
         in: 'body',
         description: 'Delete Watcher',
+        type:'object',
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
@@ -42,9 +45,10 @@ app.post('Watcher/insert',function(req,res){
   app.get('Watcher/getSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
-      #swagger..parameters['Watcher'] = {
+      #swagger.parameters['Watcher'] = {
         in: 'body',
         description: 'get details of Watcher by id',
+        type:'object',
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
