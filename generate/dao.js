@@ -80,6 +80,14 @@ function modelMapper(model){
             countAll:`SELECT COUNT(*) as records FROM ${table}`,
           }
         },
+        statements:{
+          insert:`const insertStatement = db.prepare(sql.insert);`,
+          updateSingle:`const updateSingleStatement = db.prepare(sql.updateSingle);`,
+          deleteSingle:`const deleteSingleStatement = db.prepare(sql.deleteSingle);`,
+          getSingle:`const getSingleStatement = db.prepare(sql.getSingle);`,
+          getAll:`const getAllStatement = db.prepare(sql.getAll);`,
+          countAll:`const countAllStatement = db.prepare(sql.countAll);`,
+        },
         methods:{
           drop:`function drop(){
             let result=[];
@@ -115,7 +123,6 @@ function modelMapper(model){
             }
           }`,
           insert:`
-          const insertStatement = db.prepare(sql.insert);
           function insert(object){
             let result=[];
             try{
@@ -129,7 +136,6 @@ function modelMapper(model){
           }
           `,
           updateSingle:`
-          const updateSingleStatement = db.prepare(sql.updateSingle);
           function updateSingle(object){
             let result=[];
             try{
@@ -143,7 +149,6 @@ function modelMapper(model){
           }
           `,
           deleteSingle:`
-          const deleteSingleStatement = db.prepare(sql.deleteSingle);
           function deleteSingle(object){
             let result=[];
             try{
@@ -157,7 +162,6 @@ function modelMapper(model){
           }
           `,
           getSingle:`
-          const getSingleStatement = db.prepare(sql.getSingle);
           function getSingle(object){
             let result=[];
             try{
@@ -171,7 +175,6 @@ function modelMapper(model){
           }
           `,
           getAll:`
-          const getAllStatement = db.prepare(sql.getAll);
           function getAll(object){
             let result=[];
             try{
@@ -185,7 +188,6 @@ function modelMapper(model){
           }
           `,
           countAll:`
-          const countAllStatement = db.prepare(sql.countAll);
           function countAll(object){
             let result=[];
             try{
@@ -286,8 +288,9 @@ function modelMapper(model){
           WHERE ${fk}=@${fk}`;
           daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
           WHERE ${fk}=@${fk}`;
+          daoMetadata.statements[`getBY${fk}`] = `const getBY${fk}Statement = db.prepare(sql.getBY${fk});`;
+          daoMetadata.statements[`countBY${fk}`] = `const countBY${fk}Statement = db.prepare(sql.countBY${fk});`;
           daoMetadata.methods[`getBY${fk}`]=`
-          const getBY${fk}Statement = db.prepare(sql.getBY${fk});
           function getBY${fk}(object){
             let result=[];
             try{
@@ -300,7 +303,6 @@ function modelMapper(model){
             }
           }`
           daoMetadata.methods[`countBY${fk}`]=`
-          const countBY${fk}Statement = db.prepare(sql.countBY${fk});
           function countBY${fk}(object){
             let result=[];
             try{
@@ -347,7 +349,7 @@ function modelMapper(model){
       fs.writeFileSync(`generated/${n}.dao.js`,
         (`const sql=require('./${n}.sql.json')
           const Database = require('better-sqlite3');
-          const db = new Database('${n}.db', { verbose: console.log }); 
+          const db = new Database('generated.db', { verbose: console.log }); 
           module.exports={
             ${Object.keys(daoMetadata.methods).join(',\n            ')}
           }
@@ -359,6 +361,10 @@ function modelMapper(model){
         }catch(err){
           console.log('creating table ${table} : ERROR',err.message);
           throw err;
+        }
+        ${
+          Object.keys(daoMetadata.state;ents)
+          
         }
         ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))

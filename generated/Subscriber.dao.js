@@ -1,6 +1,6 @@
 const sql=require('./Subscriber.sql.json')
 const Database = require('better-sqlite3');
-const db = new Database('Subscriber.db', { verbose: console.log }); 
+const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
   drop,
   clear,

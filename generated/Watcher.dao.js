@@ -1,6 +1,6 @@
 const sql=require('./Watcher.sql.json')
 const Database = require('better-sqlite3');
-const db = new Database('Watcher.db', { verbose: console.log }); 
+const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
   drop,
   clear,
