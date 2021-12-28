@@ -48,7 +48,7 @@ app.POST('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.getSingle({watcher_id:req.body.watcher_id)
+    return dao.getSingle({watcher_id:req.body.watcher_id})
   })
 
   app.GET('Subscriber/getAll',function(req,res){

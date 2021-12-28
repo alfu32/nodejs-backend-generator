@@ -48,7 +48,7 @@ app.POST('Owner_group/insert',function(req,res){
         schema: { $ref: '#/definitions/Owner_group' }
       }
     */
-    return dao.getSingle({owner_group_id:req.body.owner_group_id)
+    return dao.getSingle({owner_group_id:req.body.owner_group_id})
   })
 
   app.GET('Owner_group/getAll',function(req,res){

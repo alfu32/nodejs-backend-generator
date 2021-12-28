@@ -48,7 +48,7 @@ app.POST('Notifier/insert',function(req,res){
         schema: { $ref: '#/definitions/Notifier' }
       }
     */
-    return dao.getSingle({notifier_id:req.body.notifier_id)
+    return dao.getSingle({notifier_id:req.body.notifier_id})
   })
 
   app.GET('Notifier/getAll',function(req,res){

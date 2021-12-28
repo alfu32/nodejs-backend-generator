@@ -48,7 +48,7 @@ app.POST('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.getSingle({module_id:req.body.module_id)
+    return dao.getSingle({module_id:req.body.module_id})
   })
 
   app.GET('Module/getAll',function(req,res){

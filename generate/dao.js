@@ -257,7 +257,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle({${pk}:req.body.${pk})
+              return dao.getSingle({${pk}:req.body.${pk}})
             }`,
           },
           getAll:{

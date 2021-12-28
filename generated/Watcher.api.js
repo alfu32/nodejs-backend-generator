@@ -48,7 +48,7 @@ app.POST('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.getSingle({watcher_id:req.body.watcher_id)
+    return dao.getSingle({watcher_id:req.body.watcher_id})
   })
 
   app.GET('Watcher/getAll',function(req,res){
