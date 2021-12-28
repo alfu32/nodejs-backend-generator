@@ -346,11 +346,11 @@ function modelMapper(model){
       fs.writeFileSync(`generated/${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
       fs.writeFileSync(`generated/${n}.dao.js`,
         (`const sql=require('./${n}.sql.json')
-        const Database = require('better-sqlite3');
-        const db = new Database('${n}.db', { verbose: console.log }); 
-        module.exports={
-          ${Object.keys(daoMetadata.methods).join(',\n    ')}
-        }
+          const Database = require('better-sqlite3');
+          const db = new Database('${n}.db', { verbose: console.log }); 
+          module.exports={
+            ${Object.keys(daoMetadata.methods).join(',\n            ')}
+          }
         ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')
@@ -358,14 +358,18 @@ function modelMapper(model){
       fs.writeFileSync(`generated/${n}.api.js`,
         (`const dao=require('./${n}.dao.json')
         module.exports={
-          ${Object.keys(daoMetadata.api).join(',\n    ')}
+          register${n}
         }
-        ` + 
-        (Object.values(daoMetadata.api)
-        .map(def => {
-          return ``
-        })
-         .join("\n\n"))
+        function register${n}(app){
+          ${
+            Object.keys(daoMetadata.api)
+             .map( apiName => {
+              const def = daoMetadata.api[apiName]
+               return `app.${def.method.toUpperCase()}('${def.path}',${def.handler})`
+             }).join("\n\n            ")
+          }
+        }
+        `
         ).replace(/\n( ){10,10}/gi,'\n')
       );
       console.log(daoMetadata);
