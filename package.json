@@ -1,5 +1,6 @@
 {
   "name": "hello-node",
+  "token":"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",
   "version": "0.0.1",
   "description": "A simple Node app built on fastify, instantly up and running.",
   "main": "server.js",
