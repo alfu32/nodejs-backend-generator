@@ -126,7 +126,10 @@ function modelMapper(model){
           function insert(object){
             let result=[];
             try{
-              result = insertStatement.run(object)
+              if(typeof(statements.insertStatement) === "undefined"){
+                statements.insertStatement= db.prepare(sql.insertStatement);
+              }
+              result = statements.insertStatement.run(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -139,7 +142,10 @@ function modelMapper(model){
           function updateSingle(object){
             let result=[];
             try{
-              result = updateSingleStatement.run(object)
+              if(typeof(statements.updateSingleStatement) === "undefined"){
+                statements.updateSingleStatement= db.prepare(sql.updateSingleStatement);
+              }
+              result = statements.updateSingleStatement.run(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -152,7 +158,10 @@ function modelMapper(model){
           function deleteSingle(object){
             let result=[];
             try{
-              result = deleteSingleStatement.run(object)
+              if(typeof(statements.deleteSingleStatement) === "undefined"){
+                statements.deleteSingleStatement= db.prepare(sql.deleteSingleStatement);
+              }
+              result = statements.deleteSingleStatement.run(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -165,7 +174,10 @@ function modelMapper(model){
           function getSingle(object){
             let result=[];
             try{
-              result = getSingleStatement.get(object)
+              if(typeof(statements.getSingleStatement) === "undefined"){
+                statements.getSingleStatement= db.prepare(sql.getSingleStatement);
+              }
+              result = statements.getSingleStatement.get(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -191,7 +203,10 @@ function modelMapper(model){
           function countAll(object){
             let result=[];
             try{
-              result = countAllStatement.get(object)
+              if(typeof(statements.countAllStatement) === "undefined"){
+                statements.countAllStatement= db.prepare(sql.countAllStatement);
+              }
+              result = statements.countAllStatement.get(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -288,13 +303,15 @@ function modelMapper(model){
           WHERE ${fk}=@${fk}`;
           daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
           WHERE ${fk}=@${fk}`;
-          daoMetadata.statements[`getBY${fk}`] = `const getBY${fk}Statement = db.prepare(sql.getBY${fk});`;
           daoMetadata.statements[`countBY${fk}`] = `const countBY${fk}Statement = db.prepare(sql.countBY${fk});`;
           daoMetadata.methods[`getBY${fk}`]=`
           function getBY${fk}(object){
             let result=[];
             try{
-              result = getBY${fk}Statement.all(object)
+              if(typeof(statements.getBY${fk}) === "undefined"){
+                statements.getBY${fk} = db.prepare(sql.getBY${fk});
+              }
+              result = statements.getBY${fk}Statement.all(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -306,7 +323,10 @@ function modelMapper(model){
           function countBY${fk}(object){
             let result=[];
             try{
-              result = countBY${fk}Statement.all(object)
+              if(typeof(statements.countBY${fk}) === "undefined"){
+                statements.countBY${fk} = db.prepare(sql.countBY${fk});
+              }
+              result = statements.countBY${fk}.all(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
@@ -362,10 +382,7 @@ function modelMapper(model){
           console.log('creating table ${table} : ERROR',err.message);
           throw err;
         }
-        ${
-          Object.keys(daoMetadata.state;ents)
-          
-        }
+        let statements={}
         ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')
