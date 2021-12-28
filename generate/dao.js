@@ -397,7 +397,7 @@ function modelMapper(model){
             Object.keys(daoMetadata.api)
              .map( apiName => {
               const def = daoMetadata.api[apiName]
-               return `app.${def.method.toUpperCase()}('${def.path}',${def.handler});`
+               return `app.${def.method.toLowerCase()}('${def.path}',${def.handler});`
              }).join("\n\n            ")
           }
         }

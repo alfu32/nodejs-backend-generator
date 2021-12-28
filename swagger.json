@@ -39,6 +39,491 @@
           }
         }
       }
+    },
+    "Module/insert": {
+      "post": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Module/updateSingle": {
+      "post": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Module/deleteSingle": {
+      "delete": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "module_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "Module/getSingle": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Module/getAll": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "get all Modules",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Module/countAll": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "count all Modules",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Module/getBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Module/countBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/insert": {
+      "post": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/updateSingle": {
+      "post": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/deleteSingle": {
+      "delete": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "notifier_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "Notifier/getSingle": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/getAll": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "get all Notifiers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/countAll": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "count all Notifiers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/getBy_subscriber_id": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/countBy_subscriber_id": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/getBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Notifier/countBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Owner_group/insert": {
+      "post": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Owner_group/updateSingle": {
+      "post": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Owner_group/deleteSingle": {
+      "delete": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "owner_group_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "Owner_group/getSingle": {
+      "get": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Owner_group/getAll": {
+      "get": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "get all Owner_groups",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Owner_group/countAll": {
+      "get": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "count all Owner_groups",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/insert": {
+      "post": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/updateSingle": {
+      "post": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/deleteSingle": {
+      "delete": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "watcher_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "Subscriber/getSingle": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/getAll": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "get all Subscribers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/countAll": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "count all Subscribers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/getBy_subscriber_id": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/countBy_subscriber_id": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/getBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Subscriber/countBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/insert": {
+      "post": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/updateSingle": {
+      "post": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/deleteSingle": {
+      "delete": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "watcher_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "Watcher/getSingle": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/getAll": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "get all Watchers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/countAll": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "count all Watchers",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/getBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "Watcher/countBy_owner_group_id": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
     }
   },
   "definitions": {
