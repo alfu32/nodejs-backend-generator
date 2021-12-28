@@ -82,128 +82,122 @@ function modelMapper(model){
         },
         methods:{
           drop:`function drop(){
-            return () => {
-              let result=[];
-              try{
-                result = db.exec(sql.drop)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+            let result=[];
+            try{
+              result = db.exec(sql.drop)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
           }`,
           clear:`function clear(){
-            return () => {
-              let result=[];
-              try{
-                result = db.exec(sql.clear)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+            let result=[];
+            try{
+              result = db.exec(sql.clear)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
           }`,
           create:`function create(){
-            return () => {
-              let result=[];
-              try{
-                result = db.exec(sql.create)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+            let result=[];
+            try{
+              result = db.exec(sql.create)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
           }`,
-          insert:`function insert(){
-            const prst = db.prepare(sql.insert);
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.run(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          insert:`
+          const insertStatement = db.prepare(sql.insert);
+          function insert(object){
+            let result=[];
+            try{
+              result = insertStatement.run(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
-          }`,
-          updateSingle:`function updateSingle(){
-            const prst = db.prepare(sql.updateSingle);
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.run(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          }
+          `,
+          updateSingle:`
+          const updateSingleStatement = db.prepare(sql.updateSingle);
+          function updateSingle(object){
+            let result=[];
+            try{
+              result = updateSingleStatement.run(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
-          }`,
-          deleteSingle:`function deleteSingle(){
-            const prst = db.prepare(sql.deleteSingle);
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.run(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          }
+          `,
+          deleteSingle:`
+          const deleteSingleStatement = db.prepare(sql.deleteSingle);
+          function deleteSingle(object){
+            let result=[];
+            try{
+              result = deleteSingleStatement.run(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
-          }`,
-          getSingle:`function getSingle(){
-            const prst = db.prepare(sql.getSingle);
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.get(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          }
+          `,
+          getSingle:`
+          const getSingleStatement = db.prepare(sql.getSingle);
+          function getSingle(object){
+            let result=[];
+            try{
+              result = getSingleStatement.get(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
-          }`,
-          getAll:`function getAll(){
-            const prst = db.prepare(sql.getAll);
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.all(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          }
+          `,
+          getAll:`
+          const getAllStatement = db.prepare(sql.getAll);
+          function getAll(object){
+            let result=[];
+            try{
+              result = getAllStatement.all(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
-          }`,
-          countAll:`function countAll(){
-            const prst = db.prepare(sql.countAll);
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.get(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          }
+          `,
+          countAll:`
+          const countAllStatement = db.prepare(sql.countAll);
+          function countAll(object){
+            let result=[];
+            try{
+              result = countAllStatement.get(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
-          }`,
+          }
+          `,
         },
         api:{
           insert:{
@@ -218,7 +212,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.insert()(req.body)
+              return dao.insert(req.body)
             }`,
           },
           updateSingle:{
@@ -233,7 +227,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.updateSingle()(req.body)
+              return dao.updateSingle(req.body)
             }`,
           },
           deleteSingle:{
@@ -248,7 +242,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.deleteSingle()({${pk}:req.body.${pk}})
+              return dao.deleteSingle({${pk}:req.body.${pk}})
             }`,
           },
           getSingle:{
@@ -263,7 +257,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle()({${pk}:req.body.${pk})
+              return dao.getSingle({${pk}:req.body.${pk})
             }`,
           },
           getAll:{
@@ -272,7 +266,7 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               // #swagger.description = 'get all ${n}s'
-              return dao.getAll()({})
+              return dao.getAll()()
             }`,
           },
           countAll:{
@@ -281,7 +275,7 @@ function modelMapper(model){
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               // #swagger.description = 'count all ${n}s'
-              return dao.countAll()({})
+              return dao.countAll()()
             }`,
           },
         }
@@ -292,36 +286,34 @@ function modelMapper(model){
           WHERE ${fk}=@${fk}`;
           daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
           WHERE ${fk}=@${fk}`;
-          daoMetadata.methods[`getBY${fk}`]=`function getBY${fk}(){
-            const prst = db.prepare(sql.getBY${fk});
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.all(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          daoMetadata.methods[`getBY${fk}`]=`
+          const getBY${fk}Statement = db.prepare(sql.getBY${fk});
+          function getBY${fk}(object){
+            let result=[];
+            try{
+              result = getBY${fk}Statement.all(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
           }`
-          daoMetadata.methods[`countBY${fk}`]=`function countBY${fk}(){
-            const prst = db.prepare(sql.countBY${fk});
-            return (object) => {
-              let result=[];
-              try{
-                result = prst.all(object)
-              }catch(err){
-                // better-sqlite3 documentation indicates that the error
-                // should be trown in case this is invoked in a transaction
-                //  so that the engine should properly handle the rollback 
-                throw error;
-              }
+          daoMetadata.methods[`countBY${fk}`]=`
+          const countBY${fk}Statement = db.prepare(sql.countBY${fk});
+          function countBY${fk}(object){
+            let result=[];
+            try{
+              result = countBY${fk}Statement.all(object)
+            }catch(err){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
             }
           }`
           daoMetadata.api[`getBY${fk}`]={
-            method:'',
+            method:'GET',
             path:`${n}/getBy_${fk}`,
             handler:`function (req,res){
               // #swagger.tags = ['${n}s']
@@ -332,11 +324,11 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getBY${fk}()({${fk}:req.body.${fk}})
+              return dao.getBY${fk}({${fk}:req.body.${fk}})
             }
           }`}
           daoMetadata.api[`countBY${fk}`]={
-            method:'',
+            method:'GET',
             path:`${n}/countBy_${fk}`,
             handler:`function (req,res){
               // #swagger.tags = ['${n}s']
@@ -347,7 +339,7 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.countBY${fk}()({${fk}:req.body.${fk}})
+              return dao.countBY${fk}({${fk}:req.body.${fk}})
           }`}
         }
       );
@@ -362,7 +354,20 @@ function modelMapper(model){
         ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')
-      )
+      );
+      fs.writeFileSync(`generated/${n}.api.js`,
+        (`const dao=require('./${n}.dao.json')
+        module.exports={
+          ${Object.keys(daoMetadata.api).join(',\n    ')}
+        }
+        ` + 
+        (Object.values(daoMetadata.api)
+        .map(def => {
+          return ``
+        })
+         .join("\n\n"))
+        ).replace(/\n( ){10,10}/gi,'\n')
+      );
       console.log(daoMetadata);
       return daoMetadata;
     }
