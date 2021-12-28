@@ -16,11 +16,20 @@ module.exports={
   getBYowner_group_id,
   countBYowner_group_id
 }
+        /* create automatically the table for NOTIFIERs if not exists */
+        try{
+console.log('creating table NOTIFIER : start');
+const createResult = create();
+console.log('creating table NOTIFIER : created',createResult);
+        }catch(err){
+console.log('creating table NOTIFIER : ERROR',err.message);
+throw err;
+        }
         function drop(){
   let result=[];
   try{
     result = db.exec(sql.drop)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -32,7 +41,7 @@ function clear(){
   let result=[];
   try{
     result = db.exec(sql.clear)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -44,7 +53,7 @@ function create(){
   let result=[];
   try{
     result = db.exec(sql.create)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -58,7 +67,7 @@ function insert(object){
   let result=[];
   try{
     result = insertStatement.run(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -73,7 +82,7 @@ function updateSingle(object){
   let result=[];
   try{
     result = updateSingleStatement.run(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -88,7 +97,7 @@ function deleteSingle(object){
   let result=[];
   try{
     result = deleteSingleStatement.run(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -103,7 +112,7 @@ function getSingle(object){
   let result=[];
   try{
     result = getSingleStatement.get(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -118,7 +127,7 @@ function getAll(object){
   let result=[];
   try{
     result = getAllStatement.all(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -133,7 +142,7 @@ function countAll(object){
   let result=[];
   try{
     result = countAllStatement.get(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -148,7 +157,7 @@ function getBYsubscriber_id(object){
   let result=[];
   try{
     result = getBYsubscriber_idStatement.all(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -162,7 +171,7 @@ function countBYsubscriber_id(object){
   let result=[];
   try{
     result = countBYsubscriber_idStatement.all(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -176,7 +185,7 @@ function getBYowner_group_id(object){
   let result=[];
   try{
     result = getBYowner_group_idStatement.all(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
@@ -190,7 +199,7 @@ function countBYowner_group_id(object){
   let result=[];
   try{
     result = countBYowner_group_idStatement.all(object)
-  }catch(err){
+  }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 

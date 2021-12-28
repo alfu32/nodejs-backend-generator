@@ -48,7 +48,7 @@ function modelMapper(model){
           operations:{
             drop:`DROP TABLE IF NOT EXISTS ${table}`,
             drop:`TRUNCATE TABLE IF EXISTS ${table}`,
-            create:`CREATE TABLE IF NOT EXIST ${table}(
+            create:`CREATE TABLE IF NOT EXISTS ${table}(
               ${pk} VARCHAR PRIMARY KEY DEFAULT (${uuid}),
               ${
                 fks.concat(cols).map(
@@ -85,7 +85,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = db.exec(sql.drop)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -96,7 +96,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = db.exec(sql.clear)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -107,7 +107,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = db.exec(sql.create)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -120,7 +120,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = insertStatement.run(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -134,7 +134,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = updateSingleStatement.run(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -148,7 +148,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = deleteSingleStatement.run(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -162,7 +162,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = getSingleStatement.get(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -176,7 +176,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = getAllStatement.all(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -190,7 +190,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = countAllStatement.get(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -292,7 +292,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = getBY${fk}Statement.all(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -305,7 +305,7 @@ function modelMapper(model){
             let result=[];
             try{
               result = countBY${fk}Statement.all(object)
-            }catch(err){
+            }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
@@ -351,8 +351,15 @@ function modelMapper(model){
           module.exports={
             ${Object.keys(daoMetadata.methods).join(',\n            ')}
           }
-        /**/
-        create();
+        /* create automatically the table for ${table}s if not exists */
+        try{
+          console.log('creating table ${table} : start');
+          const createResult = create();
+          console.log('creating table ${table} : created',createResult);
+        }catch(err){
+          console.log('creating table ${table} : ERROR',err.message);
+          throw err;
+        }
         ` + 
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')

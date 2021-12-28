@@ -1,6 +1,6 @@
 {
  "drop": "TRUNCATE TABLE IF EXISTS MODULE",
- "create": "CREATE TABLE IF NOT EXIST MODULE(\n              module_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              owner_group_id VARCHAR,\nmodule_type VARCHAR,\nsource VARCHAR,\n              FOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
+ "create": "CREATE TABLE IF NOT EXISTS MODULE(\n              module_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              owner_group_id VARCHAR,\nmodule_type VARCHAR,\nsource VARCHAR,\n              FOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
  "insert": "INSERT INTO MODULE(\n            owner_group_id,module_type,source\n            ) VALUES (@owner_group_id,@module_type,@source)",
  "updateSingle": "UPDATE MODULE SET\n            owner_group_id=@owner_group_id,\nmodule_type=@module_type,\nsource=@source\n            WHERE module_id=@module_id",
  "deleteSingle": "DELETE FROM MODULE \n            WHERE module_id=@module_id",

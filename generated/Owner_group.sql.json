@@ -1,6 +1,6 @@
 {
  "drop": "TRUNCATE TABLE IF EXISTS OWNER_GROUP",
- "create": "CREATE TABLE IF NOT EXIST OWNER_GROUP(\n              owner_group_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              name VARCHAR,\n              \n            )",
+ "create": "CREATE TABLE IF NOT EXISTS OWNER_GROUP(\n              owner_group_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              name VARCHAR,\n              \n            )",
  "insert": "INSERT INTO OWNER_GROUP(\n            name\n            ) VALUES (@name)",
  "updateSingle": "UPDATE OWNER_GROUP SET\n            name=@name\n            WHERE owner_group_id=@owner_group_id",
  "deleteSingle": "DELETE FROM OWNER_GROUP \n            WHERE owner_group_id=@owner_group_id",
