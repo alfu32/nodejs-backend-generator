@@ -81,7 +81,9 @@ function modelMapper(model){
           }
         },
         statements:{
-          insert:`const insertStatement = db.prepare(sql.insert);`,
+          insert:`const insertStatement = db.prepare('INSERT INTO ${table}(
+            ${fks.concat(cols).join(',')}
+            ) VALUES (${fks.concat(cols).map(n=>`@${n}`).join(',')})');`,
           updateSingle:`const updateSingleStatement = db.prepare(sql.updateSingle);`,
           deleteSingle:`const deleteSingleStatement = db.prepare(sql.deleteSingle);`,
           getSingle:`const getSingleStatement = db.prepare(sql.getSingle);`,
@@ -99,6 +101,7 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }`,
           clear:`function clear(){
             let result=[];
@@ -110,6 +113,7 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }`,
           create:`function create(){
             let result=[];
@@ -121,14 +125,16 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }`,
           insert:`
           function insert(object){
             let result=[];
             try{
               if(typeof(statements.insertStatement) === "undefined"){
-                statements.insertStatement= db.prepare(sql.insertStatement);
+                statements.insertStatement= db.prepare(sql.insert);
               }
+              console.log('sql.insert',sql.insert,object)
               result = statements.insertStatement.run(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
@@ -136,6 +142,7 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }
           `,
           updateSingle:`
@@ -143,8 +150,9 @@ function modelMapper(model){
             let result=[];
             try{
               if(typeof(statements.updateSingleStatement) === "undefined"){
-                statements.updateSingleStatement= db.prepare(sql.updateSingleStatement);
+                statements.updateSingleStatement= db.prepare(sql.updateSingle);
               }
+              console.log('sql.updateSingle',sql.updateSingle,object)
               result = statements.updateSingleStatement.run(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
@@ -152,6 +160,7 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }
           `,
           deleteSingle:`
@@ -159,8 +168,9 @@ function modelMapper(model){
             let result=[];
             try{
               if(typeof(statements.deleteSingleStatement) === "undefined"){
-                statements.deleteSingleStatement= db.prepare(sql.deleteSingleStatement);
+                statements.deleteSingleStatement= db.prepare(sql.deleteSingle);
               }
+              console.log('sql.deleteSingle',sql.deleteSingle,object)
               result = statements.deleteSingleStatement.run(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
@@ -168,6 +178,7 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }
           `,
           getSingle:`
@@ -175,8 +186,9 @@ function modelMapper(model){
             let result=[];
             try{
               if(typeof(statements.getSingleStatement) === "undefined"){
-                statements.getSingleStatement= db.prepare(sql.getSingleStatement);
+                statements.getSingleStatement= db.prepare(sql.getSingle);
               }
+              console.log('sql.getSingle',sql.getSingle,object)
               result = statements.getSingleStatement.get(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
@@ -184,19 +196,25 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }
           `,
           getAll:`
           function getAll(object){
             let result=[];
             try{
-              result = getAllStatement.all(object)
+              if(typeof(statements.getAllStatement) === "undefined"){
+                statements.getAllStatement= db.prepare(sql.getAll);
+              }
+              console.log('sql.getAll',sql.getAll,object)
+              result = statements.getAllStatement.all({})
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }
           `,
           countAll:`
@@ -204,22 +222,24 @@ function modelMapper(model){
             let result=[];
             try{
               if(typeof(statements.countAllStatement) === "undefined"){
-                statements.countAllStatement= db.prepare(sql.countAllStatement);
+                statements.countAllStatement= db.prepare(sql.countAll);
               }
-              result = statements.countAllStatement.get(object)
+              console.log('sql.countAll',sql.countAll,object)
+              result = statements.countAllStatement.get({})
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }
           `,
         },
         api:{
           insert:{
             method:"POST",
-            path:`${n}/insert`,
+            path:`/${n}/insert`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -230,12 +250,19 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.insert(req.body);
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.insert(req.body)));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }`,
           },
           updateSingle:{
             method:"POST",
-            path:`${n}/updateSingle`,
+            path:`/${n}/updateSingle`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -246,12 +273,19 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.updateSingle(req.body);
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }`,
           },
           deleteSingle:{
             method:"DELETE",
-            path:`${n}/deleteSingle`,
+            path:`/${n}/deleteSingle`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -262,12 +296,19 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.deleteSingle({${pk}:req.body.${pk}});
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.deleteSingle({${pk}:req.body.${pk}})));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }`,
           },
           getSingle:{
             method:"GET",
-            path:`${n}/getSingle`,
+            path:`/${n}/getSingle`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -278,25 +319,46 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getSingle({${pk}:req.body.${pk}});
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.getSingle({${pk}:req.body.${pk}})));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }`,
           },
           getAll:{
             method:"GET",
-            path:`${n}/getAll`,
+            path:`/${n}/getAll`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               // #swagger.description = 'get all ${n}s'
-              return dao.getAll()
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.getAll()));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }`,
           },
           countAll:{
             method:"GET",
-            path:`${n}/countAll`,
+            path:`/${n}/countAll`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               // #swagger.description = 'count all ${n}s'
-              return dao.countAll()
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.countAll()));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }`,
           },
         }
@@ -312,9 +374,10 @@ function modelMapper(model){
           function getBY${fk}(object){
             let result=[];
             try{
-              if(typeof(statements.getBY${fk}) === "undefined"){
-                statements.getBY${fk} = db.prepare(sql.getBY${fk});
+              if(typeof(statements.getBY${fk}Statement) === "undefined"){
+                statements.getBY${fk}Statement = db.prepare(sql.getBY${fk});
               }
+              console.log('sql.getBY${fk}',sql.getBY${fk},object);
               result = statements.getBY${fk}Statement.all(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
@@ -322,25 +385,28 @@ function modelMapper(model){
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }`
           daoMetadata.methods[`countBY${fk}`]=`
           function countBY${fk}(object){
             let result=[];
             try{
-              if(typeof(statements.countBY${fk}) === "undefined"){
-                statements.countBY${fk} = db.prepare(sql.countBY${fk});
+              if(typeof(statements.countBY${fk}Statement) === "undefined"){
+                statements.countBY${fk}Statement = db.prepare(sql.countBY${fk});
               }
-              result = statements.countBY${fk}.all(object)
+              console.log('sql.countBY${fk}',sql.countBY${fk},object);
+              result = statements.countBY${fk}Statement.all(object)
             }catch(error){
               // better-sqlite3 documentation indicates that the error
               // should be trown in case this is invoked in a transaction
               //  so that the engine should properly handle the rollback 
               throw error;
             }
+            return result;
           }`
           daoMetadata.api[`getBY${fk}`]={
             method:'GET',
-            path:`${n}/getBy_${fk}`,
+            path:`/${n}/getBy_${fk}`,
             handler:`function (req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -350,12 +416,19 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.getBY${fk}({${fk}:req.body.${fk}});
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.getBY${fk}({${fk}:req.body.${fk}})));
+                res.end();
+              }catch(err){
+                throw err;
+              }
             }
           `}
           daoMetadata.api[`countBY${fk}`]={
             method:'GET',
-            path:`${n}/countBy_${fk}`,
+            path:`/${n}/countBy_${fk}`,
             handler:`function (req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -365,7 +438,14 @@ function modelMapper(model){
                   schema: { $ref: '#/definitions/${n}' }
                 }
               */
-              return dao.countBY${fk}({${fk}:req.body.${fk}});
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.countBY${fk}({${fk}:req.body.${fk}})));
+                res.end();
+              }catch(err){
+                throw err;
+              }
           }`}
         }
       );

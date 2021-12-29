@@ -6,12 +6,20 @@
 const path = require("path");
 
 // Require the fastify framework and instantiate it
-const fastify = require("fastify")({
-  // Set this to true for detailed logging:
-  logger: false
-});
+
 const express = require('express');
 const app = express();
+const cors = require('cors')
+ const corsOptions = {
+   origin: 'https://parallel-scarlet-juravenator.glitch.me',
+    optionsSuccessStatus: 200, // For legacy browser support
+    methods: "GET, PUT, POST, DELETE, OPTIONS"
+ }
+ app.use(cors(corsOptions));
+
+// Parse JSON bodies for this app. Make sure you put
+// `app.use(express.json())` **before** your route handlers!
+app.use(express.json());
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -34,8 +42,9 @@ require('./generated/Watcher.api').register(app);
 // Run the server and report out to the lo
 app.listen(process.env.PORT, function(err, address) {
   if (err) {
-    fastify.log.error(err);
+    console.log(err);
     process.exit(1);
   }
-  console.log(`Your app is listening on ${address} ${process.env.PORT}`);
+  console.log(process.env);
+  console.log(`Your app is listening on https://${process.env.PROJECT_DOMAIN}.glitch.me ${process.env.PORT}`);
 });
