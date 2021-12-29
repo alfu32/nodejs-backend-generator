@@ -14,10 +14,38 @@
   "consumes": [],
   "produces": [],
   "paths": {
-    "/": {
+    "/env": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Process"
+        ],
+        "description": "get environment variables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "environment variables successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "object"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Module/recreateTable": {
+      "post": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "recreate table Module",
         "parameters": [],
         "responses": {
           "200": {
@@ -95,25 +123,26 @@
         }
       }
     },
-    "/Module/getSingle": {
+    "/Module/getById/{module_id}": {
       "get": {
         "tags": [
           "Modules"
         ],
-        "description": "",
+        "description": "get details of Module by module_id",
         "parameters": [
           {
-            "name": "Module",
-            "in": "body",
-            "description": "get details of Module by id",
-            "schema": {
-              "$ref": "#/definitions/Module"
-            }
+            "name": "module_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Module successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
           }
         }
       }
@@ -127,7 +156,22 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Module list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Module"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -146,13 +190,20 @@
         }
       }
     },
-    "/Module/getBy_owner_group_id": {
+    "/Module/getBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Modules"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "get all Modules by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -160,12 +211,33 @@
         }
       }
     },
-    "/Module/countBy_owner_group_id": {
+    "/Module/countBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Modules"
         ],
-        "description": "",
+        "description": "count all Modules by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/recreateTable": {
+      "post": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "recreate table Notifier",
         "parameters": [],
         "responses": {
           "200": {
@@ -243,25 +315,26 @@
         }
       }
     },
-    "/Notifier/getSingle": {
+    "/Notifier/getById/{notifier_id}": {
       "get": {
         "tags": [
           "Notifiers"
         ],
-        "description": "",
+        "description": "get details of Notifier by notifier_id",
         "parameters": [
           {
-            "name": "Notifier",
-            "in": "body",
-            "description": "get details of Notifier by id",
-            "schema": {
-              "$ref": "#/definitions/Notifier"
-            }
+            "name": "notifier_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notifier successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Notifier"
+            }
           }
         }
       }
@@ -275,7 +348,22 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Notifier list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Notifier"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -294,13 +382,20 @@
         }
       }
     },
-    "/Notifier/getBy_subscriber_id": {
+    "/Notifier/getBy_subscriber_id/{subscriber_id}": {
       "get": {
         "tags": [
           "Notifiers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "get all Notifiers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -308,13 +403,20 @@
         }
       }
     },
-    "/Notifier/countBy_subscriber_id": {
+    "/Notifier/countBy_subscriber_id/{subscriber_id}": {
       "get": {
         "tags": [
           "Notifiers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "count all Notifiers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -322,13 +424,20 @@
         }
       }
     },
-    "/Notifier/getBy_owner_group_id": {
+    "/Notifier/getBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Notifiers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "get all Notifiers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -336,12 +445,33 @@
         }
       }
     },
-    "/Notifier/countBy_owner_group_id": {
+    "/Notifier/countBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Notifiers"
         ],
-        "description": "",
+        "description": "count all Notifiers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Owner_group/recreateTable": {
+      "post": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "recreate table Owner_group",
         "parameters": [],
         "responses": {
           "200": {
@@ -419,25 +549,26 @@
         }
       }
     },
-    "/Owner_group/getSingle": {
+    "/Owner_group/getById/{owner_group_id}": {
       "get": {
         "tags": [
           "Owner_groups"
         ],
-        "description": "",
+        "description": "get details of Owner_group by owner_group_id",
         "parameters": [
           {
-            "name": "Owner_group",
-            "in": "body",
-            "description": "get details of Owner_group by id",
-            "schema": {
-              "$ref": "#/definitions/Owner_group"
-            }
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Owner_group successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Owner_group"
+            }
           }
         }
       }
@@ -451,7 +582,22 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Owner_group list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Owner_group"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -462,6 +608,20 @@
           "Owner_groups"
         ],
         "description": "count all Owner_groups",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/recreateTable": {
+      "post": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "recreate table Subscriber",
         "parameters": [],
         "responses": {
           "200": {
@@ -539,25 +699,26 @@
         }
       }
     },
-    "/Subscriber/getSingle": {
+    "/Subscriber/getById/{watcher_id}": {
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "description": "",
+        "description": "get details of Subscriber by watcher_id",
         "parameters": [
           {
-            "name": "Subscriber",
-            "in": "body",
-            "description": "get details of Subscriber by id",
-            "schema": {
-              "$ref": "#/definitions/Subscriber"
-            }
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Subscriber successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
           }
         }
       }
@@ -571,7 +732,22 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Subscriber list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Subscriber"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -590,13 +766,20 @@
         }
       }
     },
-    "/Subscriber/getBy_subscriber_id": {
+    "/Subscriber/getBy_subscriber_id/{subscriber_id}": {
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "get all Subscribers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -604,13 +787,20 @@
         }
       }
     },
-    "/Subscriber/countBy_subscriber_id": {
+    "/Subscriber/countBy_subscriber_id/{subscriber_id}": {
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "count all Subscribers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -618,13 +808,20 @@
         }
       }
     },
-    "/Subscriber/getBy_owner_group_id": {
+    "/Subscriber/getBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "get all Subscribers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -632,12 +829,33 @@
         }
       }
     },
-    "/Subscriber/countBy_owner_group_id": {
+    "/Subscriber/countBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Subscribers"
         ],
-        "description": "",
+        "description": "count all Subscribers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Watcher/recreateTable": {
+      "post": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "recreate table Watcher",
         "parameters": [],
         "responses": {
           "200": {
@@ -715,25 +933,26 @@
         }
       }
     },
-    "/Watcher/getSingle": {
+    "/Watcher/getById/{watcher_id}": {
       "get": {
         "tags": [
           "Watchers"
         ],
-        "description": "",
+        "description": "get details of Watcher by watcher_id",
         "parameters": [
           {
-            "name": "Watcher",
-            "in": "body",
-            "description": "get details of Watcher by id",
-            "schema": {
-              "$ref": "#/definitions/Watcher"
-            }
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Watcher successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Watcher"
+            }
           }
         }
       }
@@ -747,7 +966,22 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Watcher list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Watcher"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -766,13 +1000,20 @@
         }
       }
     },
-    "/Watcher/getBy_owner_group_id": {
+    "/Watcher/getBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Watchers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "get all Watchers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -780,13 +1021,20 @@
         }
       }
     },
-    "/Watcher/countBy_owner_group_id": {
+    "/Watcher/countBy_owner_group_id/{owner_group_id}": {
       "get": {
         "tags": [
           "Watchers"
         ],
-        "description": "",
-        "parameters": [],
+        "description": "count all Watchers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -802,6 +1050,10 @@
         "watcher_id": {
           "type": "string",
           "example": "autogenerated as uuid(32) by sql engine"
+        },
+        "name": {
+          "type": "string",
+          "example": ""
         },
         "owner_group_id": {
           "type": "string",

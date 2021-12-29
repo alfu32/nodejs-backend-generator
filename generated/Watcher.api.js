@@ -3,7 +3,24 @@ const dao=require('./Watcher.dao.js')
 register
         }
         function register(app){
-app.post('/Watcher/insert',function(req,res){
+app.post('/Watcher/recreateTable',function(req,res){
+    /*
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'recreate table Watcher'
+    */
+    let result=null;
+    let error=null;
+    try{
+      const drop = dao.drop();
+      const create = dao.create();
+      res.send({drop,create});
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Watcher/insert',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -63,20 +80,18 @@ app.post('/Watcher/insert',function(req,res){
     }
   });
 
-  app.get('/Watcher/getSingle',function(req,res){
-    // #swagger.tags = ['Watchers']
-    /*
-      #swagger.parameters['Watcher'] = {
-        in: 'body',
-        description: 'get details of Watcher by id',
-        type:'object',
-        schema: { $ref: '#/definitions/Watcher' }
-      }
-    */
+  app.get('/Watcher/getById/:watcher_id',function(req,res){
+    /* 
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'get details of Watcher by watcher_id'
+    #swagger.responses[200] = {
+            description: 'Watcher successfully obtained.',
+            schema: { $ref: '#/definitions/Watcher' }
+    } */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.getSingle({watcher_id:req.body.watcher_id})));
+      res.send(dao.getSingle({watcher_id:req.params.watcher_id}));
       res.end();
     }catch(err){
       throw err;
@@ -84,8 +99,13 @@ app.post('/Watcher/insert',function(req,res){
   });
 
   app.get('/Watcher/getAll',function(req,res){
-    // #swagger.tags = ['Watchers']
-    // #swagger.description = 'get all Watchers'
+    /* 
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'get all Watchers'
+    #swagger.responses[200] = {
+            description: 'Watcher list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Watcher'} }
+    } */
     let result=null;
     let error=null;
     try{
@@ -97,8 +117,10 @@ app.post('/Watcher/insert',function(req,res){
   });
 
   app.get('/Watcher/countAll',function(req,res){
-    // #swagger.tags = ['Watchers']
-    // #swagger.description = 'count all Watchers'
+    /* 
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'count all Watchers'
+    */
     let result=null;
     let error=null;
     try{
@@ -109,19 +131,15 @@ app.post('/Watcher/insert',function(req,res){
     }
   });
 
-  app.get('/Watcher/getBy_owner_group_id',function (req,res){
-    // #swagger.tags = ['Watchers']
+  app.get('/Watcher/getBy_owner_group_id/:owner_group_id',function (req,res){
     /*
-      #swagger..parameters['Watcher'] = {
-        in: 'body',
-        description: 'get list of Watcher by owner_group_id',
-        schema: { $ref: '#/definitions/Watcher' }
-      }
+    #swagger.tags = ['Watchers']
+    #swagger.description  = 'get all Watchers by owner_group_id'
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.send(dao.getBYowner_group_id({owner_group_id:req.params.owner_group_id}));
       res.end();
     }catch(err){
       throw err;
@@ -129,19 +147,15 @@ app.post('/Watcher/insert',function(req,res){
   }
 );
 
-  app.get('/Watcher/countBy_owner_group_id',function (req,res){
-    // #swagger.tags = ['Watchers']
+  app.get('/Watcher/countBy_owner_group_id/:owner_group_id',function (req,res){
     /*
-      #swagger..parameters['Watcher'] = {
-        in: 'body',
-        description: 'count Watchers by owner_group_id',
-        schema: { $ref: '#/definitions/Watcher' }
-      }
+    #swagger.tags = ['Watchers']
+    #swagger.description  = 'count all Watchers by owner_group_id'
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.send(dao.countBYowner_group_id({owner_group_id:req.params.owner_group_id}));
       res.end();
     }catch(err){
       throw err;

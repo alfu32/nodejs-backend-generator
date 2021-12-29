@@ -26,10 +26,19 @@ const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // ADD FAVORITES ARRAY VARIABLE FROM TODO HERE
-app.get('/',(req,res,next)=>{
+app.get('/env',(req,res,next)=>{
+  
+  /* 
+  #swagger.tags = ['Process']
+  #swagger.description = 'get environment variables'
+  #swagger.responses[200] = {
+          description: 'environment variables successfully obtained.',
+          schema: { type:'object' }
+  } */
   res.send({
     host: `${process.env.PROJECT_DOMAIN}.glitch.me`,
-    port:process.env.PORT
+    port:process.env.PORT,
+    // env:process.env
   })
 });
 

@@ -3,7 +3,24 @@ const dao=require('./Module.dao.js')
 register
         }
         function register(app){
-app.post('/Module/insert',function(req,res){
+app.post('/Module/recreateTable',function(req,res){
+    /*
+    #swagger.tags = ['Modules']
+    #swagger.description = 'recreate table Module'
+    */
+    let result=null;
+    let error=null;
+    try{
+      const drop = dao.drop();
+      const create = dao.create();
+      res.send({drop,create});
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Module/insert',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -63,20 +80,18 @@ app.post('/Module/insert',function(req,res){
     }
   });
 
-  app.get('/Module/getSingle',function(req,res){
-    // #swagger.tags = ['Modules']
-    /*
-      #swagger.parameters['Module'] = {
-        in: 'body',
-        description: 'get details of Module by id',
-        type:'object',
-        schema: { $ref: '#/definitions/Module' }
-      }
-    */
+  app.get('/Module/getById/:module_id',function(req,res){
+    /* 
+    #swagger.tags = ['Modules']
+    #swagger.description = 'get details of Module by module_id'
+    #swagger.responses[200] = {
+            description: 'Module successfully obtained.',
+            schema: { $ref: '#/definitions/Module' }
+    } */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.getSingle({module_id:req.body.module_id})));
+      res.send(dao.getSingle({module_id:req.params.module_id}));
       res.end();
     }catch(err){
       throw err;
@@ -84,8 +99,13 @@ app.post('/Module/insert',function(req,res){
   });
 
   app.get('/Module/getAll',function(req,res){
-    // #swagger.tags = ['Modules']
-    // #swagger.description = 'get all Modules'
+    /* 
+    #swagger.tags = ['Modules']
+    #swagger.description = 'get all Modules'
+    #swagger.responses[200] = {
+            description: 'Module list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Module'} }
+    } */
     let result=null;
     let error=null;
     try{
@@ -97,8 +117,10 @@ app.post('/Module/insert',function(req,res){
   });
 
   app.get('/Module/countAll',function(req,res){
-    // #swagger.tags = ['Modules']
-    // #swagger.description = 'count all Modules'
+    /* 
+    #swagger.tags = ['Modules']
+    #swagger.description = 'count all Modules'
+    */
     let result=null;
     let error=null;
     try{
@@ -109,19 +131,15 @@ app.post('/Module/insert',function(req,res){
     }
   });
 
-  app.get('/Module/getBy_owner_group_id',function (req,res){
-    // #swagger.tags = ['Modules']
+  app.get('/Module/getBy_owner_group_id/:owner_group_id',function (req,res){
     /*
-      #swagger..parameters['Module'] = {
-        in: 'body',
-        description: 'get list of Module by owner_group_id',
-        schema: { $ref: '#/definitions/Module' }
-      }
+    #swagger.tags = ['Modules']
+    #swagger.description  = 'get all Modules by owner_group_id'
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.send(dao.getBYowner_group_id({owner_group_id:req.params.owner_group_id}));
       res.end();
     }catch(err){
       throw err;
@@ -129,19 +147,15 @@ app.post('/Module/insert',function(req,res){
   }
 );
 
-  app.get('/Module/countBy_owner_group_id',function (req,res){
-    // #swagger.tags = ['Modules']
+  app.get('/Module/countBy_owner_group_id/:owner_group_id',function (req,res){
     /*
-      #swagger..parameters['Module'] = {
-        in: 'body',
-        description: 'count Modules by owner_group_id',
-        schema: { $ref: '#/definitions/Module' }
-      }
+    #swagger.tags = ['Modules']
+    #swagger.description  = 'count all Modules by owner_group_id'
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.send(dao.countBYowner_group_id({owner_group_id:req.params.owner_group_id}));
       res.end();
     }catch(err){
       throw err;
