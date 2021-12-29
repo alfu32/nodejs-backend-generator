@@ -32,6 +32,7 @@ throw err;
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 function clear(){
@@ -44,6 +45,7 @@ function clear(){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 function create(){
@@ -56,6 +58,7 @@ function create(){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -63,8 +66,9 @@ function insert(object){
   let result=[];
   try{
     if(typeof(statements.insertStatement) === "undefined"){
-      statements.insertStatement= db.prepare(sql.insertStatement);
+      statements.insertStatement= db.prepare(sql.insert);
     }
+    console.log('sql.insert',sql.insert,object)
     result = statements.insertStatement.run(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -72,6 +76,7 @@ function insert(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -80,8 +85,9 @@ function updateSingle(object){
   let result=[];
   try{
     if(typeof(statements.updateSingleStatement) === "undefined"){
-      statements.updateSingleStatement= db.prepare(sql.updateSingleStatement);
+      statements.updateSingleStatement= db.prepare(sql.updateSingle);
     }
+    console.log('sql.updateSingle',sql.updateSingle,object)
     result = statements.updateSingleStatement.run(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -89,6 +95,7 @@ function updateSingle(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -97,8 +104,9 @@ function deleteSingle(object){
   let result=[];
   try{
     if(typeof(statements.deleteSingleStatement) === "undefined"){
-      statements.deleteSingleStatement= db.prepare(sql.deleteSingleStatement);
+      statements.deleteSingleStatement= db.prepare(sql.deleteSingle);
     }
+    console.log('sql.deleteSingle',sql.deleteSingle,object)
     result = statements.deleteSingleStatement.run(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -106,6 +114,7 @@ function deleteSingle(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -114,8 +123,9 @@ function getSingle(object){
   let result=[];
   try{
     if(typeof(statements.getSingleStatement) === "undefined"){
-      statements.getSingleStatement= db.prepare(sql.getSingleStatement);
+      statements.getSingleStatement= db.prepare(sql.getSingle);
     }
+    console.log('sql.getSingle',sql.getSingle,object)
     result = statements.getSingleStatement.get(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -123,6 +133,7 @@ function getSingle(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -130,13 +141,18 @@ function getSingle(object){
 function getAll(object){
   let result=[];
   try{
-    result = getAllStatement.all(object)
+    if(typeof(statements.getAllStatement) === "undefined"){
+      statements.getAllStatement= db.prepare(sql.getAll);
+    }
+    console.log('sql.getAll',sql.getAll,object)
+    result = statements.getAllStatement.all({})
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -145,13 +161,15 @@ function countAll(object){
   let result=[];
   try{
     if(typeof(statements.countAllStatement) === "undefined"){
-      statements.countAllStatement= db.prepare(sql.countAllStatement);
+      statements.countAllStatement= db.prepare(sql.countAll);
     }
-    result = statements.countAllStatement.get(object)
+    console.log('sql.countAll',sql.countAll,object)
+    result = statements.countAllStatement.get({})
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }

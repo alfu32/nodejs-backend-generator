@@ -26,21 +26,7 @@
         }
       }
     },
-    "/watchers": {
-      "get": {
-        "tags": [
-          "watchers"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "Module/insert": {
+    "/Module/insert": {
       "post": {
         "tags": [
           "Modules"
@@ -56,10 +42,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/updateSingle": {
+    "/Module/updateSingle": {
       "post": {
         "tags": [
           "Modules"
@@ -75,10 +65,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/deleteSingle": {
+    "/Module/deleteSingle": {
       "delete": {
         "tags": [
           "Modules"
@@ -94,10 +88,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/getSingle": {
+    "/Module/getSingle": {
       "get": {
         "tags": [
           "Modules"
@@ -113,50 +111,70 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/getAll": {
+    "/Module/getAll": {
       "get": {
         "tags": [
           "Modules"
         ],
         "description": "get all Modules",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/countAll": {
+    "/Module/countAll": {
       "get": {
         "tags": [
           "Modules"
         ],
         "description": "count all Modules",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/getBy_owner_group_id": {
+    "/Module/getBy_owner_group_id": {
       "get": {
         "tags": [
           "Modules"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Module/countBy_owner_group_id": {
+    "/Module/countBy_owner_group_id": {
       "get": {
         "tags": [
           "Modules"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/insert": {
+    "/Notifier/insert": {
       "post": {
         "tags": [
           "Notifiers"
@@ -172,10 +190,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/updateSingle": {
+    "/Notifier/updateSingle": {
       "post": {
         "tags": [
           "Notifiers"
@@ -191,10 +213,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/deleteSingle": {
+    "/Notifier/deleteSingle": {
       "delete": {
         "tags": [
           "Notifiers"
@@ -210,10 +236,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/getSingle": {
+    "/Notifier/getSingle": {
       "get": {
         "tags": [
           "Notifiers"
@@ -229,70 +259,98 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/getAll": {
+    "/Notifier/getAll": {
       "get": {
         "tags": [
           "Notifiers"
         ],
         "description": "get all Notifiers",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/countAll": {
+    "/Notifier/countAll": {
       "get": {
         "tags": [
           "Notifiers"
         ],
         "description": "count all Notifiers",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/getBy_subscriber_id": {
+    "/Notifier/getBy_subscriber_id": {
       "get": {
         "tags": [
           "Notifiers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/countBy_subscriber_id": {
+    "/Notifier/countBy_subscriber_id": {
       "get": {
         "tags": [
           "Notifiers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/getBy_owner_group_id": {
+    "/Notifier/getBy_owner_group_id": {
       "get": {
         "tags": [
           "Notifiers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Notifier/countBy_owner_group_id": {
+    "/Notifier/countBy_owner_group_id": {
       "get": {
         "tags": [
           "Notifiers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Owner_group/insert": {
+    "/Owner_group/insert": {
       "post": {
         "tags": [
           "Owner_groups"
@@ -308,10 +366,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Owner_group/updateSingle": {
+    "/Owner_group/updateSingle": {
       "post": {
         "tags": [
           "Owner_groups"
@@ -327,10 +389,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Owner_group/deleteSingle": {
+    "/Owner_group/deleteSingle": {
       "delete": {
         "tags": [
           "Owner_groups"
@@ -346,10 +412,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Owner_group/getSingle": {
+    "/Owner_group/getSingle": {
       "get": {
         "tags": [
           "Owner_groups"
@@ -365,30 +435,42 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Owner_group/getAll": {
+    "/Owner_group/getAll": {
       "get": {
         "tags": [
           "Owner_groups"
         ],
         "description": "get all Owner_groups",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Owner_group/countAll": {
+    "/Owner_group/countAll": {
       "get": {
         "tags": [
           "Owner_groups"
         ],
         "description": "count all Owner_groups",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/insert": {
+    "/Subscriber/insert": {
       "post": {
         "tags": [
           "Subscribers"
@@ -404,10 +486,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/updateSingle": {
+    "/Subscriber/updateSingle": {
       "post": {
         "tags": [
           "Subscribers"
@@ -423,10 +509,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/deleteSingle": {
+    "/Subscriber/deleteSingle": {
       "delete": {
         "tags": [
           "Subscribers"
@@ -442,10 +532,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/getSingle": {
+    "/Subscriber/getSingle": {
       "get": {
         "tags": [
           "Subscribers"
@@ -461,70 +555,98 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/getAll": {
+    "/Subscriber/getAll": {
       "get": {
         "tags": [
           "Subscribers"
         ],
         "description": "get all Subscribers",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/countAll": {
+    "/Subscriber/countAll": {
       "get": {
         "tags": [
           "Subscribers"
         ],
         "description": "count all Subscribers",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/getBy_subscriber_id": {
+    "/Subscriber/getBy_subscriber_id": {
       "get": {
         "tags": [
           "Subscribers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/countBy_subscriber_id": {
+    "/Subscriber/countBy_subscriber_id": {
       "get": {
         "tags": [
           "Subscribers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/getBy_owner_group_id": {
+    "/Subscriber/getBy_owner_group_id": {
       "get": {
         "tags": [
           "Subscribers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Subscriber/countBy_owner_group_id": {
+    "/Subscriber/countBy_owner_group_id": {
       "get": {
         "tags": [
           "Subscribers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/insert": {
+    "/Watcher/insert": {
       "post": {
         "tags": [
           "Watchers"
@@ -540,10 +662,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/updateSingle": {
+    "/Watcher/updateSingle": {
       "post": {
         "tags": [
           "Watchers"
@@ -559,10 +685,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/deleteSingle": {
+    "/Watcher/deleteSingle": {
       "delete": {
         "tags": [
           "Watchers"
@@ -578,10 +708,14 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/getSingle": {
+    "/Watcher/getSingle": {
       "get": {
         "tags": [
           "Watchers"
@@ -597,47 +731,67 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/getAll": {
+    "/Watcher/getAll": {
       "get": {
         "tags": [
           "Watchers"
         ],
         "description": "get all Watchers",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/countAll": {
+    "/Watcher/countAll": {
       "get": {
         "tags": [
           "Watchers"
         ],
         "description": "count all Watchers",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/getBy_owner_group_id": {
+    "/Watcher/getBy_owner_group_id": {
       "get": {
         "tags": [
           "Watchers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
-    "Watcher/countBy_owner_group_id": {
+    "/Watcher/countBy_owner_group_id": {
       "get": {
         "tags": [
           "Watchers"
         ],
         "description": "",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },

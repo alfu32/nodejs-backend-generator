@@ -36,6 +36,7 @@ throw err;
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 function clear(){
@@ -48,6 +49,7 @@ function clear(){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 function create(){
@@ -60,6 +62,7 @@ function create(){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -67,8 +70,9 @@ function insert(object){
   let result=[];
   try{
     if(typeof(statements.insertStatement) === "undefined"){
-      statements.insertStatement= db.prepare(sql.insertStatement);
+      statements.insertStatement= db.prepare(sql.insert);
     }
+    console.log('sql.insert',sql.insert,object)
     result = statements.insertStatement.run(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -76,6 +80,7 @@ function insert(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -84,8 +89,9 @@ function updateSingle(object){
   let result=[];
   try{
     if(typeof(statements.updateSingleStatement) === "undefined"){
-      statements.updateSingleStatement= db.prepare(sql.updateSingleStatement);
+      statements.updateSingleStatement= db.prepare(sql.updateSingle);
     }
+    console.log('sql.updateSingle',sql.updateSingle,object)
     result = statements.updateSingleStatement.run(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -93,6 +99,7 @@ function updateSingle(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -101,8 +108,9 @@ function deleteSingle(object){
   let result=[];
   try{
     if(typeof(statements.deleteSingleStatement) === "undefined"){
-      statements.deleteSingleStatement= db.prepare(sql.deleteSingleStatement);
+      statements.deleteSingleStatement= db.prepare(sql.deleteSingle);
     }
+    console.log('sql.deleteSingle',sql.deleteSingle,object)
     result = statements.deleteSingleStatement.run(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -110,6 +118,7 @@ function deleteSingle(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -118,8 +127,9 @@ function getSingle(object){
   let result=[];
   try{
     if(typeof(statements.getSingleStatement) === "undefined"){
-      statements.getSingleStatement= db.prepare(sql.getSingleStatement);
+      statements.getSingleStatement= db.prepare(sql.getSingle);
     }
+    console.log('sql.getSingle',sql.getSingle,object)
     result = statements.getSingleStatement.get(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -127,6 +137,7 @@ function getSingle(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -134,13 +145,18 @@ function getSingle(object){
 function getAll(object){
   let result=[];
   try{
-    result = getAllStatement.all(object)
+    if(typeof(statements.getAllStatement) === "undefined"){
+      statements.getAllStatement= db.prepare(sql.getAll);
+    }
+    console.log('sql.getAll',sql.getAll,object)
+    result = statements.getAllStatement.all({})
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -149,15 +165,17 @@ function countAll(object){
   let result=[];
   try{
     if(typeof(statements.countAllStatement) === "undefined"){
-      statements.countAllStatement= db.prepare(sql.countAllStatement);
+      statements.countAllStatement= db.prepare(sql.countAll);
     }
-    result = statements.countAllStatement.get(object)
+    console.log('sql.countAll',sql.countAll,object)
+    result = statements.countAllStatement.get({})
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
@@ -165,9 +183,10 @@ function countAll(object){
 function getBYsubscriber_id(object){
   let result=[];
   try{
-    if(typeof(statements.getBYsubscriber_id) === "undefined"){
-      statements.getBYsubscriber_id = db.prepare(sql.getBYsubscriber_id);
+    if(typeof(statements.getBYsubscriber_idStatement) === "undefined"){
+      statements.getBYsubscriber_idStatement = db.prepare(sql.getBYsubscriber_id);
     }
+    console.log('sql.getBYsubscriber_id',sql.getBYsubscriber_id,object);
     result = statements.getBYsubscriber_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -175,31 +194,35 @@ function getBYsubscriber_id(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
 function countBYsubscriber_id(object){
   let result=[];
   try{
-    if(typeof(statements.countBYsubscriber_id) === "undefined"){
-      statements.countBYsubscriber_id = db.prepare(sql.countBYsubscriber_id);
+    if(typeof(statements.countBYsubscriber_idStatement) === "undefined"){
+      statements.countBYsubscriber_idStatement = db.prepare(sql.countBYsubscriber_id);
     }
-    result = statements.countBYsubscriber_id.all(object)
+    console.log('sql.countBYsubscriber_id',sql.countBYsubscriber_id,object);
+    result = statements.countBYsubscriber_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
 function getBYowner_group_id(object){
   let result=[];
   try{
-    if(typeof(statements.getBYowner_group_id) === "undefined"){
-      statements.getBYowner_group_id = db.prepare(sql.getBYowner_group_id);
+    if(typeof(statements.getBYowner_group_idStatement) === "undefined"){
+      statements.getBYowner_group_idStatement = db.prepare(sql.getBYowner_group_id);
     }
+    console.log('sql.getBYowner_group_id',sql.getBYowner_group_id,object);
     result = statements.getBYowner_group_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -207,20 +230,23 @@ function getBYowner_group_id(object){
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }
 
 
 function countBYowner_group_id(object){
   let result=[];
   try{
-    if(typeof(statements.countBYowner_group_id) === "undefined"){
-      statements.countBYowner_group_id = db.prepare(sql.countBYowner_group_id);
+    if(typeof(statements.countBYowner_group_idStatement) === "undefined"){
+      statements.countBYowner_group_idStatement = db.prepare(sql.countBYowner_group_id);
     }
-    result = statements.countBYowner_group_id.all(object)
+    console.log('sql.countBYowner_group_id',sql.countBYowner_group_id,object);
+    result = statements.countBYowner_group_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
     //  so that the engine should properly handle the rollback 
     throw error;
   }
+  return result;
 }

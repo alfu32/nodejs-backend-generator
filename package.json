@@ -1,13 +1,13 @@
 {
   "name": "hello-node",
-  "token":"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",
+  "token": "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",
   "version": "0.0.1",
   "description": "A simple Node app built on fastify, instantly up and running.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "scan:apis": "node generate/scanner.js",
-    "gen:dao":"node generate/dao.js"
+    "gen:dao": "node generate/dao.js"
   },
   "dependencies": {
     "fastify": "^3.25.0",
@@ -18,7 +18,9 @@
     "better-sqlite3": "^7.4.5",
     "swagger-autogen": "^2.18.0",
     "swagger-ui-express": "^4.3.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "fastify-cors": "^6.0.2",
+    "cors": "^2.8.5"
   },
   "engines": {
     "node": "12.x"
