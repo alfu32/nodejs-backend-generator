@@ -81,9 +81,7 @@ function modelMapper(model){
           }
         },
         statements:{
-          insert:`const insertStatement = db.prepare('INSERT INTO ${table}(
-            ${fks.concat(cols).join(',')}
-            ) VALUES (${fks.concat(cols).map(n=>`@${n}`).join(',')})');`,
+          insert:`const insertStatement = db.prepare(sql.insert);`,
           updateSingle:`const updateSingleStatement = db.prepare(sql.updateSingle);`,
           deleteSingle:`const deleteSingleStatement = db.prepare(sql.deleteSingle);`,
           getSingle:`const getSingleStatement = db.prepare(sql.getSingle);`,
