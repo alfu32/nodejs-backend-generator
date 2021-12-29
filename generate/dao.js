@@ -47,8 +47,8 @@ function modelMapper(model){
             cols:cols.join(','),
           },
           operations:{
-            drop:`DROP TABLE IF NOT EXISTS ${table}`,
-            drop:`TRUNCATE TABLE IF EXISTS ${table}`,
+            drop:`DROP TABLE IF EXISTS ${table}`,
+            clear:`TRUNCATE TABLE IF EXISTS ${table}`,
             create:`CREATE TABLE IF NOT EXISTS ${table}(
               ${pk} VARCHAR PRIMARY KEY DEFAULT (${uuid}),
               ${
@@ -235,6 +235,26 @@ function modelMapper(model){
           `,
         },
         api:{
+          recreateTable:{
+            method:"POST",
+            path:`/${n}/recreateTable`,
+            handler:`function(req,res){
+              /*
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'recreate table ${n}'
+              */
+              let result=null;
+              let error=null;
+              try{
+                const drop = dao.drop();
+                const create = dao.create();
+                res.send({drop,create});
+                res.end();
+              }catch(err){
+                throw err;
+              }
+            }`,
+          },
           insert:{
             method:"POST",
             path:`/${n}/insert`,
@@ -304,23 +324,21 @@ function modelMapper(model){
               }
             }`,
           },
-          getSingle:{
+          getById:{
             method:"GET",
-            path:`/${n}/getSingle`,
+            path:`/${n}/getById/:${pk}`,
             handler:`function(req,res){
-              // #swagger.tags = ['${n}s']
-              /*
-                #swagger.parameters['${n}'] = {
-                  in: 'body',
-                  description: 'get details of ${n} by id',
-                  type:'object',
-                  schema: { $ref: '#/definitions/${n}' }
-                }
-              */
+              /* 
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'get details of ${n} by ${pk}'
+              #swagger.responses[200] = {
+                      description: '${n} successfully obtained.',
+                      schema: { $ref: '#/definitions/${n}' }
+              } */
               let result=null;
               let error=null;
               try{
-                res.send(/*JSON.stringify*/(dao.getSingle({${pk}:req.body.${pk}})));
+                res.send(dao.getSingle({${pk}:req.params.${pk}}));
                 res.end();
               }catch(err){
                 throw err;
@@ -331,8 +349,13 @@ function modelMapper(model){
             method:"GET",
             path:`/${n}/getAll`,
             handler:`function(req,res){
-              // #swagger.tags = ['${n}s']
-              // #swagger.description = 'get all ${n}s'
+              /* 
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'get all ${n}s'
+              #swagger.responses[200] = {
+                      description: '${n} list successfully obtained.',
+                      schema: { type:'array',item:{$ref: '#/definitions/${n}'} }
+              } */
               let result=null;
               let error=null;
               try{
@@ -347,8 +370,10 @@ function modelMapper(model){
             method:"GET",
             path:`/${n}/countAll`,
             handler:`function(req,res){
-              // #swagger.tags = ['${n}s']
-              // #swagger.description = 'count all ${n}s'
+              /* 
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'count all ${n}s'
+              */
               let result=null;
               let error=null;
               try{
@@ -404,20 +429,16 @@ function modelMapper(model){
           }`
           daoMetadata.api[`getBY${fk}`]={
             method:'GET',
-            path:`/${n}/getBy_${fk}`,
+            path:`/${n}/getBy_${fk}/:${fk}`,
             handler:`function (req,res){
-              // #swagger.tags = ['${n}s']
               /*
-                #swagger..parameters['${n}'] = {
-                  in: 'body',
-                  description: 'get list of ${n} by ${fk}',
-                  schema: { $ref: '#/definitions/${n}' }
-                }
+              #swagger.tags = ['${n}s']
+              #swagger.description  = 'get all ${n}s by ${fk}'
               */
               let result=null;
               let error=null;
               try{
-                res.send(/*JSON.stringify*/(dao.getBY${fk}({${fk}:req.body.${fk}})));
+                res.send(dao.getBY${fk}({${fk}:req.params.${fk}}));
                 res.end();
               }catch(err){
                 throw err;
@@ -426,20 +447,16 @@ function modelMapper(model){
           `}
           daoMetadata.api[`countBY${fk}`]={
             method:'GET',
-            path:`/${n}/countBy_${fk}`,
+            path:`/${n}/countBy_${fk}/:${fk}`,
             handler:`function (req,res){
-              // #swagger.tags = ['${n}s']
               /*
-                #swagger..parameters['${n}'] = {
-                  in: 'body',
-                  description: 'count ${n}s by ${fk}',
-                  schema: { $ref: '#/definitions/${n}' }
-                }
+              #swagger.tags = ['${n}s']
+              #swagger.description  = 'count all ${n}s by ${fk}'
               */
               let result=null;
               let error=null;
               try{
-                res.send(/*JSON.stringify*/(dao.countBY${fk}({${fk}:req.body.${fk}})));
+                res.send(dao.countBY${fk}({${fk}:req.params.${fk}}));
                 res.end();
               }catch(err){
                 throw err;

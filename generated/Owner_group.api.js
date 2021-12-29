@@ -3,7 +3,24 @@ const dao=require('./Owner_group.dao.js')
 register
         }
         function register(app){
-app.post('/Owner_group/insert',function(req,res){
+app.post('/Owner_group/recreateTable',function(req,res){
+    /*
+    #swagger.tags = ['Owner_groups']
+    #swagger.description = 'recreate table Owner_group'
+    */
+    let result=null;
+    let error=null;
+    try{
+      const drop = dao.drop();
+      const create = dao.create();
+      res.send({drop,create});
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Owner_group/insert',function(req,res){
     // #swagger.tags = ['Owner_groups']
     /*
       #swagger.parameters['Owner_group'] = {
@@ -63,20 +80,18 @@ app.post('/Owner_group/insert',function(req,res){
     }
   });
 
-  app.get('/Owner_group/getSingle',function(req,res){
-    // #swagger.tags = ['Owner_groups']
-    /*
-      #swagger.parameters['Owner_group'] = {
-        in: 'body',
-        description: 'get details of Owner_group by id',
-        type:'object',
-        schema: { $ref: '#/definitions/Owner_group' }
-      }
-    */
+  app.get('/Owner_group/getById/:owner_group_id',function(req,res){
+    /* 
+    #swagger.tags = ['Owner_groups']
+    #swagger.description = 'get details of Owner_group by owner_group_id'
+    #swagger.responses[200] = {
+            description: 'Owner_group successfully obtained.',
+            schema: { $ref: '#/definitions/Owner_group' }
+    } */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.getSingle({owner_group_id:req.body.owner_group_id})));
+      res.send(dao.getSingle({owner_group_id:req.params.owner_group_id}));
       res.end();
     }catch(err){
       throw err;
@@ -84,8 +99,13 @@ app.post('/Owner_group/insert',function(req,res){
   });
 
   app.get('/Owner_group/getAll',function(req,res){
-    // #swagger.tags = ['Owner_groups']
-    // #swagger.description = 'get all Owner_groups'
+    /* 
+    #swagger.tags = ['Owner_groups']
+    #swagger.description = 'get all Owner_groups'
+    #swagger.responses[200] = {
+            description: 'Owner_group list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Owner_group'} }
+    } */
     let result=null;
     let error=null;
     try{
@@ -97,8 +117,10 @@ app.post('/Owner_group/insert',function(req,res){
   });
 
   app.get('/Owner_group/countAll',function(req,res){
-    // #swagger.tags = ['Owner_groups']
-    // #swagger.description = 'count all Owner_groups'
+    /* 
+    #swagger.tags = ['Owner_groups']
+    #swagger.description = 'count all Owner_groups'
+    */
     let result=null;
     let error=null;
     try{
