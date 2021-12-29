@@ -3,7 +3,7 @@ const dao=require('./Module.dao.js')
 register
         }
         function register(app){
-app.post('Module/insert',function(req,res){
+app.post('/Module/insert',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -13,10 +13,17 @@ app.post('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.insert(req.body);
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.insert(req.body)));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.post('Module/updateSingle',function(req,res){
+  app.post('/Module/updateSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -26,10 +33,17 @@ app.post('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.updateSingle(req.body);
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.delete('Module/deleteSingle',function(req,res){
+  app.delete('/Module/deleteSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -39,10 +53,17 @@ app.post('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.deleteSingle({module_id:req.body.module_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.deleteSingle({module_id:req.body.module_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Module/getSingle',function(req,res){
+  app.get('/Module/getSingle',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -52,22 +73,43 @@ app.post('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.getSingle({module_id:req.body.module_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getSingle({module_id:req.body.module_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Module/getAll',function(req,res){
+  app.get('/Module/getAll',function(req,res){
     // #swagger.tags = ['Modules']
     // #swagger.description = 'get all Modules'
-    return dao.getAll()
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Module/countAll',function(req,res){
+  app.get('/Module/countAll',function(req,res){
     // #swagger.tags = ['Modules']
     // #swagger.description = 'count all Modules'
-    return dao.countAll()
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Module/getBy_owner_group_id',function (req,res){
+  app.get('/Module/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {
@@ -76,11 +118,18 @@ app.post('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   }
 );
 
-  app.get('Module/countBy_owner_group_id',function (req,res){
+  app.get('/Module/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger..parameters['Module'] = {
@@ -89,7 +138,14 @@ app.post('Module/insert',function(req,res){
         schema: { $ref: '#/definitions/Module' }
       }
     */
-    return dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
 });
         }
         

@@ -3,7 +3,7 @@ const dao=require('./Watcher.dao.js')
 register
         }
         function register(app){
-app.post('Watcher/insert',function(req,res){
+app.post('/Watcher/insert',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -13,10 +13,17 @@ app.post('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.insert(req.body);
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.insert(req.body)));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.post('Watcher/updateSingle',function(req,res){
+  app.post('/Watcher/updateSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -26,10 +33,17 @@ app.post('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.updateSingle(req.body);
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.delete('Watcher/deleteSingle',function(req,res){
+  app.delete('/Watcher/deleteSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -39,10 +53,17 @@ app.post('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.deleteSingle({watcher_id:req.body.watcher_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.deleteSingle({watcher_id:req.body.watcher_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Watcher/getSingle',function(req,res){
+  app.get('/Watcher/getSingle',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -52,22 +73,43 @@ app.post('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.getSingle({watcher_id:req.body.watcher_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getSingle({watcher_id:req.body.watcher_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Watcher/getAll',function(req,res){
+  app.get('/Watcher/getAll',function(req,res){
     // #swagger.tags = ['Watchers']
     // #swagger.description = 'get all Watchers'
-    return dao.getAll()
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Watcher/countAll',function(req,res){
+  app.get('/Watcher/countAll',function(req,res){
     // #swagger.tags = ['Watchers']
     // #swagger.description = 'count all Watchers'
-    return dao.countAll()
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Watcher/getBy_owner_group_id',function (req,res){
+  app.get('/Watcher/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {
@@ -76,11 +118,18 @@ app.post('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   }
 );
 
-  app.get('Watcher/countBy_owner_group_id',function (req,res){
+  app.get('/Watcher/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger..parameters['Watcher'] = {
@@ -89,7 +138,14 @@ app.post('Watcher/insert',function(req,res){
         schema: { $ref: '#/definitions/Watcher' }
       }
     */
-    return dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
 });
         }
         

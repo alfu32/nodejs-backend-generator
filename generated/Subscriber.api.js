@@ -3,7 +3,7 @@ const dao=require('./Subscriber.dao.js')
 register
         }
         function register(app){
-app.post('Subscriber/insert',function(req,res){
+app.post('/Subscriber/insert',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -13,10 +13,17 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.insert(req.body);
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.insert(req.body)));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.post('Subscriber/updateSingle',function(req,res){
+  app.post('/Subscriber/updateSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -26,10 +33,17 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.updateSingle(req.body);
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.delete('Subscriber/deleteSingle',function(req,res){
+  app.delete('/Subscriber/deleteSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -39,10 +53,17 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.deleteSingle({watcher_id:req.body.watcher_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.deleteSingle({watcher_id:req.body.watcher_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Subscriber/getSingle',function(req,res){
+  app.get('/Subscriber/getSingle',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -52,22 +73,43 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.getSingle({watcher_id:req.body.watcher_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getSingle({watcher_id:req.body.watcher_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Subscriber/getAll',function(req,res){
+  app.get('/Subscriber/getAll',function(req,res){
     // #swagger.tags = ['Subscribers']
     // #swagger.description = 'get all Subscribers'
-    return dao.getAll()
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Subscriber/countAll',function(req,res){
+  app.get('/Subscriber/countAll',function(req,res){
     // #swagger.tags = ['Subscribers']
     // #swagger.description = 'count all Subscribers'
-    return dao.countAll()
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   });
 
-  app.get('Subscriber/getBy_subscriber_id',function (req,res){
+  app.get('/Subscriber/getBy_subscriber_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -76,11 +118,18 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.getBYsubscriber_id({subscriber_id:req.body.subscriber_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getBYsubscriber_id({subscriber_id:req.body.subscriber_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   }
 );
 
-  app.get('Subscriber/countBy_subscriber_id',function (req,res){
+  app.get('/Subscriber/countBy_subscriber_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -89,10 +138,17 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.countBYsubscriber_id({subscriber_id:req.body.subscriber_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countBYsubscriber_id({subscriber_id:req.body.subscriber_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
 });
 
-  app.get('Subscriber/getBy_owner_group_id',function (req,res){
+  app.get('/Subscriber/getBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -101,11 +157,18 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
   }
 );
 
-  app.get('Subscriber/countBy_owner_group_id',function (req,res){
+  app.get('/Subscriber/countBy_owner_group_id',function (req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger..parameters['Subscriber'] = {
@@ -114,7 +177,14 @@ app.post('Subscriber/insert',function(req,res){
         schema: { $ref: '#/definitions/Subscriber' }
       }
     */
-    return dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id});
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.countBYowner_group_id({owner_group_id:req.body.owner_group_id})));
+      res.end();
+    }catch(err){
+      throw err;
+    }
 });
         }
         
