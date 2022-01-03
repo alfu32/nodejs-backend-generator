@@ -272,9 +272,30 @@ function modelMapper(model){
               }
             }`,
           },
+          getAll:{
+            method:"GET",
+            path:`/${n}s`,
+            handler:`function(req,res){
+              /* 
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'get all ${n}s'
+              #swagger.responses[200] = {
+                      description: '${n} list successfully obtained.',
+                      schema: { type:'array',item:{$ref: '#/definitions/${n}'} }
+              } */
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.getAll()));
+                res.end();
+              }catch(err){
+                throw err;
+              }
+            }`,
+          },
           insert:{
             method:"POST",
-            path:`/${n}/insert`,
+            path:`/${n}`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -296,8 +317,8 @@ function modelMapper(model){
             }`,
           },
           updateSingle:{
-            method:"POST",
-            path:`/${n}/updateSingle`,
+            method:"PUT",
+            path:`/${n}`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -320,7 +341,7 @@ function modelMapper(model){
           },
           deleteSingle:{
             method:"DELETE",
-            path:`/${n}/deleteSingle`,
+            path:`/${n}`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
@@ -343,7 +364,7 @@ function modelMapper(model){
           },
           getById:{
             method:"GET",
-            path:`/${n}/getById/:${pk}`,
+            path:`/${n}/:${pk}`,
             handler:`function(req,res){
               /* 
               #swagger.tags = ['${n}s']
@@ -356,27 +377,6 @@ function modelMapper(model){
               let error=null;
               try{
                 res.send(dao.getSingle({${pk}:req.params.${pk}}));
-                res.end();
-              }catch(err){
-                throw err;
-              }
-            }`,
-          },
-          getAll:{
-            method:"GET",
-            path:`/${n}/getAll`,
-            handler:`function(req,res){
-              /* 
-              #swagger.tags = ['${n}s']
-              #swagger.description = 'get all ${n}s'
-              #swagger.responses[200] = {
-                      description: '${n} list successfully obtained.',
-                      schema: { type:'array',item:{$ref: '#/definitions/${n}'} }
-              } */
-              let result=null;
-              let error=null;
-              try{
-                res.send(/*JSON.stringify*/(dao.getAll()));
                 res.end();
               }catch(err){
                 throw err;
@@ -481,9 +481,56 @@ function modelMapper(model){
           }`}
         }
       );
-      fs.writeFileSync(`generated/${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
-      fs.writeFileSync(`generated/${n}.dao.js`,
-        (`const sql=require('./${n}.sql.json')
+      if(!fs.existsSync('generated/hooks/')){
+        fs.mkdirSync('generated/hooks/')
+      }
+      fs.writeFileSync(`generated/hooks/${n}.hook.jsx`,`import useFetch from 'use-http'
+/*api generated at 'https://${process.env.PROJECT_DOMAIN}.glitch.me'*/
+function use${n}s(host='https://${process.env.PROJECT_DOMAIN}.glitch.me') {
+  const [${n.toLowerCase()}s, set${n}s] = useState([])
+  const { get, post, put, delete, response, loading, error } = useFetch(host)
+
+  useEffect(() => { loadInitial${n}s() }, []) // componentDidMount
+  
+  async function loadInitial${n}s() {
+    const initial${n}s = await get('/${n}s')
+    if (response.ok) set${n}s(initial${n}s)
+  }
+
+  async function add${n}(new${n}) {
+    await post('/${n}', ${n.toLowerCase()})
+    if (response.ok) set${n}s([...${n.toLowerCase()}s, new${n}]);
+  }
+  async function update${n}(${n.toLowerCase()}) {
+    await put('/${n}s', ${n.toLowerCase()})
+    if (response.ok) {
+      const new${n}s = ${n.toLowerCase()}s.filter(_${n.toLowerCase()} => {
+        return _${n.toLowerCase()}.${pk} !== ${n.toLowerCase()}.${pk};
+      });
+      set${n}s([...new${n}s, ${n.toLowerCase()}]);
+    }
+  }
+  async function delete${n}(${n.toLowerCase()}) {
+    await delete('/${n}s', ${n.toLowerCase()})
+    
+    if (response.ok) {
+      const new${n}s = ${n.toLowerCase()}s.filter(_${n.toLowerCase()} => {
+        return _${n.toLowerCase()}.${pk} !== ${n.toLowerCase()}.${pk};
+      });
+      set${n}s(new${n}s);
+    }
+  }
+  return [loading, error,${n.toLowerCase()}s,add${n},update${n},delete${n}]
+}`);
+      if(!fs.existsSync('generated/sql/')){
+        fs.mkdirSync('generated/sql/')
+      }
+      fs.writeFileSync(`generated/sql/${n}.sql.json`,JSON.stringify(daoMetadata.sql.operations,null,' '));
+      if(!fs.existsSync('generated/dao/')){
+        fs.mkdirSync('generated/dao/')
+      }
+      fs.writeFileSync(`generated/dao/${n}.dao.js`,
+        (`const sql=require('../sql/${n}.sql.json')
           const Database = require('better-sqlite3');
           const db = new Database('generated.db', { verbose: console.log }); 
           module.exports={
@@ -503,8 +550,11 @@ function modelMapper(model){
         (Object.values(daoMetadata.methods).join("\n\n"))
         ).replace(/\n( ){10,10}/gi,'\n')
       );
-      fs.writeFileSync(`generated/${n}.api.js`,
-        (`const dao=require('./${n}.dao.js')
+      if(!fs.existsSync('generated/api/')){
+        fs.mkdirSync('generated/api/')
+      }
+      fs.writeFileSync(`generated/api/${n}.api.js`,
+        (`const dao=require('../dao/${n}.dao.js')
         module.exports={
           register
         }

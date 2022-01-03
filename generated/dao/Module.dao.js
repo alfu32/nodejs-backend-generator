@@ -1,4 +1,4 @@
-const sql=require('./Subscriber.sql.json')
+const sql=require('../sql/Module.sql.json')
 const Database = require('better-sqlite3');
 const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
@@ -11,18 +11,16 @@ module.exports={
   getSingle,
   getAll,
   countAll,
-  getBYsubscriber_id,
-  countBYsubscriber_id,
   getBYowner_group_id,
   countBYowner_group_id
 }
-        /* create automatically the table for SUBSCRIBERs if not exists */
+        /* create automatically the table for MODULEs if not exists */
         try{
-console.log('creating table SUBSCRIBER : start');
+console.log('creating table MODULE : start');
 const createResult = create();
-console.log('creating table SUBSCRIBER : created',createResult);
+console.log('creating table MODULE : created',createResult);
         }catch(err){
-console.log('creating table SUBSCRIBER : ERROR',err.message);
+console.log('creating table MODULE : ERROR',err.message);
 throw err;
         }
         let statements={}
@@ -178,42 +176,6 @@ function countAll(object){
   return result;
 }
 
-
-
-function getBYsubscriber_id(object){
-  let result=[];
-  try{
-    if(typeof(statements.getBYsubscriber_idStatement) === "undefined"){
-      statements.getBYsubscriber_idStatement = db.prepare(sql.getBYsubscriber_id);
-    }
-    console.log('sql.getBYsubscriber_id',sql.getBYsubscriber_id,object);
-    result = statements.getBYsubscriber_idStatement.all(object)
-  }catch(error){
-    // better-sqlite3 documentation indicates that the error
-    // should be trown in case this is invoked in a transaction
-    //  so that the engine should properly handle the rollback 
-    throw error;
-  }
-  return result;
-}
-
-
-function countBYsubscriber_id(object){
-  let result=[];
-  try{
-    if(typeof(statements.countBYsubscriber_idStatement) === "undefined"){
-      statements.countBYsubscriber_idStatement = db.prepare(sql.countBYsubscriber_id);
-    }
-    console.log('sql.countBYsubscriber_id',sql.countBYsubscriber_id,object);
-    result = statements.countBYsubscriber_idStatement.all(object)
-  }catch(error){
-    // better-sqlite3 documentation indicates that the error
-    // should be trown in case this is invoked in a transaction
-    //  so that the engine should properly handle the rollback 
-    throw error;
-  }
-  return result;
-}
 
 
 function getBYowner_group_id(object){

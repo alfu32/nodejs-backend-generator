@@ -1,4 +1,4 @@
-const dao=require('./Subscriber.dao.js')
+const dao=require('../dao/Subscriber.dao.js')
         module.exports={
 register
         }
@@ -20,7 +20,25 @@ app.post('/Subscriber/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Subscriber/insert',function(req,res){
+  app.get('/Subscribers',function(req,res){
+    /* 
+    #swagger.tags = ['Subscribers']
+    #swagger.description = 'get all Subscribers'
+    #swagger.responses[200] = {
+            description: 'Subscriber list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Subscriber'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Subscriber',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -40,7 +58,7 @@ app.post('/Subscriber/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Subscriber/updateSingle',function(req,res){
+  app.put('/Subscriber',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -60,7 +78,7 @@ app.post('/Subscriber/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Subscriber/deleteSingle',function(req,res){
+  app.delete('/Subscriber',function(req,res){
     // #swagger.tags = ['Subscribers']
     /*
       #swagger.parameters['Subscriber'] = {
@@ -80,7 +98,7 @@ app.post('/Subscriber/recreateTable',function(req,res){
     }
   });
 
-  app.get('/Subscriber/getById/:watcher_id',function(req,res){
+  app.get('/Subscriber/:watcher_id',function(req,res){
     /* 
     #swagger.tags = ['Subscribers']
     #swagger.description = 'get details of Subscriber by watcher_id'
@@ -92,24 +110,6 @@ app.post('/Subscriber/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({watcher_id:req.params.watcher_id}));
-      res.end();
-    }catch(err){
-      throw err;
-    }
-  });
-
-  app.get('/Subscriber/getAll',function(req,res){
-    /* 
-    #swagger.tags = ['Subscribers']
-    #swagger.description = 'get all Subscribers'
-    #swagger.responses[200] = {
-            description: 'Subscriber list successfully obtained.',
-            schema: { type:'array',item:{$ref: '#/definitions/Subscriber'} }
-    } */
-    let result=null;
-    let error=null;
-    try{
-      res.send(/*JSON.stringify*/(dao.getAll()));
       res.end();
     }catch(err){
       throw err;

@@ -1,4 +1,4 @@
-const sql=require('./Owner_group.sql.json')
+const sql=require('../sql/Notifier.sql.json')
 const Database = require('better-sqlite3');
 const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
@@ -10,15 +10,19 @@ module.exports={
   deleteSingle,
   getSingle,
   getAll,
-  countAll
+  countAll,
+  getBYsubscriber_id,
+  countBYsubscriber_id,
+  getBYowner_group_id,
+  countBYowner_group_id
 }
-        /* create automatically the table for OWNER_GROUPs if not exists */
+        /* create automatically the table for NOTIFIERs if not exists */
         try{
-console.log('creating table OWNER_GROUP : start');
+console.log('creating table NOTIFIER : start');
 const createResult = create();
-console.log('creating table OWNER_GROUP : created',createResult);
+console.log('creating table NOTIFIER : created',createResult);
         }catch(err){
-console.log('creating table OWNER_GROUP : ERROR',err.message);
+console.log('creating table NOTIFIER : ERROR',err.message);
 throw err;
         }
         let statements={}
@@ -165,6 +169,79 @@ function countAll(object){
     }
     console.log('sql.countAll',sql.countAll,object)
     result = statements.countAllStatement.get({})
+  }catch(error){
+    // better-sqlite3 documentation indicates that the error
+    // should be trown in case this is invoked in a transaction
+    //  so that the engine should properly handle the rollback 
+    throw error;
+  }
+  return result;
+}
+
+
+
+function getBYsubscriber_id(object){
+  let result=[];
+  try{
+    if(typeof(statements.getBYsubscriber_idStatement) === "undefined"){
+      statements.getBYsubscriber_idStatement = db.prepare(sql.getBYsubscriber_id);
+    }
+    console.log('sql.getBYsubscriber_id',sql.getBYsubscriber_id,object);
+    result = statements.getBYsubscriber_idStatement.all(object)
+  }catch(error){
+    // better-sqlite3 documentation indicates that the error
+    // should be trown in case this is invoked in a transaction
+    //  so that the engine should properly handle the rollback 
+    throw error;
+  }
+  return result;
+}
+
+
+function countBYsubscriber_id(object){
+  let result=[];
+  try{
+    if(typeof(statements.countBYsubscriber_idStatement) === "undefined"){
+      statements.countBYsubscriber_idStatement = db.prepare(sql.countBYsubscriber_id);
+    }
+    console.log('sql.countBYsubscriber_id',sql.countBYsubscriber_id,object);
+    result = statements.countBYsubscriber_idStatement.all(object)
+  }catch(error){
+    // better-sqlite3 documentation indicates that the error
+    // should be trown in case this is invoked in a transaction
+    //  so that the engine should properly handle the rollback 
+    throw error;
+  }
+  return result;
+}
+
+
+function getBYowner_group_id(object){
+  let result=[];
+  try{
+    if(typeof(statements.getBYowner_group_idStatement) === "undefined"){
+      statements.getBYowner_group_idStatement = db.prepare(sql.getBYowner_group_id);
+    }
+    console.log('sql.getBYowner_group_id',sql.getBYowner_group_id,object);
+    result = statements.getBYowner_group_idStatement.all(object)
+  }catch(error){
+    // better-sqlite3 documentation indicates that the error
+    // should be trown in case this is invoked in a transaction
+    //  so that the engine should properly handle the rollback 
+    throw error;
+  }
+  return result;
+}
+
+
+function countBYowner_group_id(object){
+  let result=[];
+  try{
+    if(typeof(statements.countBYowner_group_idStatement) === "undefined"){
+      statements.countBYowner_group_idStatement = db.prepare(sql.countBYowner_group_id);
+    }
+    console.log('sql.countBYowner_group_id',sql.countBYowner_group_id,object);
+    result = statements.countBYowner_group_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction

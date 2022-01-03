@@ -1,0 +1,13 @@
+{
+ "drop": "DROP TABLE IF EXISTS OBSERVABLE",
+ "clear": "TRUNCATE TABLE IF EXISTS OBSERVABLE",
+ "create": "CREATE TABLE IF NOT EXISTS OBSERVABLE(\n              observable_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              /*fk+cols*/ watcher_id VARCHAR,\n/*fk+cols*/ key VARCHAR,\n/*fk+cols*/ prev_date VARCHAR,\n/*fk+cols*/ prev_value VARCHAR,\n/*fk+cols*/ prev_value_hash VARCHAR,\n/*fk+cols*/ crt_date VARCHAR,\n/*fk+cols*/ crt_value VARCHAR,\n/*fk+cols*/ crt_value_hash VARCHAR\n              ,\n              FOREIGN KEY(watcher_id) REFERENCES WATCHER(watcher_id) \n            )",
+ "insert": "INSERT INTO OBSERVABLE(\n            watcher_id,key,prev_date,prev_value,prev_value_hash,crt_date,crt_value,crt_value_hash\n            ) VALUES (@watcher_id,@key,@prev_date,@prev_value,@prev_value_hash,@crt_date,@crt_value,@crt_value_hash)",
+ "updateSingle": "UPDATE OBSERVABLE SET\n            watcher_id=@watcher_id,\nkey=@key,\nprev_date=@prev_date,\nprev_value=@prev_value,\nprev_value_hash=@prev_value_hash,\ncrt_date=@crt_date,\ncrt_value=@crt_value,\ncrt_value_hash=@crt_value_hash\n            WHERE observable_id=@observable_id",
+ "deleteSingle": "DELETE FROM OBSERVABLE \n            WHERE observable_id=@observable_id",
+ "getSingle": "SELECT * FROM OBSERVABLE \n            WHERE observable_id=@observable_id",
+ "getAll": "SELECT * FROM OBSERVABLE",
+ "countAll": "SELECT COUNT(*) as records FROM OBSERVABLE",
+ "selectBYwatcher_id": "SELECT * FROM OBSERVABLE \n          WHERE watcher_id=@watcher_id",
+ "countBYwatcher_id": "SELECT COUNT(*) as records FROM OBSERVABLE \n          WHERE watcher_id=@watcher_id"
+}

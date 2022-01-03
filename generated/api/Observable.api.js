@@ -1,4 +1,4 @@
-const dao=require('./Observable.dao.js')
+const dao=require('../dao/Observable.dao.js')
         module.exports={
 register
         }
@@ -20,7 +20,25 @@ app.post('/Observable/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Observable/insert',function(req,res){
+  app.get('/Observables',function(req,res){
+    /* 
+    #swagger.tags = ['Observables']
+    #swagger.description = 'get all Observables'
+    #swagger.responses[200] = {
+            description: 'Observable list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Observable'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Observable',function(req,res){
     // #swagger.tags = ['Observables']
     /*
       #swagger.parameters['Observable'] = {
@@ -40,7 +58,7 @@ app.post('/Observable/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Observable/updateSingle',function(req,res){
+  app.put('/Observable',function(req,res){
     // #swagger.tags = ['Observables']
     /*
       #swagger.parameters['Observable'] = {
@@ -60,7 +78,7 @@ app.post('/Observable/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Observable/deleteSingle',function(req,res){
+  app.delete('/Observable',function(req,res){
     // #swagger.tags = ['Observables']
     /*
       #swagger.parameters['Observable'] = {
@@ -80,7 +98,7 @@ app.post('/Observable/recreateTable',function(req,res){
     }
   });
 
-  app.get('/Observable/getById/:observable_id',function(req,res){
+  app.get('/Observable/:observable_id',function(req,res){
     /* 
     #swagger.tags = ['Observables']
     #swagger.description = 'get details of Observable by observable_id'
@@ -92,24 +110,6 @@ app.post('/Observable/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({observable_id:req.params.observable_id}));
-      res.end();
-    }catch(err){
-      throw err;
-    }
-  });
-
-  app.get('/Observable/getAll',function(req,res){
-    /* 
-    #swagger.tags = ['Observables']
-    #swagger.description = 'get all Observables'
-    #swagger.responses[200] = {
-            description: 'Observable list successfully obtained.',
-            schema: { type:'array',item:{$ref: '#/definitions/Observable'} }
-    } */
-    let result=null;
-    let error=null;
-    try{
-      res.send(/*JSON.stringify*/(dao.getAll()));
       res.end();
     }catch(err){
       throw err;

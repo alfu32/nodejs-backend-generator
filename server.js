@@ -45,12 +45,12 @@ app.get('/env',(req,res,next)=>{
 app.get('/swagger.json',(req,res)=>{
   res.send(fs.readFileSync('swagger.json'))
 })
-require('./generated/Module.api').register(app);
-require('./generated/Notifier.api').register(app);
-require('./generated/Observable.api').register(app);
-require('./generated/Owner_group.api').register(app);
-require('./generated/Subscriber.api').register(app);
-require('./generated/Watcher.api').register(app);
+require('./generated/api/Module.api').register(app);
+require('./generated/api/Notifier.api').register(app);
+require('./generated/api/Observable.api').register(app);
+require('./generated/api/Owner_group.api').register(app);
+require('./generated/api/Subscriber.api').register(app);
+require('./generated/api/Watcher.api').register(app);
 
 // Run the server and report out to the lo
 app.listen(process.env.PORT, function(err, address) {

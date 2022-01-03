@@ -1,4 +1,4 @@
-const sql=require('./Observable.sql.json')
+const sql=require('../sql/Owner_group.sql.json')
 const Database = require('better-sqlite3');
 const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
@@ -10,17 +10,15 @@ module.exports={
   deleteSingle,
   getSingle,
   getAll,
-  countAll,
-  getBYwatcher_id,
-  countBYwatcher_id
+  countAll
 }
-        /* create automatically the table for OBSERVABLEs if not exists */
+        /* create automatically the table for OWNER_GROUPs if not exists */
         try{
-console.log('creating table OBSERVABLE : start');
+console.log('creating table OWNER_GROUP : start');
 const createResult = create();
-console.log('creating table OBSERVABLE : created',createResult);
+console.log('creating table OWNER_GROUP : created',createResult);
         }catch(err){
-console.log('creating table OBSERVABLE : ERROR',err.message);
+console.log('creating table OWNER_GROUP : ERROR',err.message);
 throw err;
         }
         let statements={}
@@ -167,43 +165,6 @@ function countAll(object){
     }
     console.log('sql.countAll',sql.countAll,object)
     result = statements.countAllStatement.get({})
-  }catch(error){
-    // better-sqlite3 documentation indicates that the error
-    // should be trown in case this is invoked in a transaction
-    //  so that the engine should properly handle the rollback 
-    throw error;
-  }
-  return result;
-}
-
-
-
-function getBYwatcher_id(object){
-  let result=[];
-  try{
-    if(typeof(statements.getBYwatcher_idStatement) === "undefined"){
-      statements.getBYwatcher_idStatement = db.prepare(sql.getBYwatcher_id);
-    }
-    console.log('sql.getBYwatcher_id',sql.getBYwatcher_id,object);
-    result = statements.getBYwatcher_idStatement.all(object)
-  }catch(error){
-    // better-sqlite3 documentation indicates that the error
-    // should be trown in case this is invoked in a transaction
-    //  so that the engine should properly handle the rollback 
-    throw error;
-  }
-  return result;
-}
-
-
-function countBYwatcher_id(object){
-  let result=[];
-  try{
-    if(typeof(statements.countBYwatcher_idStatement) === "undefined"){
-      statements.countBYwatcher_idStatement = db.prepare(sql.countBYwatcher_id);
-    }
-    console.log('sql.countBYwatcher_id',sql.countBYwatcher_id,object);
-    result = statements.countBYwatcher_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
