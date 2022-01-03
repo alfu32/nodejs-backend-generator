@@ -4,6 +4,7 @@
 */
 
 const path = require("path");
+const fs = require("fs");
 
 // Require the fastify framework and instantiate it
 
@@ -11,7 +12,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
  const corsOptions = {
-   origin: 'https://parallel-scarlet-juravenator.glitch.me',
+    // origin: 'https://parallel-scarlet-juravenator.glitch.me',
     optionsSuccessStatus: 200, // For legacy browser support
     methods: "GET, PUT, POST, DELETE, OPTIONS"
  }
@@ -41,9 +42,12 @@ app.get('/env',(req,res,next)=>{
     // env:process.env
   })
 });
-
+app.get('/swagger.json',(req,res)=>{
+  res.send(fs.readFileSync('swagger.json'))
+})
 require('./generated/Module.api').register(app);
 require('./generated/Notifier.api').register(app);
+require('./generated/Observable.api').register(app);
 require('./generated/Owner_group.api').register(app);
 require('./generated/Subscriber.api').register(app);
 require('./generated/Watcher.api').register(app);

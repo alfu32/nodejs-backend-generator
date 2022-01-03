@@ -1,5 +1,5 @@
 const swaggerAutogen = require('swagger-autogen')();
-const {model}=require('./model.json.js');
+const model=require('../model.json.js');
 const doc = {
   definitions:model,
   info: {
