@@ -1,18 +1,37 @@
-const {model}=require('./model.json.js');
+
 const uuid0=`hex( randomblob(4)) || '-' || hex( randomblob(2))
              || '-' || '4' || substr( hex( randomblob(2)), 2) || '-'
              || substr('AB89', 1 + (abs(random()) % 4) , 1)  ||
              substr(hex(randomblob(2)), 2) || '-' || hex(randomblob(6)) )`;
 const uuid=`hex( randomblob(16))`;
 const fs=require('fs');
+const path=require('path');
 
-let definedTables=Object.keys(model)
-let undefinedTables={}
-let definedTablesIndex=definedTables.map(n => n.toUpperCase())
-  .reduce((ac,v,i,a)=>{
-    ac[v]=v;
-    return ac;
-  },{});
+let definedTables={};
+let undefinedTables={};
+let definedTablesIndex={};
+
+main(process.argv[2])
+
+function main(modelFileName){
+  //console.log(process.argv);
+  
+  //const model1=require('./model.json.js');
+  const model=require('../'+modelFileName);
+  definedTables=Object.keys(model)
+  undefinedTables={}
+  definedTablesIndex=definedTables.map(n => n.toUpperCase())
+    .reduce((ac,v,i,a)=>{
+      ac[v]=v;
+      return ac;
+    },{});
+  let meta= definedTables.map(modelMapper(model));
+  meta=[...meta,...Object.keys(undefinedTables).map(modelMapper(undefinedTables))];
+  // console.log(meta);
+  console.log(process.argv);
+  console.log(fs.readdirSync('./'));
+}
+
 function createDefaultTableDefinition(fk){
   const tableName = fk.replace(/_id$/gi,'')
     .toUpperCase();
@@ -26,8 +45,6 @@ function createDefaultTableDefinition(fk){
   }
 }
 
-let meta= definedTables.map(modelMapper(model));
-meta=[...meta,...Object.keys(undefinedTables).map(modelMapper(undefinedTables))]
 function modelMapper(model){
   return function modelMapper(n){
       const def=model[n];
@@ -503,12 +520,13 @@ function modelMapper(model){
         `
         ).replace(/\n( ){10,10}/gi,'\n')
       );
-      console.log(daoMetadata);
+      console.log(daoMetadata.sql.operations);
+      //console.log(daoMetadata.methods);
+      //console.log(daoMetadata.api);
       return daoMetadata;
     }
 }
 
 
-console.log(meta);
 
 

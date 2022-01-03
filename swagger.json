@@ -40,6 +40,18 @@
         }
       }
     },
+    "/swagger.json": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Module/recreateTable": {
       "post": {
         "tags": [
@@ -454,6 +466,198 @@
         "parameters": [
           {
             "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/recreateTable": {
+      "post": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "recreate table Observable",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/insert": {
+      "post": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Observable",
+            "in": "body",
+            "description": "Add a Observable",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/updateSingle": {
+      "post": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Observable",
+            "in": "body",
+            "description": "Update a Observable",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/deleteSingle": {
+      "delete": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Observable",
+            "in": "body",
+            "description": "Delete Observable",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/getById/{observable_id}": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "get details of Observable by observable_id",
+        "parameters": [
+          {
+            "name": "observable_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observable successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        }
+      }
+    },
+    "/Observable/getAll": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "get all Observables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observable list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Observable"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Observable/countAll": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "count all Observables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/getBy_watcher_id/{watcher_id}": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "get all Observables by watcher_id",
+        "parameters": [
+          {
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/countBy_watcher_id/{watcher_id}": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "count all Observables by watcher_id",
+        "parameters": [
+          {
+            "name": "watcher_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1065,7 +1269,28 @@
         },
         "poll_config": {
           "type": "string",
-          "example": "{\n        type:\"DailyDistributionFourier\",\n        coefficients:[1,-3,5,-7,9,-11,13],\n      }"
+          "example": "function returnNextRunDate(){\n        return new Date().getTime() + 60000;\n      }"
+        }
+      }
+    },
+    "Observable": {
+      "type": "object",
+      "properties": {
+        "observable_id": {
+          "type": "string",
+          "example": ""
+        },
+        "watcher_id": {
+          "type": "string",
+          "example": ""
+        },
+        "key": {
+          "type": "string",
+          "example": ""
+        },
+        "payload": {
+          "type": "string",
+          "example": "{}"
         }
       }
     },
