@@ -10,9 +10,11 @@ module.exports={
   deleteSingle,
   getSingle,
   getAll,
+  getLast,
+  getByRowid,
   countAll,
-  getBYsubscriber_id,
-  countBYsubscriber_id,
+  getBYwatcher_id,
+  countBYwatcher_id,
   getBYowner_group_id,
   countBYowner_group_id
 }
@@ -161,13 +163,51 @@ function getAll(object){
 
 
 
-function countAll(object){
+function getLast(object){
+  let result=[];
+  try{
+    if(typeof(statements.getLastStatement) === "undefined"){
+      statements.getLastStatement= db.prepare(sql.getLast);
+    }
+    console.log('sql.getLast',sql.getLast,object)
+    result = statements.getLastStatement.all({})
+  }catch(error){
+    // better-sqlite3 documentation indicates that the error
+    // should be trown in case this is invoked in a transaction
+    //  so that the engine should properly handle the rollback 
+    throw error;
+  }
+  return result;
+}
+
+
+
+function getByRowid(rowid){
+  let result=[];
+  try{
+    if(typeof(statements.getByRowidStatement) === "undefined"){
+      statements.getByRowidStatement= db.prepare(sql.getByRowid);
+    }
+    console.log('sql.getByRowid',sql.getByRowid,rowid)
+    result = statements.getByRowidStatement.get({rowid})
+  }catch(error){
+    // better-sqlite3 documentation indicates that the error
+    // should be trown in case this is invoked in a transaction
+    //  so that the engine should properly handle the rollback 
+    throw error;
+  }
+  return result;
+}
+
+
+
+function countAll(){
   let result=[];
   try{
     if(typeof(statements.countAllStatement) === "undefined"){
       statements.countAllStatement= db.prepare(sql.countAll);
     }
-    console.log('sql.countAll',sql.countAll,object)
+    console.log('sql.countAll',sql.countAll)
     result = statements.countAllStatement.get({})
   }catch(error){
     // better-sqlite3 documentation indicates that the error
@@ -180,14 +220,14 @@ function countAll(object){
 
 
 
-function getBYsubscriber_id(object){
+function getBYwatcher_id(object){
   let result=[];
   try{
-    if(typeof(statements.getBYsubscriber_idStatement) === "undefined"){
-      statements.getBYsubscriber_idStatement = db.prepare(sql.getBYsubscriber_id);
+    if(typeof(statements.getBYwatcher_idStatement) === "undefined"){
+      statements.getBYwatcher_idStatement = db.prepare(sql.getBYwatcher_id);
     }
-    console.log('sql.getBYsubscriber_id',sql.getBYsubscriber_id,object);
-    result = statements.getBYsubscriber_idStatement.all(object)
+    console.log('sql.getBYwatcher_id',sql.getBYwatcher_id,object);
+    result = statements.getBYwatcher_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
@@ -198,14 +238,14 @@ function getBYsubscriber_id(object){
 }
 
 
-function countBYsubscriber_id(object){
+function countBYwatcher_id(object){
   let result=[];
   try{
-    if(typeof(statements.countBYsubscriber_idStatement) === "undefined"){
-      statements.countBYsubscriber_idStatement = db.prepare(sql.countBYsubscriber_id);
+    if(typeof(statements.countBYwatcher_idStatement) === "undefined"){
+      statements.countBYwatcher_idStatement = db.prepare(sql.countBYwatcher_id);
     }
-    console.log('sql.countBYsubscriber_id',sql.countBYsubscriber_id,object);
-    result = statements.countBYsubscriber_idStatement.all(object)
+    console.log('sql.countBYwatcher_id',sql.countBYwatcher_id,object);
+    result = statements.countBYwatcher_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction

@@ -47,11 +47,19 @@ app.post('/Observable/recreateTable',function(req,res){
         type:'object',
         schema: { $ref: '#/definitions/Observable' }
       }
+      #swagger.responses[200] = {
+              description: 'Observable list successfully obtained.',
+              schema: {$ref: '#/definitions/Observable'}
+      }
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.insert(req.body)));
+      console.log('Observable.insert',req.body);
+      const insertResult = dao.insert(req.body);
+      console.log('insertResult',insertResult)
+      const lastInserted=dao.getByRowid(insertResult.lastInsertRowid)
+      res.send(/*JSON.stringify*/(lastInserted));
       res.end();
     }catch(err){
       throw err;
@@ -71,6 +79,7 @@ app.post('/Observable/recreateTable',function(req,res){
     let result=null;
     let error=null;
     try{
+      console.log('Observable.updateSingle',req.body);
       res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
       res.end();
     }catch(err){
@@ -78,20 +87,15 @@ app.post('/Observable/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Observable',function(req,res){
+  app.delete('/Observable/:observable_id',function(req,res){
     // #swagger.tags = ['Observables']
     /*
-      #swagger.parameters['Observable'] = {
-        in: 'body',
-        description: 'Delete Observable',
-        type:'object',
-        schema: { $ref: '#/definitions/Observable' }
-      }
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.deleteSingle({observable_id:req.body.observable_id})));
+      console.log('Observable.updateSingle',req.body);
+      res.send(/*JSON.stringify*/(dao.deleteSingle({observable_id:req.params.observable_id})));
       res.end();
     }catch(err){
       throw err;
@@ -110,6 +114,42 @@ app.post('/Observable/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({observable_id:req.params.observable_id}));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.get('/Observables',function(req,res){
+    /* 
+    #swagger.tags = ['Observables']
+    #swagger.description = 'get all Observables'
+    #swagger.responses[200] = {
+            description: 'Observable list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Observable'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getLast()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.get('/Observable/rowid/:rowid',function(req,res){
+    /* 
+    #swagger.tags = ['Observables']
+    #swagger.description = 'get details of Observable by rowid'
+    #swagger.responses[200] = {
+            description: 'Observable successfully obtained.',
+            schema: { $ref: '#/definitions/Observable' }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(dao.getByRowid(req.params.rowid));
       res.end();
     }catch(err){
       throw err;

@@ -15,11 +15,14 @@ export function useModules(host='https://parallel-scarlet-juravenator.glitch.me'
   }
 
   async function addModule(module) {
-    await post('/Module', module)
-    if (response.ok) setModules([...modules, module]);
+    const rp = await post('/Module', module)
+    if (response.ok){
+      console.log(rp);
+      setModules([...modules, rp]);
+    }
   }
   async function updateModule(module) {
-    await put('/Modules', module)
+    await put('/Module', module)
     if (response.ok) {
       const newModules = modules.filter(_module => {
         return _module.module_id !== module.module_id;
@@ -28,9 +31,11 @@ export function useModules(host='https://parallel-scarlet-juravenator.glitch.me'
     }
   }
   async function deleteModule(module) {
-    await del('/Modules', module)
+    console.log('deleting',module)
+    await del('/Module/'+module.module_id)
     
     if (response.ok) {
+      console.log('deleted',module,response);
       const newModules = modules.filter(_module => {
         return _module.module_id !== module.module_id;
       });

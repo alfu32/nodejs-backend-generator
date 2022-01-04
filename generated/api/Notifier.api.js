@@ -47,11 +47,19 @@ app.post('/Notifier/recreateTable',function(req,res){
         type:'object',
         schema: { $ref: '#/definitions/Notifier' }
       }
+      #swagger.responses[200] = {
+              description: 'Notifier list successfully obtained.',
+              schema: {$ref: '#/definitions/Notifier'}
+      }
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.insert(req.body)));
+      console.log('Notifier.insert',req.body);
+      const insertResult = dao.insert(req.body);
+      console.log('insertResult',insertResult)
+      const lastInserted=dao.getByRowid(insertResult.lastInsertRowid)
+      res.send(/*JSON.stringify*/(lastInserted));
       res.end();
     }catch(err){
       throw err;
@@ -71,6 +79,7 @@ app.post('/Notifier/recreateTable',function(req,res){
     let result=null;
     let error=null;
     try{
+      console.log('Notifier.updateSingle',req.body);
       res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
       res.end();
     }catch(err){
@@ -78,20 +87,15 @@ app.post('/Notifier/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Notifier',function(req,res){
+  app.delete('/Notifier/:notifier_id',function(req,res){
     // #swagger.tags = ['Notifiers']
     /*
-      #swagger.parameters['Notifier'] = {
-        in: 'body',
-        description: 'Delete Notifier',
-        type:'object',
-        schema: { $ref: '#/definitions/Notifier' }
-      }
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.deleteSingle({notifier_id:req.body.notifier_id})));
+      console.log('Notifier.updateSingle',req.body);
+      res.send(/*JSON.stringify*/(dao.deleteSingle({notifier_id:req.params.notifier_id})));
       res.end();
     }catch(err){
       throw err;
@@ -110,6 +114,42 @@ app.post('/Notifier/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({notifier_id:req.params.notifier_id}));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.get('/Notifiers',function(req,res){
+    /* 
+    #swagger.tags = ['Notifiers']
+    #swagger.description = 'get all Notifiers'
+    #swagger.responses[200] = {
+            description: 'Notifier list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Notifier'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getLast()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.get('/Notifier/rowid/:rowid',function(req,res){
+    /* 
+    #swagger.tags = ['Notifiers']
+    #swagger.description = 'get details of Notifier by rowid'
+    #swagger.responses[200] = {
+            description: 'Notifier successfully obtained.',
+            schema: { $ref: '#/definitions/Notifier' }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(dao.getByRowid(req.params.rowid));
       res.end();
     }catch(err){
       throw err;

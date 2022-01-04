@@ -157,10 +157,12 @@ function modelMapperFactory(model,memFs){
             WHERE ${pk}=@${pk}`,
             deleteSingle:`DELETE FROM ${table} 
             WHERE ${pk}=@${pk}`,
-            getSingle:`SELECT * FROM ${table} 
-            WHERE ${pk}=@${pk}`,
-            getAll:`SELECT * FROM ${table}`,
-            countAll:`SELECT COUNT(*) as records FROM ${table}`,
+            getSingle:`SELECT T.rowid,T.* FROM ${table} T
+            WHERE T.${pk}=@${pk}`,
+            getAll:`SELECT T.rowid,T.* FROM ${table} T`,
+            getLast:`SELECT T.rowid,T.* FROM ${table} T HAVING T.rowid=MAX(T.rowid)`,
+            getByRowid:`SELECT T.rowid,T.* FROM ${table} T WHERE T.rowid=@rowid`,
+            countAll:`SELECT MAX(rowid) as last_id,COUNT(*) as records FROM ${table}`,
           }
         },
         statements:{
@@ -169,6 +171,8 @@ function modelMapperFactory(model,memFs){
           deleteSingle:`const deleteSingleStatement = db.prepare(sql.deleteSingle);`,
           getSingle:`const getSingleStatement = db.prepare(sql.getSingle);`,
           getAll:`const getAllStatement = db.prepare(sql.getAll);`,
+          getLast:`const getLastStatement = db.prepare(sql.getLast);`,
+          getByRowid:`const getByRowidStatement = db.prepare(sql.getByRowid);`,
           countAll:`const countAllStatement = db.prepare(sql.countAll);`,
         },
         methods:{
@@ -298,14 +302,50 @@ function modelMapperFactory(model,memFs){
             return result;
           }
           `,
+          getLast:`
+          function getLast(object){
+            let result=[];
+            try{
+              if(typeof(statements.getLastStatement) === "undefined"){
+                statements.getLastStatement= db.prepare(sql.getLast);
+              }
+              console.log('sql.getLast',sql.getLast,object)
+              result = statements.getLastStatement.all({})
+            }catch(error){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
+            }
+            return result;
+          }
+          `,
+          getByRowid:`
+          function getByRowid(rowid){
+            let result=[];
+            try{
+              if(typeof(statements.getByRowidStatement) === "undefined"){
+                statements.getByRowidStatement= db.prepare(sql.getByRowid);
+              }
+              console.log('sql.getByRowid',sql.getByRowid,rowid)
+              result = statements.getByRowidStatement.get({rowid})
+            }catch(error){
+              // better-sqlite3 documentation indicates that the error
+              // should be trown in case this is invoked in a transaction
+              //  so that the engine should properly handle the rollback 
+              throw error;
+            }
+            return result;
+          }
+          `,
           countAll:`
-          function countAll(object){
+          function countAll(){
             let result=[];
             try{
               if(typeof(statements.countAllStatement) === "undefined"){
                 statements.countAllStatement= db.prepare(sql.countAll);
               }
-              console.log('sql.countAll',sql.countAll,object)
+              console.log('sql.countAll',sql.countAll)
               result = statements.countAllStatement.get({})
             }catch(error){
               // better-sqlite3 documentation indicates that the error
@@ -371,11 +411,19 @@ function modelMapperFactory(model,memFs){
                   type:'object',
                   schema: { $ref: '#/definitions/${n}' }
                 }
+                #swagger.responses[200] = {
+                        description: '${n} list successfully obtained.',
+                        schema: {$ref: '#/definitions/${n}'}
+                }
               */
               let result=null;
               let error=null;
               try{
-                res.send(/*JSON.stringify*/(dao.insert(req.body)));
+                console.log('${n}.insert',req.body);
+                const insertResult = dao.insert(req.body);
+                console.log('insertResult',insertResult)
+                const lastInserted=dao.getByRowid(insertResult.lastInsertRowid)
+                res.send(/*JSON.stringify*/(lastInserted));
                 res.end();
               }catch(err){
                 throw err;
@@ -398,6 +446,7 @@ function modelMapperFactory(model,memFs){
               let result=null;
               let error=null;
               try{
+                console.log('${n}.updateSingle',req.body);
                 res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
                 res.end();
               }catch(err){
@@ -407,21 +456,16 @@ function modelMapperFactory(model,memFs){
           },
           deleteSingle:{
             method:"DELETE",
-            path:`/${n}`,
+            path:`/${n}/:${pk}`,
             handler:`function(req,res){
               // #swagger.tags = ['${n}s']
               /*
-                #swagger.parameters['${n}'] = {
-                  in: 'body',
-                  description: 'Delete ${n}',
-                  type:'object',
-                  schema: { $ref: '#/definitions/${n}' }
-                }
               */
               let result=null;
               let error=null;
               try{
-                res.send(/*JSON.stringify*/(dao.deleteSingle({${pk}:req.body.${pk}})));
+                console.log('${n}.updateSingle',req.body);
+                res.send(/*JSON.stringify*/(dao.deleteSingle({${pk}:req.params.${pk}})));
                 res.end();
               }catch(err){
                 throw err;
@@ -443,6 +487,48 @@ function modelMapperFactory(model,memFs){
               let error=null;
               try{
                 res.send(dao.getSingle({${pk}:req.params.${pk}}));
+                res.end();
+              }catch(err){
+                throw err;
+              }
+            }`,
+          },
+          getLast:{
+            method:"GET",
+            path:`/${n}s`,
+            handler:`function(req,res){
+              /* 
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'get all ${n}s'
+              #swagger.responses[200] = {
+                      description: '${n} list successfully obtained.',
+                      schema: { type:'array',item:{$ref: '#/definitions/${n}'} }
+              } */
+              let result=null;
+              let error=null;
+              try{
+                res.send(/*JSON.stringify*/(dao.getLast()));
+                res.end();
+              }catch(err){
+                throw err;
+              }
+            }`,
+          },
+          getByRowid:{
+            method:"GET",
+            path:`/${n}/rowid/:rowid`,
+            handler:`function(req,res){
+              /* 
+              #swagger.tags = ['${n}s']
+              #swagger.description = 'get details of ${n} by rowid'
+              #swagger.responses[200] = {
+                      description: '${n} successfully obtained.',
+                      schema: { $ref: '#/definitions/${n}' }
+              } */
+              let result=null;
+              let error=null;
+              try{
+                res.send(dao.getByRowid(req.params.rowid));
                 res.end();
               }catch(err){
                 throw err;
@@ -471,10 +557,11 @@ function modelMapperFactory(model,memFs){
       }
       fks.forEach(
         fk => {
-          daoMetadata.sql.operations[`selectBY${fk}`]=`SELECT * FROM ${table} 
+          daoMetadata.sql.operations[`selectBY${fk}`]=`SELECT T.rowid,T* FROM ${table} T 
           WHERE ${fk}=@${fk}`;
-          daoMetadata.sql.operations[`countBY${fk}`]=`SELECT COUNT(*) as records FROM ${table} 
+          daoMetadata.sql.operations[`countBY${fk}`]=`SELECT MAX(rowid) as last_id,COUNT(*) as records FROM ${table} 
           WHERE ${fk}=@${fk}`;
+          daoMetadata.statements[`selectBY${fk}`] = `const selectBY${fk}Statement = db.prepare(sql.selectBY${fk});`;
           daoMetadata.statements[`countBY${fk}`] = `const countBY${fk}Statement = db.prepare(sql.countBY${fk});`;
           daoMetadata.methods[`getBY${fk}`]=`
           function getBY${fk}(object){
@@ -568,11 +655,14 @@ export function use${n}s(host='https://${process.env.PROJECT_DOMAIN}.glitch.me')
   }
 
   async function add${n}(${n.toLowerCase()}) {
-    await post('/${n}', ${n.toLowerCase()})
-    if (response.ok) set${n}s([...${n.toLowerCase()}s, ${n.toLowerCase()}]);
+    const rp = await post('/${n}', ${n.toLowerCase()})
+    if (response.ok){
+      console.log(rp);
+      set${n}s([...${n.toLowerCase()}s, rp]);
+    }
   }
   async function update${n}(${n.toLowerCase()}) {
-    await put('/${n}s', ${n.toLowerCase()})
+    await put('/${n}', ${n.toLowerCase()})
     if (response.ok) {
       const new${n}s = ${n.toLowerCase()}s.filter(_${n.toLowerCase()} => {
         return _${n.toLowerCase()}.${pk} !== ${n.toLowerCase()}.${pk};
@@ -581,9 +671,11 @@ export function use${n}s(host='https://${process.env.PROJECT_DOMAIN}.glitch.me')
     }
   }
   async function delete${n}(${n.toLowerCase()}) {
-    await del('/${n}s', ${n.toLowerCase()})
+    console.log('deleting',${n.toLowerCase()})
+    await del('/${n}/'+${n.toLowerCase()}.${pk})
     
     if (response.ok) {
+      console.log('deleted',${n.toLowerCase()},response);
       const new${n}s = ${n.toLowerCase()}s.filter(_${n.toLowerCase()} => {
         return _${n.toLowerCase()}.${pk} !== ${n.toLowerCase()}.${pk};
       });

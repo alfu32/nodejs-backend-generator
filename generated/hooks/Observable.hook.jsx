@@ -15,11 +15,14 @@ export function useObservables(host='https://parallel-scarlet-juravenator.glitch
   }
 
   async function addObservable(observable) {
-    await post('/Observable', observable)
-    if (response.ok) setObservables([...observables, observable]);
+    const rp = await post('/Observable', observable)
+    if (response.ok){
+      console.log(rp);
+      setObservables([...observables, rp]);
+    }
   }
   async function updateObservable(observable) {
-    await put('/Observables', observable)
+    await put('/Observable', observable)
     if (response.ok) {
       const newObservables = observables.filter(_observable => {
         return _observable.observable_id !== observable.observable_id;
@@ -28,9 +31,11 @@ export function useObservables(host='https://parallel-scarlet-juravenator.glitch
     }
   }
   async function deleteObservable(observable) {
-    await del('/Observables', observable)
+    console.log('deleting',observable)
+    await del('/Observable/'+observable.observable_id)
     
     if (response.ok) {
+      console.log('deleted',observable,response);
       const newObservables = observables.filter(_observable => {
         return _observable.observable_id !== observable.observable_id;
       });
