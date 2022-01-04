@@ -1,8 +1,11 @@
-import useFetch from 'use-http'
+import useFetch from 'use-http';
+import {useState,useEffect} from 'react';
+
 /*api generated at 'https://parallel-scarlet-juravenator.glitch.me'*/
-function useSubscribers(host='https://parallel-scarlet-juravenator.glitch.me') {
+
+export function useSubscribers(host='https://parallel-scarlet-juravenator.glitch.me') {
   const [subscribers, setSubscribers] = useState([])
-  const { get, post, put, delete, response, loading, error } = useFetch(host)
+  const { get, post, put, del, response, loading, error } = useFetch(host)
 
   useEffect(() => { loadInitialSubscribers() }, []) // componentDidMount
   
@@ -11,9 +14,9 @@ function useSubscribers(host='https://parallel-scarlet-juravenator.glitch.me') {
     if (response.ok) setSubscribers(initialSubscribers)
   }
 
-  async function addSubscriber(newSubscriber) {
+  async function addSubscriber(subscriber) {
     await post('/Subscriber', subscriber)
-    if (response.ok) setSubscribers([...subscribers, newSubscriber]);
+    if (response.ok) setSubscribers([...subscribers, subscriber]);
   }
   async function updateSubscriber(subscriber) {
     await put('/Subscribers', subscriber)
@@ -25,7 +28,7 @@ function useSubscribers(host='https://parallel-scarlet-juravenator.glitch.me') {
     }
   }
   async function deleteSubscriber(subscriber) {
-    await delete('/Subscribers', subscriber)
+    await del('/Subscribers', subscriber)
     
     if (response.ok) {
       const newSubscribers = subscribers.filter(_subscriber => {

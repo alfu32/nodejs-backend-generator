@@ -10,6 +10,7 @@ dependencies:
   point-of-view: 4.16.0
   swagger-autogen: 2.18.0
   swagger-ui-express: 4.3.0
+  zip-lib: 0.7.2
 packages:
   /@fastify/ajv-compiler/1.1.0:
     dependencies:
@@ -156,6 +157,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
+  /buffer-crc32/0.2.13:
+    dev: false
+    resolution:
+      integrity: sha1-DTM+PwDqxQqhRUq9MO+MKl2ackI=
   /buffer/5.7.1:
     dependencies:
       base64-js: 1.5.1
@@ -468,6 +473,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==
+  /fd-slicer/1.1.0:
+    dependencies:
+      pend: 1.2.0
+    dev: false
+    resolution:
+      integrity: sha1-JcfInLH5B3+IkbvmHY85Dq4lbx4=
   /file-uri-to-path/1.0.0:
     dev: false
     resolution:
@@ -866,6 +877,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  /pend/1.2.0:
+    dev: false
+    resolution:
+      integrity: sha1-elfrVQpng/kRUzH89GY9XI4AelA=
   /pino-std-serializers/3.2.0:
     dev: false
     resolution:
@@ -1362,12 +1377,34 @@ packages:
     dev: false
     resolution:
       integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+  /yauzl/2.10.0:
+    dependencies:
+      buffer-crc32: 0.2.13
+      fd-slicer: 1.1.0
+    dev: false
+    resolution:
+      integrity: sha1-x+sXyT4RLLEIb6bY5R+wZnt5pfk=
+  /yazl/2.5.1:
+    dependencies:
+      buffer-crc32: 0.2.13
+    dev: false
+    resolution:
+      integrity: sha512-phENi2PLiHnHb6QBVot+dJnaAZ0xosj7p3fWl+znIjBDlnMI2PsZCJZ306BPTFOaHf5qdDEI8x5qFrSOBN5vrw==
   /yocto-queue/0.1.0:
     dev: false
     engines:
       node: '>=10'
     resolution:
       integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+  /zip-lib/0.7.2:
+    dependencies:
+      yauzl: 2.10.0
+      yazl: 2.5.1
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-yOHG2x9vrpeO1VYSfBmixNL3E2lo5RjGOapUmGeroRSosht4vsYlM8Ci8v5Sulv5hd9ZU2ILZrOtZ4xEYmhf0A==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -1383,3 +1420,4 @@ specifiers:
   point-of-view: ^4.16.0
   swagger-autogen: ^2.18.0
   swagger-ui-express: ^4.3.0
+  zip-lib: ^0.7.2

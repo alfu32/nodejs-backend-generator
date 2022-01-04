@@ -43,8 +43,27 @@ app.get('/env',(req,res,next)=>{
   })
 });
 app.get('/swagger.json',(req,res)=>{
-  res.send(fs.readFileSync('swagger.json'))
-})
+    /*
+    #swagger.tags = ['Process']
+    #swagger.description = 'generated swagger json'
+    */
+  res.send(fs.readFileSync('generated/swagger.json'))
+});
+app.post('/generate',(req,res)=>{
+    /*
+    #swagger.tags = ['Process']
+    #swagger.description = 'generated swagger json'
+    #swagger.consumes = ['application/javascript']  
+          #swagger.parameters['body'] = {
+              in: 'body',
+              type: 'string',
+              required: 'true',
+              description: 'the data definition in loose json format',
+        }
+    */
+  res.send(fs.readFileSync('generated.zip'))
+});
+
 require('./generated/api/Module.api').register(app);
 require('./generated/api/Notifier.api').register(app);
 require('./generated/api/Observable.api').register(app);

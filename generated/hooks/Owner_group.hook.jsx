@@ -1,8 +1,11 @@
-import useFetch from 'use-http'
+import useFetch from 'use-http';
+import {useState,useEffect} from 'react';
+
 /*api generated at 'https://parallel-scarlet-juravenator.glitch.me'*/
-function useOwner_groups(host='https://parallel-scarlet-juravenator.glitch.me') {
+
+export function useOwner_groups(host='https://parallel-scarlet-juravenator.glitch.me') {
   const [owner_groups, setOwner_groups] = useState([])
-  const { get, post, put, delete, response, loading, error } = useFetch(host)
+  const { get, post, put, del, response, loading, error } = useFetch(host)
 
   useEffect(() => { loadInitialOwner_groups() }, []) // componentDidMount
   
@@ -11,9 +14,9 @@ function useOwner_groups(host='https://parallel-scarlet-juravenator.glitch.me') 
     if (response.ok) setOwner_groups(initialOwner_groups)
   }
 
-  async function addOwner_group(newOwner_group) {
+  async function addOwner_group(owner_group) {
     await post('/Owner_group', owner_group)
-    if (response.ok) setOwner_groups([...owner_groups, newOwner_group]);
+    if (response.ok) setOwner_groups([...owner_groups, owner_group]);
   }
   async function updateOwner_group(owner_group) {
     await put('/Owner_groups', owner_group)
@@ -25,7 +28,7 @@ function useOwner_groups(host='https://parallel-scarlet-juravenator.glitch.me') 
     }
   }
   async function deleteOwner_group(owner_group) {
-    await delete('/Owner_groups', owner_group)
+    await del('/Owner_groups', owner_group)
     
     if (response.ok) {
       const newOwner_groups = owner_groups.filter(_owner_group => {

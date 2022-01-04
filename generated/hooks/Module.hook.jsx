@@ -1,8 +1,11 @@
-import useFetch from 'use-http'
+import useFetch from 'use-http';
+import {useState,useEffect} from 'react';
+
 /*api generated at 'https://parallel-scarlet-juravenator.glitch.me'*/
-function useModules(host='https://parallel-scarlet-juravenator.glitch.me') {
+
+export function useModules(host='https://parallel-scarlet-juravenator.glitch.me') {
   const [modules, setModules] = useState([])
-  const { get, post, put, delete, response, loading, error } = useFetch(host)
+  const { get, post, put, del, response, loading, error } = useFetch(host)
 
   useEffect(() => { loadInitialModules() }, []) // componentDidMount
   
@@ -11,9 +14,9 @@ function useModules(host='https://parallel-scarlet-juravenator.glitch.me') {
     if (response.ok) setModules(initialModules)
   }
 
-  async function addModule(newModule) {
+  async function addModule(module) {
     await post('/Module', module)
-    if (response.ok) setModules([...modules, newModule]);
+    if (response.ok) setModules([...modules, module]);
   }
   async function updateModule(module) {
     await put('/Modules', module)
@@ -25,7 +28,7 @@ function useModules(host='https://parallel-scarlet-juravenator.glitch.me') {
     }
   }
   async function deleteModule(module) {
-    await delete('/Modules', module)
+    await del('/Modules', module)
     
     if (response.ok) {
       const newModules = modules.filter(_module => {

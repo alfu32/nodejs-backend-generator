@@ -42,9 +42,1209 @@
     },
     "/swagger.json": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Process"
+        ],
+        "description": "generated swagger json",
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/generate": {
+      "post": {
+        "tags": [
+          "Process"
+        ],
+        "description": "generated swagger json",
+        "consumes": [
+          "application/javascript"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "the data definition in loose json format",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Module/recreateTable": {
+      "post": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "recreate table Module",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Modules": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "get all Modules",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Module list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Module"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Module": {
+      "post": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Module",
+            "in": "body",
+            "description": "Add a Module",
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Module",
+            "in": "body",
+            "description": "Update a Module",
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Module",
+            "in": "body",
+            "description": "Delete Module",
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Module/{module_id}": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "get details of Module by module_id",
+        "parameters": [
+          {
+            "name": "module_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Module successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          }
+        }
+      }
+    },
+    "/Module/countAll": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "count all Modules",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Module/getBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "get all Modules by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Module/countBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Modules"
+        ],
+        "description": "count all Modules by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/recreateTable": {
+      "post": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "recreate table Notifier",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifiers": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "get all Notifiers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Notifier list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Notifier"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Notifier": {
+      "post": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Notifier",
+            "in": "body",
+            "description": "Add a Notifier",
+            "schema": {
+              "$ref": "#/definitions/Notifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Notifier",
+            "in": "body",
+            "description": "Update a Notifier",
+            "schema": {
+              "$ref": "#/definitions/Notifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Notifier",
+            "in": "body",
+            "description": "Delete Notifier",
+            "schema": {
+              "$ref": "#/definitions/Notifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/{notifier_id}": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "get details of Notifier by notifier_id",
+        "parameters": [
+          {
+            "name": "notifier_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notifier successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Notifier"
+            }
+          }
+        }
+      }
+    },
+    "/Notifier/countAll": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "count all Notifiers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/getBy_subscriber_id/{subscriber_id}": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "get all Notifiers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/countBy_subscriber_id/{subscriber_id}": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "count all Notifiers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/getBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "get all Notifiers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Notifier/countBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Notifiers"
+        ],
+        "description": "count all Notifiers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/recreateTable": {
+      "post": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "recreate table Observable",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observables": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "get all Observables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observable list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Observable"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Observable": {
+      "post": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Observable",
+            "in": "body",
+            "description": "Add a Observable",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Observable",
+            "in": "body",
+            "description": "Update a Observable",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Observable",
+            "in": "body",
+            "description": "Delete Observable",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/{observable_id}": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "get details of Observable by observable_id",
+        "parameters": [
+          {
+            "name": "observable_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observable successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Observable"
+            }
+          }
+        }
+      }
+    },
+    "/Observable/countAll": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "count all Observables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/getBy_watcher_id/{watcher_id}": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "get all Observables by watcher_id",
+        "parameters": [
+          {
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Observable/countBy_watcher_id/{watcher_id}": {
+      "get": {
+        "tags": [
+          "Observables"
+        ],
+        "description": "count all Observables by watcher_id",
+        "parameters": [
+          {
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Owner_group/recreateTable": {
+      "post": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "recreate table Owner_group",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Owner_groups": {
+      "get": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "get all Owner_groups",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Owner_group list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Owner_group"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Owner_group": {
+      "post": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Owner_group",
+            "in": "body",
+            "description": "Add a Owner_group",
+            "schema": {
+              "$ref": "#/definitions/Owner_group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Owner_group",
+            "in": "body",
+            "description": "Update a Owner_group",
+            "schema": {
+              "$ref": "#/definitions/Owner_group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Owner_group",
+            "in": "body",
+            "description": "Delete Owner_group",
+            "schema": {
+              "$ref": "#/definitions/Owner_group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Owner_group/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "get details of Owner_group by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner_group successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Owner_group"
+            }
+          }
+        }
+      }
+    },
+    "/Owner_group/countAll": {
+      "get": {
+        "tags": [
+          "Owner_groups"
+        ],
+        "description": "count all Owner_groups",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/recreateTable": {
+      "post": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "recreate table Subscriber",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscribers": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "get all Subscribers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Subscriber list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Subscriber"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Subscriber": {
+      "post": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Subscriber",
+            "in": "body",
+            "description": "Add a Subscriber",
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Subscriber",
+            "in": "body",
+            "description": "Update a Subscriber",
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Subscriber",
+            "in": "body",
+            "description": "Delete Subscriber",
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/{watcher_id}": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "get details of Subscriber by watcher_id",
+        "parameters": [
+          {
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscriber successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
+          }
+        }
+      }
+    },
+    "/Subscriber/countAll": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "count all Subscribers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/getBy_subscriber_id/{subscriber_id}": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "get all Subscribers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/countBy_subscriber_id/{subscriber_id}": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "count all Subscribers by subscriber_id",
+        "parameters": [
+          {
+            "name": "subscriber_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/getBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "get all Subscribers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Subscriber/countBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Subscribers"
+        ],
+        "description": "count all Subscribers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Watcher/recreateTable": {
+      "post": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "recreate table Watcher",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Watchers": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "get all Watchers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Watcher list successfully obtained.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "item": {
+                  "$ref": "#/definitions/Watcher"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Watcher": {
+      "post": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Watcher",
+            "in": "body",
+            "description": "Add a Watcher",
+            "schema": {
+              "$ref": "#/definitions/Watcher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Watcher",
+            "in": "body",
+            "description": "Update a Watcher",
+            "schema": {
+              "$ref": "#/definitions/Watcher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "Watcher",
+            "in": "body",
+            "description": "Delete Watcher",
+            "schema": {
+              "$ref": "#/definitions/Watcher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Watcher/{watcher_id}": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "get details of Watcher by watcher_id",
+        "parameters": [
+          {
+            "name": "watcher_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Watcher successfully obtained.",
+            "schema": {
+              "$ref": "#/definitions/Watcher"
+            }
+          }
+        }
+      }
+    },
+    "/Watcher/countAll": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "count all Watchers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Watcher/getBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "get all Watchers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Watcher/countBy_owner_group_id/{owner_group_id}": {
+      "get": {
+        "tags": [
+          "Watchers"
+        ],
+        "description": "count all Watchers by owner_group_id",
+        "parameters": [
+          {
+            "name": "owner_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

@@ -1,8 +1,11 @@
-import useFetch from 'use-http'
+import useFetch from 'use-http';
+import {useState,useEffect} from 'react';
+
 /*api generated at 'https://parallel-scarlet-juravenator.glitch.me'*/
-function useWatchers(host='https://parallel-scarlet-juravenator.glitch.me') {
+
+export function useWatchers(host='https://parallel-scarlet-juravenator.glitch.me') {
   const [watchers, setWatchers] = useState([])
-  const { get, post, put, delete, response, loading, error } = useFetch(host)
+  const { get, post, put, del, response, loading, error } = useFetch(host)
 
   useEffect(() => { loadInitialWatchers() }, []) // componentDidMount
   
@@ -11,9 +14,9 @@ function useWatchers(host='https://parallel-scarlet-juravenator.glitch.me') {
     if (response.ok) setWatchers(initialWatchers)
   }
 
-  async function addWatcher(newWatcher) {
+  async function addWatcher(watcher) {
     await post('/Watcher', watcher)
-    if (response.ok) setWatchers([...watchers, newWatcher]);
+    if (response.ok) setWatchers([...watchers, watcher]);
   }
   async function updateWatcher(watcher) {
     await put('/Watchers', watcher)
@@ -25,7 +28,7 @@ function useWatchers(host='https://parallel-scarlet-juravenator.glitch.me') {
     }
   }
   async function deleteWatcher(watcher) {
-    await delete('/Watchers', watcher)
+    await del('/Watchers', watcher)
     
     if (response.ok) {
       const newWatchers = watchers.filter(_watcher => {

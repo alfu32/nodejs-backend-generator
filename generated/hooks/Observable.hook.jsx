@@ -1,8 +1,11 @@
-import useFetch from 'use-http'
+import useFetch from 'use-http';
+import {useState,useEffect} from 'react';
+
 /*api generated at 'https://parallel-scarlet-juravenator.glitch.me'*/
-function useObservables(host='https://parallel-scarlet-juravenator.glitch.me') {
+
+export function useObservables(host='https://parallel-scarlet-juravenator.glitch.me') {
   const [observables, setObservables] = useState([])
-  const { get, post, put, delete, response, loading, error } = useFetch(host)
+  const { get, post, put, del, response, loading, error } = useFetch(host)
 
   useEffect(() => { loadInitialObservables() }, []) // componentDidMount
   
@@ -11,9 +14,9 @@ function useObservables(host='https://parallel-scarlet-juravenator.glitch.me') {
     if (response.ok) setObservables(initialObservables)
   }
 
-  async function addObservable(newObservable) {
+  async function addObservable(observable) {
     await post('/Observable', observable)
-    if (response.ok) setObservables([...observables, newObservable]);
+    if (response.ok) setObservables([...observables, observable]);
   }
   async function updateObservable(observable) {
     await put('/Observables', observable)
@@ -25,7 +28,7 @@ function useObservables(host='https://parallel-scarlet-juravenator.glitch.me') {
     }
   }
   async function deleteObservable(observable) {
-    await delete('/Observables', observable)
+    await del('/Observables', observable)
     
     if (response.ok) {
       const newObservables = observables.filter(_observable => {
