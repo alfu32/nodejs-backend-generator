@@ -1,4 +1,4 @@
-const sql=require('./Module.sql.json')
+const sql=require('../sql/Watcher.sql.json')
 const Database = require('better-sqlite3');
 const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
@@ -14,13 +14,13 @@ module.exports={
   getBYowner_group_id,
   countBYowner_group_id
 }
-        /* create automatically the table for MODULEs if not exists */
+        /* create automatically the table for WATCHERs if not exists */
         try{
-console.log('creating table MODULE : start');
+console.log('creating table WATCHER : start');
 const createResult = create();
-console.log('creating table MODULE : created',createResult);
+console.log('creating table WATCHER : created',createResult);
         }catch(err){
-console.log('creating table MODULE : ERROR',err.message);
+console.log('creating table WATCHER : ERROR',err.message);
 throw err;
         }
         let statements={}

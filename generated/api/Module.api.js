@@ -1,4 +1,4 @@
-const dao=require('./Module.dao.js')
+const dao=require('../dao/Module.dao.js')
         module.exports={
 register
         }
@@ -20,7 +20,25 @@ app.post('/Module/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Module/insert',function(req,res){
+  app.get('/Modules',function(req,res){
+    /* 
+    #swagger.tags = ['Modules']
+    #swagger.description = 'get all Modules'
+    #swagger.responses[200] = {
+            description: 'Module list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Module'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Module',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -40,7 +58,7 @@ app.post('/Module/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Module/updateSingle',function(req,res){
+  app.put('/Module',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -60,7 +78,7 @@ app.post('/Module/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Module/deleteSingle',function(req,res){
+  app.delete('/Module',function(req,res){
     // #swagger.tags = ['Modules']
     /*
       #swagger.parameters['Module'] = {
@@ -80,7 +98,7 @@ app.post('/Module/recreateTable',function(req,res){
     }
   });
 
-  app.get('/Module/getById/:module_id',function(req,res){
+  app.get('/Module/:module_id',function(req,res){
     /* 
     #swagger.tags = ['Modules']
     #swagger.description = 'get details of Module by module_id'
@@ -92,24 +110,6 @@ app.post('/Module/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({module_id:req.params.module_id}));
-      res.end();
-    }catch(err){
-      throw err;
-    }
-  });
-
-  app.get('/Module/getAll',function(req,res){
-    /* 
-    #swagger.tags = ['Modules']
-    #swagger.description = 'get all Modules'
-    #swagger.responses[200] = {
-            description: 'Module list successfully obtained.',
-            schema: { type:'array',item:{$ref: '#/definitions/Module'} }
-    } */
-    let result=null;
-    let error=null;
-    try{
-      res.send(/*JSON.stringify*/(dao.getAll()));
       res.end();
     }catch(err){
       throw err;

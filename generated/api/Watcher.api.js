@@ -1,4 +1,4 @@
-const dao=require('./Watcher.dao.js')
+const dao=require('../dao/Watcher.dao.js')
         module.exports={
 register
         }
@@ -20,7 +20,25 @@ app.post('/Watcher/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Watcher/insert',function(req,res){
+  app.get('/Watchers',function(req,res){
+    /* 
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'get all Watchers'
+    #swagger.responses[200] = {
+            description: 'Watcher list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Watcher'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getAll()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.post('/Watcher',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -40,7 +58,7 @@ app.post('/Watcher/recreateTable',function(req,res){
     }
   });
 
-  app.post('/Watcher/updateSingle',function(req,res){
+  app.put('/Watcher',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -60,7 +78,7 @@ app.post('/Watcher/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Watcher/deleteSingle',function(req,res){
+  app.delete('/Watcher',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
       #swagger.parameters['Watcher'] = {
@@ -80,7 +98,7 @@ app.post('/Watcher/recreateTable',function(req,res){
     }
   });
 
-  app.get('/Watcher/getById/:watcher_id',function(req,res){
+  app.get('/Watcher/:watcher_id',function(req,res){
     /* 
     #swagger.tags = ['Watchers']
     #swagger.description = 'get details of Watcher by watcher_id'
@@ -92,24 +110,6 @@ app.post('/Watcher/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({watcher_id:req.params.watcher_id}));
-      res.end();
-    }catch(err){
-      throw err;
-    }
-  });
-
-  app.get('/Watcher/getAll',function(req,res){
-    /* 
-    #swagger.tags = ['Watchers']
-    #swagger.description = 'get all Watchers'
-    #swagger.responses[200] = {
-            description: 'Watcher list successfully obtained.',
-            schema: { type:'array',item:{$ref: '#/definitions/Watcher'} }
-    } */
-    let result=null;
-    let error=null;
-    try{
-      res.send(/*JSON.stringify*/(dao.getAll()));
       res.end();
     }catch(err){
       throw err;
