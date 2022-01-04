@@ -572,7 +572,7 @@ export function use${n}s(host='https://${process.env.PROJECT_DOMAIN}.glitch.me')
     if (response.ok) set${n}s([...${n.toLowerCase()}s, ${n.toLowerCase()}]);
   }
   async function update${n}(${n.toLowerCase()}) {
-    await put('/${n}s', ${n.toLowerCase()})
+    await put('/${n}', ${n.toLowerCase()})
     if (response.ok) {
       const new${n}s = ${n.toLowerCase()}s.filter(_${n.toLowerCase()} => {
         return _${n.toLowerCase()}.${pk} !== ${n.toLowerCase()}.${pk};
@@ -581,7 +581,7 @@ export function use${n}s(host='https://${process.env.PROJECT_DOMAIN}.glitch.me')
     }
   }
   async function delete${n}(${n.toLowerCase()}) {
-    await del('/${n}s', ${n.toLowerCase()})
+    await del('/${n}', ${n.toLowerCase()})
     
     if (response.ok) {
       const new${n}s = ${n.toLowerCase()}s.filter(_${n.toLowerCase()} => {

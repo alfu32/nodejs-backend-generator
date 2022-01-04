@@ -1,9 +1,9 @@
 {
  "drop": "DROP TABLE IF EXISTS MODULE",
  "clear": "TRUNCATE TABLE IF EXISTS MODULE",
- "create": "CREATE TABLE IF NOT EXISTS MODULE(\n              module_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              /*fk+cols*/ owner_group_id VARCHAR,\n/*fk+cols*/ npm_module VARCHAR,\n/*fk+cols*/ source VARCHAR\n              ,\n              FOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
- "insert": "INSERT INTO MODULE(\n            owner_group_id,npm_module,source\n            ) VALUES (@owner_group_id,@npm_module,@source)",
- "updateSingle": "UPDATE MODULE SET\n            owner_group_id=@owner_group_id,\nnpm_module=@npm_module,\nsource=@source\n            WHERE module_id=@module_id",
+ "create": "CREATE TABLE IF NOT EXISTS MODULE(\n              module_id VARCHAR PRIMARY KEY DEFAULT (hex( randomblob(16))),\n              /*fk+cols*/ owner_group_id VARCHAR,\n/*fk+cols*/ injection_ref_name VARCHAR,\n/*fk+cols*/ npm_module VARCHAR,\n/*fk+cols*/ source VARCHAR\n              ,\n              FOREIGN KEY(owner_group_id) REFERENCES OWNER_GROUP(owner_group_id) \n            )",
+ "insert": "INSERT INTO MODULE(\n            owner_group_id,injection_ref_name,npm_module,source\n            ) VALUES (@owner_group_id,@injection_ref_name,@npm_module,@source)",
+ "updateSingle": "UPDATE MODULE SET\n            owner_group_id=@owner_group_id,\ninjection_ref_name=@injection_ref_name,\nnpm_module=@npm_module,\nsource=@source\n            WHERE module_id=@module_id",
  "deleteSingle": "DELETE FROM MODULE \n            WHERE module_id=@module_id",
  "getSingle": "SELECT * FROM MODULE \n            WHERE module_id=@module_id",
  "getAll": "SELECT * FROM MODULE",

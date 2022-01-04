@@ -1373,6 +1373,10 @@
           "type": "string",
           "example": ""
         },
+        "injection_ref_name": {
+          "type": "string",
+          "example": "moment"
+        },
         "npm_module": {
           "type": "string",
           "example": "moment"
