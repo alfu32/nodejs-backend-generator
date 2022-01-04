@@ -47,11 +47,19 @@ app.post('/Watcher/recreateTable',function(req,res){
         type:'object',
         schema: { $ref: '#/definitions/Watcher' }
       }
+      #swagger.responses[200] = {
+              description: 'Watcher list successfully obtained.',
+              schema: {$ref: '#/definitions/Watcher'}
+      }
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.insert(req.body)));
+      console.log('Watcher.insert',req.body);
+      const insertResult = dao.insert(req.body);
+      console.log('insertResult',insertResult)
+      const lastInserted=dao.getByRowid(insertResult.lastInsertRowid)
+      res.send(/*JSON.stringify*/(lastInserted));
       res.end();
     }catch(err){
       throw err;
@@ -71,6 +79,7 @@ app.post('/Watcher/recreateTable',function(req,res){
     let result=null;
     let error=null;
     try{
+      console.log('Watcher.updateSingle',req.body);
       res.send(/*JSON.stringify*/(dao.updateSingle(req.body)));
       res.end();
     }catch(err){
@@ -78,20 +87,15 @@ app.post('/Watcher/recreateTable',function(req,res){
     }
   });
 
-  app.delete('/Watcher',function(req,res){
+  app.delete('/Watcher/:watcher_id',function(req,res){
     // #swagger.tags = ['Watchers']
     /*
-      #swagger.parameters['Watcher'] = {
-        in: 'body',
-        description: 'Delete Watcher',
-        type:'object',
-        schema: { $ref: '#/definitions/Watcher' }
-      }
     */
     let result=null;
     let error=null;
     try{
-      res.send(/*JSON.stringify*/(dao.deleteSingle({watcher_id:req.body.watcher_id})));
+      console.log('Watcher.updateSingle',req.body);
+      res.send(/*JSON.stringify*/(dao.deleteSingle({watcher_id:req.params.watcher_id})));
       res.end();
     }catch(err){
       throw err;
@@ -110,6 +114,42 @@ app.post('/Watcher/recreateTable',function(req,res){
     let error=null;
     try{
       res.send(dao.getSingle({watcher_id:req.params.watcher_id}));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.get('/Watchers',function(req,res){
+    /* 
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'get all Watchers'
+    #swagger.responses[200] = {
+            description: 'Watcher list successfully obtained.',
+            schema: { type:'array',item:{$ref: '#/definitions/Watcher'} }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(/*JSON.stringify*/(dao.getLast()));
+      res.end();
+    }catch(err){
+      throw err;
+    }
+  });
+
+  app.get('/Watcher/rowid/:rowid',function(req,res){
+    /* 
+    #swagger.tags = ['Watchers']
+    #swagger.description = 'get details of Watcher by rowid'
+    #swagger.responses[200] = {
+            description: 'Watcher successfully obtained.',
+            schema: { $ref: '#/definitions/Watcher' }
+    } */
+    let result=null;
+    let error=null;
+    try{
+      res.send(dao.getByRowid(req.params.rowid));
       res.end();
     }catch(err){
       throw err;

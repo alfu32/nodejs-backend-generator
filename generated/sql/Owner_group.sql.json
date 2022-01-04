@@ -5,7 +5,9 @@
  "insert": "INSERT INTO OWNER_GROUP(\n            name\n            ) VALUES (@name)",
  "updateSingle": "UPDATE OWNER_GROUP SET\n            name=@name\n            WHERE owner_group_id=@owner_group_id",
  "deleteSingle": "DELETE FROM OWNER_GROUP \n            WHERE owner_group_id=@owner_group_id",
- "getSingle": "SELECT * FROM OWNER_GROUP \n            WHERE owner_group_id=@owner_group_id",
- "getAll": "SELECT * FROM OWNER_GROUP",
- "countAll": "SELECT COUNT(*) as records FROM OWNER_GROUP"
+ "getSingle": "SELECT T.rowid,T.* FROM OWNER_GROUP T\n            WHERE T.owner_group_id=@owner_group_id",
+ "getAll": "SELECT T.rowid,T.* FROM OWNER_GROUP T",
+ "getLast": "SELECT T.rowid,T.* FROM OWNER_GROUP T HAVING T.rowid=MAX(T.rowid)",
+ "getByRowid": "SELECT T.rowid,T.* FROM OWNER_GROUP T WHERE T.rowid=@rowid",
+ "countAll": "SELECT MAX(rowid) as last_id,COUNT(*) as records FROM OWNER_GROUP"
 }

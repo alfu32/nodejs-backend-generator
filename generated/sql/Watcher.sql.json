@@ -5,9 +5,11 @@
  "insert": "INSERT INTO WATCHER(\n            owner_group_id,name,source,poll_config\n            ) VALUES (@owner_group_id,@name,@source,@poll_config)",
  "updateSingle": "UPDATE WATCHER SET\n            owner_group_id=@owner_group_id,\nname=@name,\nsource=@source,\npoll_config=@poll_config\n            WHERE watcher_id=@watcher_id",
  "deleteSingle": "DELETE FROM WATCHER \n            WHERE watcher_id=@watcher_id",
- "getSingle": "SELECT * FROM WATCHER \n            WHERE watcher_id=@watcher_id",
- "getAll": "SELECT * FROM WATCHER",
- "countAll": "SELECT COUNT(*) as records FROM WATCHER",
- "selectBYowner_group_id": "SELECT * FROM WATCHER \n          WHERE owner_group_id=@owner_group_id",
- "countBYowner_group_id": "SELECT COUNT(*) as records FROM WATCHER \n          WHERE owner_group_id=@owner_group_id"
+ "getSingle": "SELECT T.rowid,T.* FROM WATCHER T\n            WHERE T.watcher_id=@watcher_id",
+ "getAll": "SELECT T.rowid,T.* FROM WATCHER T",
+ "getLast": "SELECT T.rowid,T.* FROM WATCHER T HAVING T.rowid=MAX(T.rowid)",
+ "getByRowid": "SELECT T.rowid,T.* FROM WATCHER T WHERE T.rowid=@rowid",
+ "countAll": "SELECT MAX(rowid) as last_id,COUNT(*) as records FROM WATCHER",
+ "selectBYowner_group_id": "SELECT T.rowid,T* FROM WATCHER T \n          WHERE owner_group_id=@owner_group_id",
+ "countBYowner_group_id": "SELECT MAX(rowid) as last_id,COUNT(*) as records FROM WATCHER \n          WHERE owner_group_id=@owner_group_id"
 }

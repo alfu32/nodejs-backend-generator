@@ -15,24 +15,29 @@ export function useSubscribers(host='https://parallel-scarlet-juravenator.glitch
   }
 
   async function addSubscriber(subscriber) {
-    await post('/Subscriber', subscriber)
-    if (response.ok) setSubscribers([...subscribers, subscriber]);
+    const rp = await post('/Subscriber', subscriber)
+    if (response.ok){
+      console.log(rp);
+      setSubscribers([...subscribers, rp]);
+    }
   }
   async function updateSubscriber(subscriber) {
     await put('/Subscriber', subscriber)
     if (response.ok) {
       const newSubscribers = subscribers.filter(_subscriber => {
-        return _subscriber.watcher_id !== subscriber.watcher_id;
+        return _subscriber.subscriber_id !== subscriber.subscriber_id;
       });
       setSubscribers([...newSubscribers, subscriber]);
     }
   }
   async function deleteSubscriber(subscriber) {
-    await del('/Subscriber', subscriber)
+    console.log('deleting',subscriber)
+    await del('/Subscriber/'+subscriber.subscriber_id)
     
     if (response.ok) {
+      console.log('deleted',subscriber,response);
       const newSubscribers = subscribers.filter(_subscriber => {
-        return _subscriber.watcher_id !== subscriber.watcher_id;
+        return _subscriber.subscriber_id !== subscriber.subscriber_id;
       });
       setSubscribers(newSubscribers);
     }
