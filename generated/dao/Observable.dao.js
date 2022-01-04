@@ -1,4 +1,4 @@
-const sql=require('./Notifier.sql.json')
+const sql=require('../sql/Observable.sql.json')
 const Database = require('better-sqlite3');
 const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
@@ -11,18 +11,16 @@ module.exports={
   getSingle,
   getAll,
   countAll,
-  getBYsubscriber_id,
-  countBYsubscriber_id,
-  getBYowner_group_id,
-  countBYowner_group_id
+  getBYwatcher_id,
+  countBYwatcher_id
 }
-        /* create automatically the table for NOTIFIERs if not exists */
+        /* create automatically the table for OBSERVABLEs if not exists */
         try{
-console.log('creating table NOTIFIER : start');
+console.log('creating table OBSERVABLE : start');
 const createResult = create();
-console.log('creating table NOTIFIER : created',createResult);
+console.log('creating table OBSERVABLE : created',createResult);
         }catch(err){
-console.log('creating table NOTIFIER : ERROR',err.message);
+console.log('creating table OBSERVABLE : ERROR',err.message);
 throw err;
         }
         let statements={}
@@ -180,14 +178,14 @@ function countAll(object){
 
 
 
-function getBYsubscriber_id(object){
+function getBYwatcher_id(object){
   let result=[];
   try{
-    if(typeof(statements.getBYsubscriber_idStatement) === "undefined"){
-      statements.getBYsubscriber_idStatement = db.prepare(sql.getBYsubscriber_id);
+    if(typeof(statements.getBYwatcher_idStatement) === "undefined"){
+      statements.getBYwatcher_idStatement = db.prepare(sql.getBYwatcher_id);
     }
-    console.log('sql.getBYsubscriber_id',sql.getBYsubscriber_id,object);
-    result = statements.getBYsubscriber_idStatement.all(object)
+    console.log('sql.getBYwatcher_id',sql.getBYwatcher_id,object);
+    result = statements.getBYwatcher_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction
@@ -198,50 +196,14 @@ function getBYsubscriber_id(object){
 }
 
 
-function countBYsubscriber_id(object){
+function countBYwatcher_id(object){
   let result=[];
   try{
-    if(typeof(statements.countBYsubscriber_idStatement) === "undefined"){
-      statements.countBYsubscriber_idStatement = db.prepare(sql.countBYsubscriber_id);
+    if(typeof(statements.countBYwatcher_idStatement) === "undefined"){
+      statements.countBYwatcher_idStatement = db.prepare(sql.countBYwatcher_id);
     }
-    console.log('sql.countBYsubscriber_id',sql.countBYsubscriber_id,object);
-    result = statements.countBYsubscriber_idStatement.all(object)
-  }catch(error){
-    // better-sqlite3 documentation indicates that the error
-    // should be trown in case this is invoked in a transaction
-    //  so that the engine should properly handle the rollback 
-    throw error;
-  }
-  return result;
-}
-
-
-function getBYowner_group_id(object){
-  let result=[];
-  try{
-    if(typeof(statements.getBYowner_group_idStatement) === "undefined"){
-      statements.getBYowner_group_idStatement = db.prepare(sql.getBYowner_group_id);
-    }
-    console.log('sql.getBYowner_group_id',sql.getBYowner_group_id,object);
-    result = statements.getBYowner_group_idStatement.all(object)
-  }catch(error){
-    // better-sqlite3 documentation indicates that the error
-    // should be trown in case this is invoked in a transaction
-    //  so that the engine should properly handle the rollback 
-    throw error;
-  }
-  return result;
-}
-
-
-function countBYowner_group_id(object){
-  let result=[];
-  try{
-    if(typeof(statements.countBYowner_group_idStatement) === "undefined"){
-      statements.countBYowner_group_idStatement = db.prepare(sql.countBYowner_group_id);
-    }
-    console.log('sql.countBYowner_group_id',sql.countBYowner_group_id,object);
-    result = statements.countBYowner_group_idStatement.all(object)
+    console.log('sql.countBYwatcher_id',sql.countBYwatcher_id,object);
+    result = statements.countBYwatcher_idStatement.all(object)
   }catch(error){
     // better-sqlite3 documentation indicates that the error
     // should be trown in case this is invoked in a transaction

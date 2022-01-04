@@ -1,4 +1,4 @@
-const sql=require('./Owner_group.sql.json')
+const sql=require('../sql/Owner_group.sql.json')
 const Database = require('better-sqlite3');
 const db = new Database('generated.db', { verbose: console.log }); 
 module.exports={
