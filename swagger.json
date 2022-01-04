@@ -1481,6 +1481,10 @@
           "type": "string",
           "example": ""
         },
+        "name": {
+          "type": "string",
+          "example": "subscriber"
+        },
         "owner_group_id": {
           "type": "string",
           "example": ""
@@ -1501,6 +1505,10 @@
         "subscriber_id": {
           "type": "string",
           "example": ""
+        },
+        "name": {
+          "type": "string",
+          "example": "Notifier"
         },
         "owner_group_id": {
           "type": "string",
